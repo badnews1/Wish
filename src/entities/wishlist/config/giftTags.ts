@@ -1,9 +1,15 @@
 import type { SelectOption } from '@/shared/model';
 import type { GiftTag } from '../model';
+import { GIFT_TAGS } from '../model';
 
 /**
  * Конфигурация меток подарка
  */
+
+/**
+ * Дефолтное значение метки подарка для новых желаний
+ */
+export const DEFAULT_GIFT_TAG: GiftTag = 'none';
 
 export type GiftTagOption = SelectOption & {
   id: GiftTag;
@@ -65,11 +71,9 @@ export const GIFT_TAG_CONFIG: Record<GiftTag, {
 
 /**
  * Опции для SelectList - генерируются из GIFT_TAG_CONFIG (DRY)
- * Порядок элементов важен для UI
+ * Порядок элементов из GIFT_TAGS константы (SSOT)
  */
-const GIFT_TAG_ORDER: GiftTag[] = ['none', 'really-want', 'would-be-nice', 'thinking', 'buy-myself'];
-
-export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = GIFT_TAG_ORDER.map((id) => {
+export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = GIFT_TAGS.map((id) => {
   const config = GIFT_TAG_CONFIG[id];
   return {
     id,

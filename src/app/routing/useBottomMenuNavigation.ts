@@ -35,7 +35,9 @@ export function useBottomMenuNavigation(
   const handleMenuItemChange = useCallback((itemId: BottomMenuItemId) => {
     // Runtime валидация
     if (!isValidBottomMenuId(itemId)) {
-      console.error(`Invalid bottom menu item ID: ${itemId}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`Invalid bottom menu item ID: ${itemId}`);
+      }
       return;
     }
 

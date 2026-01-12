@@ -19,7 +19,9 @@ export function createHomeTabNavigator(navigationMap: HomeTabNavigationMap): (ta
   return (tabId: HomeTabId): void => {
     const handler = navigationMap[tabId];
     if (!handler) {
-      console.error(`No navigation handler found for tab: ${tabId}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`No navigation handler found for tab: ${tabId}`);
+      }
       return;
     }
     handler();

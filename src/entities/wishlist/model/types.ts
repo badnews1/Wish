@@ -1,19 +1,28 @@
 import type { VisualEntity, TimestampedEntity } from '@/shared/model';
 
 /**
+ * Константные массивы для enum типов - SINGLE SOURCE OF TRUTH
+ * Используются для вывода типов и для zod валидации в schemas.ts
+ */
+
+export const PRIVACY_TYPES = ['public', 'friends', 'selected', 'private'] as const;
+export const BOOKING_VISIBILITY_TYPES = ['show_names', 'hide_names', 'hide_all'] as const;
+export const GIFT_TAGS = ['none', 'really-want', 'would-be-nice', 'thinking', 'buy-myself'] as const;
+
+/**
  * Тип приватности вишлиста
  */
-export type PrivacyType = 'public' | 'friends' | 'selected' | 'private';
+export type PrivacyType = typeof PRIVACY_TYPES[number];
 
 /**
  * Тип видимости бронирования
  */
-export type BookingVisibilityType = 'show_names' | 'hide_names' | 'hide_all';
+export type BookingVisibilityType = typeof BOOKING_VISIBILITY_TYPES[number];
 
 /**
  * Метка подарка (gift tag)
  */
-export type GiftTag = 'none' | 'really-want' | 'would-be-nice' | 'thinking' | 'buy-myself';
+export type GiftTag = typeof GIFT_TAGS[number];
 
 export interface WishlistItem {
   id: string;

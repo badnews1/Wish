@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Wishlist, WishlistItem, GiftTag } from '@/entities/wishlist';
+import { DEFAULT_GIFT_TAG } from '@/entities/wishlist';
 import type { CreateWishlistItemForm } from './types';
 import type { ParsedProduct } from './productParser';
 import { useMultipleDrawers, useImageUploadCrop } from '@/shared/lib';
@@ -32,7 +33,7 @@ export function useWishlistItemForm({
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState<number | undefined>(undefined);
   const [currency, setCurrency] = useState<string | undefined>(undefined);
-  const [giftTag, setGiftTag] = useState<GiftTag | undefined>('none');
+  const [giftTag, setGiftTag] = useState<GiftTag | undefined>(DEFAULT_GIFT_TAG);
   const [category, setCategory] = useState<string[]>([]);
   const [purchaseLocation, setPurchaseLocation] = useState<string | undefined>(undefined);
   

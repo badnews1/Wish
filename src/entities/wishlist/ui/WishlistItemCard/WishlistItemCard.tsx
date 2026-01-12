@@ -2,7 +2,7 @@ import React from 'react';
 import { Package } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { WishlistItem } from '../../model';
-import { DEFAULT_CURRENCY } from '../../config';
+import { DEFAULT_CURRENCY, DEFAULT_GIFT_TAG } from '../../config';
 import { getGiftTagLabel, getGiftTagStyles } from '../../lib';
 
 interface WishlistItemCardProps {
@@ -59,7 +59,7 @@ export function WishlistItemCard({ item, onClick, t }: WishlistItemCardProps) {
 
         {/* Метка подарка */}
         <div className="flex gap-2 items-center">
-          {item.giftTag && item.giftTag !== 'none' && (
+          {item.giftTag && item.giftTag !== DEFAULT_GIFT_TAG && (
             <Badge 
               variant="secondary"
               className={`px-4 py-1.5 rounded-full text-sm border-0 ${tagStyles.bg} ${tagStyles.text}`}

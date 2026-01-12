@@ -6,7 +6,7 @@ import { BaseDrawer, SelectList, RoundedButton, SelectButton } from '@/shared/ui
 import { useMultipleDrawers, useTempState } from '@/shared/lib';
 import { useTranslation } from '@/app';
 import type { GiftTag } from '@/entities/wishlist';
-import { GIFT_TAG_OPTIONS, getGiftTagLabel } from '@/entities/wishlist';
+import { GIFT_TAG_OPTIONS, getGiftTagLabel, DEFAULT_GIFT_TAG } from '@/entities/wishlist';
 import { CATEGORIES } from '../config';
 import { getCategoryLabels } from '../lib';
 
@@ -96,7 +96,7 @@ export function ItemSettingsSection({
         <SelectList
           mode="single"
           options={giftTagOptions}
-          selected={selectedGiftTag || 'none'}
+          selected={selectedGiftTag || DEFAULT_GIFT_TAG}
           onSelect={(tagId) => {
             onGiftTagChange(tagId as GiftTag);
             drawers.giftTag.close();

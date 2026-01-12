@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { type PrivacyType, type BookingVisibilityType } from '@/entities/wishlist';
+import { type PrivacyType, type BookingVisibilityType, DEFAULT_PRIVACY, DEFAULT_BOOKING_VISIBILITY } from '@/entities/wishlist';
 import { DEFAULT_ICON_ID } from '@/shared/config';
 import type { CreateWishlistForm } from './types';
 
@@ -24,8 +24,8 @@ export function useWishlistFormState({
   const [description, setDescription] = useState('');
   const [selectedIconId, setSelectedIconId] = useState(DEFAULT_ICON_ID);
   const [eventDate, setEventDate] = useState<Date | undefined>(undefined);
-  const [privacy, setPrivacy] = useState<PrivacyType>('public');
-  const [bookingVisibility, setBookingVisibility] = useState<BookingVisibilityType>('show_names');
+  const [privacy, setPrivacy] = useState<PrivacyType>(DEFAULT_PRIVACY);
+  const [bookingVisibility, setBookingVisibility] = useState<BookingVisibilityType>(DEFAULT_BOOKING_VISIBILITY);
   const [allowGroupGifting, setAllowGroupGifting] = useState(true);
 
   // Initialize form with initialData
@@ -42,8 +42,8 @@ export function useWishlistFormState({
       }
       
       setEventDate(initialData.eventDate);
-      setPrivacy(initialData.privacy || 'public');
-      setBookingVisibility(initialData.bookingVisibility || 'show_names');
+      setPrivacy(initialData.privacy || DEFAULT_PRIVACY);
+      setBookingVisibility(initialData.bookingVisibility || DEFAULT_BOOKING_VISIBILITY);
       setAllowGroupGifting(initialData.allowGroupGifting ?? true);
     }
   }, [initialData, setFinalImage, setOriginalImage]);

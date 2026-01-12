@@ -12,8 +12,10 @@ function parseWishlists(data: unknown[]): Wishlist[] {
   const result = wishlistsArraySchema.safeParse(data);
   
   if (!result.success) {
-    // Логируем ошибку валидации для debugging
-    console.error('Failed to parse wishlists from localStorage:', result.error);
+    // Логируем ошибку только в development для debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Failed to parse wishlists from localStorage:', result.error);
+    }
     // Возвращаем пустой массив при ошибке валидации
     return [];
   }

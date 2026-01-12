@@ -1,5 +1,5 @@
 import type { GiftTag } from '../model';
-import { GIFT_TAG_OPTIONS, GIFT_TAG_STYLES } from '../config';
+import { GIFT_TAG_OPTIONS, GIFT_TAG_STYLES, DEFAULT_GIFT_TAG } from '../config';
 
 /**
  * Получить название метки по ID
@@ -10,7 +10,7 @@ export function getGiftTagLabel(
   tagId: GiftTag | undefined, 
   t: (key: string) => string
 ): string {
-  if (!tagId || tagId === 'none') {
+  if (!tagId || tagId === DEFAULT_GIFT_TAG) {
     return t('wishlist.giftTags.none');
   }
   
@@ -27,6 +27,6 @@ export function getGiftTagLabel(
  * Получить стили метки по ID
  */
 export function getGiftTagStyles(tagId?: GiftTag): { bg: string; text: string } {
-  if (!tagId) return GIFT_TAG_STYLES['none'];
-  return GIFT_TAG_STYLES[tagId] || GIFT_TAG_STYLES['none'];
+  if (!tagId) return GIFT_TAG_STYLES[DEFAULT_GIFT_TAG];
+  return GIFT_TAG_STYLES[tagId] || GIFT_TAG_STYLES[DEFAULT_GIFT_TAG];
 }

@@ -1,6 +1,7 @@
 import { WishlistCover } from './WishlistCover';
 import { WishlistInfo } from './WishlistInfo';
 import { WishlistItemsList } from './WishlistItemsList';
+import { DEFAULT_PRIVACY } from '@/entities/wishlist';
 import type { WishlistDetailPageProps } from '../model';
 
 export function WishlistDetailPage({ 
@@ -27,7 +28,7 @@ export function WishlistDetailPage({
         description={wishlist.description}
         eventDate={wishlist.eventDate}
         itemCount={wishlist.itemCount || 0}
-        privacy={wishlist.privacy || 'public'}
+        privacy={wishlist.privacy || DEFAULT_PRIVACY}
         favoriteCount={wishlist.favoriteCount || 0}
       />
 

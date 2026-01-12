@@ -1,6 +1,6 @@
 import { Heart } from 'lucide-react';
 import { formatDate } from '@/shared/lib';
-import { formatItemCount, PRIVACY_OPTIONS } from '@/entities/wishlist';
+import { formatItemCount, PRIVACY_OPTIONS, DEFAULT_PRIVACY } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
 import type { WishlistInfoProps } from '../model';
 
@@ -16,8 +16,17 @@ export function WishlistInfo({
   favoriteCount
 }: WishlistInfoProps): JSX.Element {
   const { t, language } = useTranslation();
-  // Находим настройки приватности
-  const privacyOption = PRIVACY_OPTIONS.find(option => option.id === privacy) || PRIVACY_OPTIONS[0];
+  
+  // Находим настройки приватности с fallback на дефолтное значение
+  const privacyOption = PRIVACY_OPTIONS.find(option => option.id === privacy) 
+    ?? PRIVACY_OPTIONS.find(option => option.id === DEFAULT_PRIVACY)
+    ?? PRIVACY_OPTIONS[0];
+  
+  // Защита от undefined (на случай если массив пустой - хотя это невозможно)
+  if (!privacyOption) {
+    return <div className="p-6"><h1 className="text-2xl font-semibold text-gray-900">{title}</h1></div>;
+  }
+  
   const PrivacyIcon = privacyOption.icon;
 
   return (

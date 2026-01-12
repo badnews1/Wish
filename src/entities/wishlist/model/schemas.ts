@@ -1,14 +1,16 @@
 import { z } from 'zod';
+import { PRIVACY_TYPES, BOOKING_VISIBILITY_TYPES, GIFT_TAGS } from './types';
 
 /**
  * Zod схемы для валидации данных вишлистов
  * Используются для безопасного парсинга данных из localStorage
+ * Enum значения импортируются из types.ts для избежания дублирования (SSOT)
  */
 
-// Enum схемы
-const privacyTypeSchema = z.enum(['public', 'friends', 'selected', 'private']);
-const bookingVisibilityTypeSchema = z.enum(['show_names', 'hide_names', 'hide_all']);
-const giftTagSchema = z.enum(['none', 'really-want', 'would-be-nice', 'thinking', 'buy-myself']);
+// Enum схемы - используем константы из types.ts вместо хардкода
+const privacyTypeSchema = z.enum(PRIVACY_TYPES);
+const bookingVisibilityTypeSchema = z.enum(BOOKING_VISIBILITY_TYPES);
+const giftTagSchema = z.enum(GIFT_TAGS);
 
 /**
  * Схема для WishlistItem

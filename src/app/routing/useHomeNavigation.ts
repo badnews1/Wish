@@ -64,7 +64,9 @@ export function useHomeTabsLogic(
   const handleHomeTabChange = useCallback((tabId: HomeTabId) => {
     // Runtime валидация
     if (!isValidHomeTabId(tabId)) {
-      console.error(`Invalid home tab ID: ${tabId}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`Invalid home tab ID: ${tabId}`);
+      }
       return;
     }
     navigateToHomeTab(tabId);
