@@ -1,9 +1,9 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import { Input } from '../../../components/ui/input';
-import { Textarea } from '../../../components/ui/textarea';
-import { Button } from '../../../components/ui/button';
-import { ImageOverlay } from '../../../shared/ui';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { ImageOverlay } from '@/shared/ui';
 import { useTranslation } from '@/app';
 
 interface ItemTitleSectionProps {

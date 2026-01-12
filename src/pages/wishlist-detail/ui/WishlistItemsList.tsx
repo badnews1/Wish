@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { UnderlinedTabs } from '../../../shared/ui/UnderlinedTabs';
-import { WishlistItemCard } from '../../../entities/wishlist';
+import { UnderlinedTabs } from '@/shared/ui/UnderlinedTabs';
+import { WishlistItemCard } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
 import { WISHLIST_TABS, type WishlistTabId } from '../config';
 import type { WishlistItemsListProps } from '../model';

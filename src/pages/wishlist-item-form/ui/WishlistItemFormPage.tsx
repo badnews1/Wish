@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormHeader } from '../../../widgets/Header';
-import { RoundedButton, ConfirmDialog } from '../../../shared/ui';
+import { FormHeader } from '@/widgets/Header';
+import { RoundedButton, ConfirmDialog } from '@/shared/ui';
 import { useTranslation } from '@/app';
 import { 
   ItemTitleSection,
@@ -8,9 +8,9 @@ import {
   ItemImageCropDrawer,
   PriceInput,
   WishlistSelectSection,
-} from '../../../features/create-wishlist-item/ui';
-import { ProductUrlInput } from '../../../features/product-parser';
-import type { Wishlist, WishlistItem } from '../../../entities/wishlist';
+} from '@/features/create-wishlist-item/ui';
+import { ProductUrlInput } from '@/features/product-parser';
+import type { Wishlist, WishlistItem } from '@/entities/wishlist';
 import type { WishlistItemFormPageProps } from '../model';
 import { useWishlistItemForm } from '../model';
 

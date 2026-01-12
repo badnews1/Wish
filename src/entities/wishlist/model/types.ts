@@ -1,4 +1,4 @@
-import type { VisualEntity, TimestampedEntity } from '../../../shared/model';
+import type { VisualEntity, TimestampedEntity } from '@/shared/model';
 
 /**
  * Тип приватности вишлиста

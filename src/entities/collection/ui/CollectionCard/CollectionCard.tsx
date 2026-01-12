@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent } from '../../../../components/ui/card';
-import { CardImage } from '../../../../shared/ui';
+import { Card, CardContent } from '@/components/ui/card';
+import { CardImage } from '@/shared/ui';
 import { ASPECT_RATIOS } from '../../config';
 
 interface CollectionCardProps {

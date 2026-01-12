@@ -1,14 +1,14 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
-import { Input } from '../../../components/ui/input';
-import { Separator } from '../../../components/ui/separator';
-import { BaseDrawer, SelectList, RoundedButton, SelectButton } from '../../../shared/ui';
-import { useMultipleDrawers, useTempState } from '../../../shared/lib';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { BaseDrawer, SelectList, RoundedButton, SelectButton } from '@/shared/ui';
+import { useMultipleDrawers, useTempState } from '@/shared/lib';
 import { useTranslation } from '@/app';
 import { CATEGORIES } from '../config';
 import { getCategoryLabels } from '../lib';
-import type { GiftTag } from '../../../entities/wishlist';
-import { GIFT_TAG_OPTIONS, getGiftTagLabel } from '../../../entities/wishlist';
+import type { GiftTag } from '@/entities/wishlist';
+import { GIFT_TAG_OPTIONS, getGiftTagLabel } from '@/entities/wishlist';
 
 interface ItemSettingsSectionProps {
   selectedGiftTag?: GiftTag;

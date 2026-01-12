@@ -1,7 +1,7 @@
 import React from 'react';
 import { Users } from 'lucide-react';
 import { useTranslation } from '@/app';
-import { Header } from '../../../widgets/Header';
+import { Header } from '@/widgets/Header';
 
 export function CommunityPage() {
   const { t } = useTranslation();

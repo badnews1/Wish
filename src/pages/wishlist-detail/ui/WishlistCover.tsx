@@ -1,6 +1,6 @@
 import { ArrowLeft, Share2, Pencil } from 'lucide-react';
-import { Button } from '../../../components/ui/button';
-import { ImageOverlay } from '../../../shared/ui';
+import { Button } from '@/components/ui/button';
+import { ImageOverlay } from '@/shared/ui';
 import type { WishlistCoverProps } from '../model';
 
 /**

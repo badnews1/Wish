@@ -1,4 +1,4 @@
-import { CollectionCard, mockCollectionsColumn1, mockCollectionsColumn2 } from '../../../entities/collection';
+import { CollectionCard, mockCollectionsColumn1, mockCollectionsColumn2 } from '@/entities/collection';
 
 export function SelectionsPage() {
   return (

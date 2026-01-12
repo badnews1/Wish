@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormHeader } from '../../../widgets/Header';
-import { RoundedButton, ConfirmDialog } from '../../../shared/ui';
+import { FormHeader } from '@/widgets/Header';
+import { RoundedButton, ConfirmDialog } from '@/shared/ui';
 import { useTranslation } from '@/app';
-import type { CreateWishlistForm } from '../../../features/create-wishlist';
+import type { CreateWishlistForm } from '@/features/create-wishlist';
 import { 
   DatePickerDrawer,
   PrivacySelectDrawer,
@@ -13,7 +13,7 @@ import {
   TitleWithIconSection,
   DescriptionSection,
   SettingsSection
-} from '../../../features/create-wishlist/ui';
+} from '@/features/create-wishlist/ui';
 import { useWishlistForm } from '../model';
 import type { WishlistFormPageProps } from '../model';
 

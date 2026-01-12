@@ -1,5 +1,5 @@
 import { ExternalLink } from 'lucide-react';
-import { ToggleSwitch } from '../../../shared/ui';
+import { ToggleSwitch } from '@/shared/ui';
 import { useTranslation } from '@/app';
 import type { ItemMainInfoProps } from '../model';
 

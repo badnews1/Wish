@@ -1,7 +1,7 @@
 import React from 'react';
-import { ImageCropDrawer as SharedImageCropDrawer } from '../../../shared/ui';
+import { ImageCropDrawer as SharedImageCropDrawer } from '@/shared/ui';
 import { useTranslation } from '@/app';
-import type { BaseDrawerProps } from '../../../shared/model';
+import type { BaseDrawerProps } from '@/shared/model';
 
 interface ImageCropDrawerProps extends BaseDrawerProps {
   imageSrc: string;

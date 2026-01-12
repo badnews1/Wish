@@ -1,5 +1,5 @@
 import type { GiftTag } from '../model';
-import type { SelectOption } from '../../../shared/model';
+import type { SelectOption } from '@/shared/model';
 
 /**
  * Конфигурация меток подарка
@@ -9,63 +9,81 @@ export type GiftTagOption = SelectOption & {
   id: GiftTag;
 };
 
-// Ключи i18n для меток
-export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = [
-  { id: 'none', label: 'wishlist.giftTags.none' },
-  { id: 'really-want', label: 'wishlist.giftTags.reallyWant', icon: '🔥' },
-  { id: 'would-be-nice', label: 'wishlist.giftTags.wouldBeNice', icon: '👍' },
-  { id: 'thinking', label: 'wishlist.giftTags.thinking', icon: '🤔' },
-  { id: 'buy-myself', label: 'wishlist.giftTags.buyMyself', icon: '💰' },
-];
-
 /**
- * Стили для меток подарка (для Badge компонента)
- */
-export const GIFT_TAG_STYLES: Record<GiftTag, { bg: string; text: string }> = {
-  'none': { bg: 'bg-gray-100', text: 'text-gray-600' },
-  'really-want': { bg: 'bg-purple-100', text: 'text-purple-700' },
-  'would-be-nice': { bg: 'bg-blue-100', text: 'text-blue-700' },
-  'thinking': { bg: 'bg-yellow-100', text: 'text-yellow-700' },
-  'buy-myself': { bg: 'bg-green-100', text: 'text-green-700' },
-};
-
-/**
- * Полная конфигурация меток подарка с emoji и цветами
+ * Полная конфигурация меток подарка - единственный source of truth
  */
 export const GIFT_TAG_CONFIG: Record<GiftTag, { 
   emoji: string; 
-  label: string; 
+  labelKey: string; // i18n ключ
   bgColor: string; 
   textColor: string;
+  // Tailwind классы для Badge компонента
+  bgClass: string;
+  textClass: string;
 }> = {
   'none': { 
     emoji: '', 
-    label: 'Без метки', 
+    labelKey: 'wishlist.giftTags.none', 
     bgColor: '#F3F4F6', 
-    textColor: '#4B5563' 
+    textColor: '#4B5563',
+    bgClass: 'bg-gray-100',
+    textClass: 'text-gray-600'
   },
   'really-want': { 
     emoji: '🔥', 
-    label: 'Очень хочу', 
+    labelKey: 'wishlist.giftTags.reallyWant', 
     bgColor: '#F3E8FF', 
-    textColor: '#7C3AED' 
+    textColor: '#7C3AED',
+    bgClass: 'bg-purple-100',
+    textClass: 'text-purple-700'
   },
   'would-be-nice': { 
     emoji: '👍', 
-    label: 'Было бы неплохо', 
+    labelKey: 'wishlist.giftTags.wouldBeNice', 
     bgColor: '#DBEAFE', 
-    textColor: '#1D4ED8' 
+    textColor: '#1D4ED8',
+    bgClass: 'bg-blue-100',
+    textClass: 'text-blue-700'
   },
   'thinking': { 
     emoji: '🤔', 
-    label: 'Подумаю', 
+    labelKey: 'wishlist.giftTags.thinking', 
     bgColor: '#FEF3C7', 
-    textColor: '#A16207' 
+    textColor: '#A16207',
+    bgClass: 'bg-yellow-100',
+    textClass: 'text-yellow-700'
   },
   'buy-myself': { 
     emoji: '💰', 
-    label: 'Сам куплю', 
+    labelKey: 'wishlist.giftTags.buyMyself', 
     bgColor: '#D1FAE5', 
-    textColor: '#047857' 
+    textColor: '#047857',
+    bgClass: 'bg-green-100',
+    textClass: 'text-green-700'
   },
 };
+
+/**
+ * Опции для SelectList - генерируются из GIFT_TAG_CONFIG (DRY)
+ * Порядок элементов важен для UI
+ */
+const GIFT_TAG_ORDER: GiftTag[] = ['none', 'really-want', 'would-be-nice', 'thinking', 'buy-myself'];
+
+export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = GIFT_TAG_ORDER.map((id) => {
+  const config = GIFT_TAG_CONFIG[id];
+  return {
+    id,
+    label: config.labelKey,
+    icon: config.emoji || undefined, // Не передаём пустую строку как icon
+  };
+});
+
+/**
+ * Стили для меток подарка (для Badge компонента) - генерируются из GIFT_TAG_CONFIG (DRY)
+ */
+export const GIFT_TAG_STYLES: Record<GiftTag, { bg: string; text: string }> = (
+  Object.entries(GIFT_TAG_CONFIG) as [GiftTag, typeof GIFT_TAG_CONFIG[GiftTag]][]
+).reduce((acc, [id, config]) => {
+  acc[id] = { bg: config.bgClass, text: config.textClass };
+  return acc;
+}, {} as Record<GiftTag, { bg: string; text: string }>);

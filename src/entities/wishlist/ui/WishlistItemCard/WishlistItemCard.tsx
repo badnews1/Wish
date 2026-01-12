@@ -1,6 +1,6 @@
 import React from 'react';
 import { Package } from 'lucide-react';
-import { Badge } from '../../../../components/ui/badge';
+import { Badge } from '@/components/ui/badge';
 import type { WishlistItem } from '../../model';
 import { DEFAULT_CURRENCY } from '../../config';
 import { getGiftTagLabel, getGiftTagStyles } from '../../lib';

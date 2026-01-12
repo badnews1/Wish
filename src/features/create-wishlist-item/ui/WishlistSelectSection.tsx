@@ -1,9 +1,9 @@
 import React from 'react';
-import { BaseDrawer, SelectList, SelectButton } from '../../../shared/ui';
-import { useMultipleDrawers, useTempState } from '../../../shared/lib';
+import { BaseDrawer, SelectList, SelectButton } from '@/shared/ui';
+import { useMultipleDrawers, useTempState } from '@/shared/lib';
 import { useTranslation } from '@/app';
-import type { Wishlist } from '../../../entities/wishlist';
-import { WISHLIST_ICONS } from '../../../shared/config';
+import type { Wishlist } from '@/entities/wishlist';
+import { WISHLIST_ICONS } from '@/shared/config';
 
 interface WishlistSelectSectionProps {
   wishlists: Wishlist[];

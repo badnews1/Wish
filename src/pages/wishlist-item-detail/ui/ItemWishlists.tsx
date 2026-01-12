@@ -1,5 +1,5 @@
 import { useTranslation } from '@/app';
-import type { Wishlist } from '../../../entities/wishlist';
+import type { Wishlist } from '@/entities/wishlist';
 import type { ItemWishlistsProps } from '../model';
 
 /**

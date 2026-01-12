@@ -1,8 +1,8 @@
 import React from 'react';
 import Picker from 'react-mobile-picker';
-import { BaseDrawer, RoundedButton } from '../../../shared/ui';
-import type { BaseDrawerProps } from '../../../shared/model';
-import { Button } from '../../../components/ui/button';
+import { BaseDrawer, RoundedButton } from '@/shared/ui';
+import type { BaseDrawerProps } from '@/shared/model';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/app';
 import { translations } from '@/app/config/i18n';
 

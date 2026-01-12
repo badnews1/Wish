@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from 'react';
-import type { Wishlist, WishlistInput, WishlistItem } from './types';
-import { generateId, useLocalStorage } from '../../../shared/lib';
+import { useState } from 'react';
+import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
+import { generateId, useLocalStorage } from '@/shared/lib';
 import { WISHLIST_STORAGE_KEY } from '../config';
 
 // Парсер для конвертации дат из строк в Date объекты
@@ -19,7 +19,7 @@ export function useWishlists() {
     parseWishlists
   );
 
-  const addWishlist = useCallback((formData: WishlistInput) => {
+  const addWishlist = (formData: WishlistInput) => {
     const newWishlist: Wishlist = {
       id: generateId(),
       title: formData.title,
@@ -36,17 +36,17 @@ export function useWishlists() {
 
     setWishlists(prev => [...prev, newWishlist]);
     return newWishlist;
-  }, [setWishlists]);
+  };
 
-  const removeWishlist = useCallback((id: string) => {
+  const removeWishlist = (id: string) => {
     setWishlists(prev => prev.filter(w => w.id !== id));
-  }, [setWishlists]);
+  };
 
-  const updateWishlist = useCallback((id: string, updates: Partial<Wishlist>) => {
+  const updateWishlist = (id: string, updates: Partial<Wishlist>) => {
     setWishlists(prev => prev.map(w => w.id === id ? { ...w, ...updates } : w));
-  }, [setWishlists]);
+  };
 
-  const addWishlistItem = useCallback((wishlistIds: string[], item: Omit<WishlistItem, 'id' | 'wishlistIds'>) => {
+  const addWishlistItem = (wishlistIds: string[], item: WishlistItemInput) => {
     const newItem: WishlistItem = {
       id: generateId(),
       ...item,
@@ -66,9 +66,9 @@ export function useWishlists() {
     }));
 
     return newItem;
-  }, [setWishlists]);
+  };
 
-  const updateWishlistItem = useCallback((wishlistId: string, itemId: string, updates: Partial<WishlistItem>) => {
+  const updateWishlistItem = (wishlistId: string, itemId: string, updates: Partial<WishlistItem>) => {
     setWishlists(prev => prev.map(w => {
       if (w.items && w.items.some(item => item.id === itemId)) {
         return {
@@ -78,9 +78,9 @@ export function useWishlists() {
       }
       return w;
     }));
-  }, [setWishlists]);
+  };
 
-  const removeWishlistItem = useCallback((wishlistId: string, itemId: string) => {
+  const removeWishlistItem = (wishlistId: string, itemId: string) => {
     setWishlists(prev => prev.map(w => {
       if (w.items && w.items.some(item => item.id === itemId)) {
         const newItems = w.items.filter(item => item.id !== itemId);
@@ -92,7 +92,7 @@ export function useWishlists() {
       }
       return w;
     }));
-  }, [setWishlists]);
+  };
 
   return {
     wishlists,

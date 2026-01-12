@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, Loader2, Check, Trash2, RefreshCw } from 'lucide-react';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
+import { Link as LinkIcon, RefreshCw, Trash2, Loader2, Check } from 'lucide-react';
+import { toast } from 'sonner@2.0.3';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/app';
 
 import { parseProductUrl } from '../api/parseProduct';
@@ -102,7 +103,7 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
           className="flex-shrink-0"
         >
           {isEmpty ? (
-            <Link className="w-5 h-5 text-white" />
+            <LinkIcon className="w-5 h-5 text-white" />
           ) : (
             <Trash2 className="w-5 h-5 text-white" />
           )}

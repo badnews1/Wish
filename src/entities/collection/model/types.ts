@@ -1,4 +1,4 @@
-import type { VisualEntity, CardSize } from '../../../shared/model';
+import type { VisualEntity, CardSize } from '@/shared/model';
 
 /**
  * Размеры для коллекций (исключаем 'large')

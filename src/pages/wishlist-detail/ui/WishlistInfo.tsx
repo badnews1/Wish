@@ -1,7 +1,7 @@
 import { Heart } from 'lucide-react';
-import { formatDate } from '../../../shared/lib';
-import { formatItemCount } from '../../../entities/wishlist';
-import { PRIVACY_OPTIONS } from '../../../features/create-wishlist/config';
+import { formatDate } from '@/shared/lib';
+import { formatItemCount } from '@/entities/wishlist';
+import { PRIVACY_OPTIONS } from '@/features/create-wishlist/config';
 import { useTranslation } from '@/app';
 import type { WishlistInfoProps } from '../model';
 

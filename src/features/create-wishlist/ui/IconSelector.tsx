@@ -1,6 +1,6 @@
 import React from 'react';
-import { BaseDrawer } from '../../../shared/ui';
-import { WISHLIST_ICONS } from '../../../shared/config';
+import { BaseDrawer } from '@/shared/ui';
+import { WISHLIST_ICONS } from '@/shared/config';
 import { useTranslation } from '@/app';
 
 interface IconSelectorProps {

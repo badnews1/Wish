@@ -1,9 +1,10 @@
 import { ArrowLeft, Share2, Pencil, Tag } from 'lucide-react';
-import { Button } from '../../../components/ui/button';
-import { ImageOverlay } from '../../../shared/ui';
-import type { GiftTag } from '../../../entities/wishlist';
-import { GIFT_TAG_CONFIG } from '../../../entities/wishlist';
+import { Button } from '@/components/ui/button';
+import { ImageOverlay } from '@/shared/ui';
+import type { GiftTag } from '@/entities/wishlist';
+import { GIFT_TAG_CONFIG } from '@/entities/wishlist';
 import type { ItemImageSectionProps } from '../model';
+import { useTranslation } from '@/app';
 
 /**
  * Секция изображения товара с overlay кнопками и badge
@@ -15,6 +16,7 @@ export function ItemImageSection({
   onBack,
   onEdit
 }: ItemImageSectionProps) {
+  const { t } = useTranslation();
   const giftTagConfig = giftTag ? GIFT_TAG_CONFIG[giftTag] : null;
 
   return (
@@ -75,7 +77,7 @@ export function ItemImageSection({
               }}
             >
               <span className="text-base">{giftTagConfig.emoji}</span>
-              {giftTagConfig.label}
+              {t(giftTagConfig.labelKey)}
             </span>
           ),
           position: 'bottom-left' as const
