@@ -22,11 +22,10 @@ export type {
 
 // Store
 export { useLanguageStore } from './store';
-export type { Language } from './store';
 
 // i18n
 export { translations, getTranslation } from './config/i18n';
-export type { Language as I18nLanguage, TranslationKeys } from './config/i18n';
+export type { Language, TranslationKeys } from './config/i18n';
 
 // Hooks
 export { useTranslation, wishlistNotifications } from './lib';

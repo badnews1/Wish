@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChevronRight, Globe } from 'lucide-react';
 import { Header } from '@/widgets/Header';
 import { useDrawer } from '@/shared/lib';
 import { SelectButton } from '@/shared/ui';

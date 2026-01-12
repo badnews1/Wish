@@ -1,5 +1,4 @@
 import { useTranslation } from '@/app';
-import type { Wishlist } from '@/entities/wishlist';
 import type { ItemWishlistsProps } from '../model';
 import { WISHLIST_ICONS } from '@/shared/config';
 

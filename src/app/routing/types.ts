@@ -3,7 +3,9 @@
  * @module app/routing/types
  */
 
-import type { Wishlist, WishlistInput, WishlistItem } from '@/entities/wishlist';
+import type { Wishlist, WishlistItem } from '@/entities/wishlist';
+import type { CreateWishlistForm } from '@/features/create-wishlist';
+import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
 
 /**
  * ID таба главной страницы (внутренние названия навигации)
@@ -97,11 +99,11 @@ export interface AppRouterProps {
   navigateToProfile: () => void;
 
   // Действия
-  handleCreateWishlist: (data: WishlistInput) => void;
-  handleUpdateWishlist: (data: WishlistInput) => void;
+  handleCreateWishlist: (data: CreateWishlistForm) => void;
+  handleUpdateWishlist: (data: CreateWishlistForm) => void;
   handleDeleteWishlist: () => void;
-  handleCreateItem: (data: any) => void;
-  handleUpdateItem: (data: any) => void;
+  handleCreateItem: (data: CreateWishlistItemForm) => void;
+  handleUpdateItem: (data: CreateWishlistItemForm) => void;
   handleDeleteItem: () => void;
   updateWishlistItem: (wishlistId: string, itemId: string, data: Partial<WishlistItem>) => void;
 

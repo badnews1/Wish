@@ -1,8 +1,8 @@
-import { HomeWishlistsPage } from '../../pages/home-wishlists';
+import { HomeWishlistsPage } from '@/pages/home-wishlists';
 import type { HomeRouterProps } from './types';
-import { FeedPage } from '../../pages/home-feed';
-import { SelectionsPage } from '../../pages/home-selections';
-import { PopularPage } from '../../pages/home-popular';
+import { FeedPage } from '@/pages/home-feed';
+import { SelectionsPage } from '@/pages/home-selections';
+import { PopularPage } from '@/pages/home-popular';
 
 /**
  * Роутер для контента внутри главной страницы

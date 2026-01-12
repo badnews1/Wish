@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { Language } from '../config/i18n';
 
 /**
- * Поддерживаемые языки приложения
+ * Поддерживаемые языки приложения определяются в app/config/i18n
+ * через keyof typeof translations (источник правды)
  */
-export type Language = 'ru' | 'en';
 
 interface LanguageStore {
   /** Текущий язык приложения */

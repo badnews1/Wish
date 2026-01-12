@@ -1,14 +1,14 @@
-import { wishlistToFormData } from '../../features/create-wishlist';
+import { wishlistToFormData } from '@/features/create-wishlist';
 import type { AppRouterProps } from './types';
-import { HomePage } from '../../pages/home';
+import { HomePage } from '@/pages/home';
 import { HomeRouter } from './HomeRouter';
-import { WishlistPage } from '../../pages/wishlist';
-import { WishlistDetailPage } from '../../pages/wishlist-detail';
-import { WishlistFormPage } from '../../pages/wishlist-form';
-import { WishlistItemDetailPage } from '../../pages/wishlist-item-detail';
-import { WishlistItemFormPage } from '../../pages/wishlist-item-form';
-import { CommunityPage } from '../../pages/community';
-import { ProfilePage } from '../../pages/profile';
+import { WishlistPage } from '@/pages/wishlist';
+import { WishlistDetailPage } from '@/pages/wishlist-detail';
+import { WishlistFormPage } from '@/pages/wishlist-form';
+import { WishlistItemDetailPage } from '@/pages/wishlist-item-detail';
+import { WishlistItemFormPage } from '@/pages/wishlist-item-form';
+import { CommunityPage } from '@/pages/community';
+import { ProfilePage } from '@/pages/profile';
 
 /**
  * Главный роутер приложения
@@ -135,7 +135,6 @@ export function AppRouter(props: AppRouterProps) {
       {activeMenuItem === 'wishlist' && (
         <WishlistPage
           wishlists={wishlists}
-          onCreateWishlist={navigateToCreateWishlist}
           onWishlistClick={navigateToWishlistDetail}
         />
       )}

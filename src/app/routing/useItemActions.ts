@@ -8,12 +8,12 @@ import { useCallback } from 'react';
 import type { NavigationView } from './types';
 import { convertItemFormToInput } from './converters';
 import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
-import type { WishlistItem } from '@/entities/wishlist';
+import type { WishlistItem, WishlistItemInput } from '@/entities/wishlist';
 import { wishlistNotifications } from '../lib';
 
 interface UseItemActionsParams {
-  addWishlistItem: (wishlistIds: string[], data: WishlistItem) => void;
-  updateWishlistItem: (wishlistId: string, itemId: string, data: WishlistItem) => void;
+  addWishlistItem: (wishlistIds: string[], data: WishlistItemInput) => void;
+  updateWishlistItem: (wishlistId: string, itemId: string, data: Partial<WishlistItem>) => void;
   removeWishlistItem: (wishlistId: string, itemId: string) => void;
   navigateToWishlistDetail: (wishlistId: string) => void;
   navigateToCreateItem: (wishlistId: string) => void;
