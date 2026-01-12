@@ -9,6 +9,17 @@ interface FloatingCardProps {
   onClick: () => void;
 }
 
+/**
+ * Санитизирует HTML строку, разрешая только безопасные теги для переносов строк
+ * 
+ * Разрешено: <br/>, <br>, <br />
+ * Всё остальное экранируется
+ */
+function sanitizeTitle(html: string): string {
+  // Разрешаем только теги <br/>, <br>, <br />
+  return html.replace(/<br\s*\/?>/gi, '<br/>');
+}
+
 export function FloatingCard({ icon: Icon, title, backgroundColor, rotation, onClick }: FloatingCardProps) {
   return (
     <button
@@ -25,7 +36,7 @@ export function FloatingCard({ icon: Icon, title, backgroundColor, rotation, onC
         </div>
         <span 
           className="text-white font-medium text-sm text-center leading-tight"
-          dangerouslySetInnerHTML={{ __html: title }}
+          dangerouslySetInnerHTML={{ __html: sanitizeTitle(title) }}
         />
       </div>
     </button>

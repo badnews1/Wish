@@ -1,13 +1,9 @@
-export { useDrawer } from './hooks/useDrawer';
-export { useMultipleDrawers } from './hooks/useMultipleDrawers';
-export type { DrawerControl } from './hooks/useMultipleDrawers';
-export { useTempState } from './hooks/useTempState';
-export { useClickOutside } from './hooks/useClickOutside';
-export { useLocalStorage } from './hooks/useLocalStorage';
-export { useImageUploadCrop } from './hooks/useImageUploadCrop';
+// Реэкспорт из подпапок
+export * from './hooks';
+export * from './utils';
+export * from './image';
+
+// Прямые экспорты из корня lib/
 export { generateId } from './generateId';
 export { formatDate } from './formatDate';
 export { notifications } from './notifications';
-export { compressImage, isValidImageFile, getBase64SizeKB, checkImageSize, IMAGE_PRESETS } from './utils/imageCompression';
-export type { ImageCompressionOptions } from './utils/imageCompression';
-export { createCroppedImage } from './image/cropImage';

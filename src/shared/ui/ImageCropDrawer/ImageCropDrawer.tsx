@@ -64,7 +64,11 @@ export function ImageCropDrawer({
       onConfirm(croppedImage);
       onOpenChange(false);
     } catch (error) {
-      // Тихо обрабатываем ошибку crop - пользователь может попробовать снова
+      // Логируем ошибку crop в dev режиме
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Ошибка при обрезке изображения:', error);
+      }
+      // Пользователь может попробовать снова или закрыть drawer
     }
   };
 
