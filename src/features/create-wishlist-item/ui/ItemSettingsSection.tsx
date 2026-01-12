@@ -113,6 +113,7 @@ export function ItemSettingsSection({
           }}
           maxSelections={3}
           title={`${t('common.select')} ${tempCategories.length} ${t('common.of')} 3`}
+          doneLabel={t('common.done')}
         />
       </BaseDrawer>
 

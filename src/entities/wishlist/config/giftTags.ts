@@ -7,16 +7,15 @@ import type { SelectOption } from '../../../shared/model';
 
 export type GiftTagOption = SelectOption & {
   id: GiftTag;
-  emoji?: string;
 };
 
 // Ключи i18n для меток
 export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = [
   { id: 'none', label: 'wishlist.giftTags.none' },
-  { id: 'really-want', label: 'wishlist.giftTags.reallyWant', emoji: '🔥' },
-  { id: 'would-be-nice', label: 'wishlist.giftTags.wouldBeNice', emoji: '👍' },
-  { id: 'thinking', label: 'wishlist.giftTags.thinking', emoji: '🤔' },
-  { id: 'buy-myself', label: 'wishlist.giftTags.buyMyself', emoji: '💰' },
+  { id: 'really-want', label: 'wishlist.giftTags.reallyWant', icon: '🔥' },
+  { id: 'would-be-nice', label: 'wishlist.giftTags.wouldBeNice', icon: '👍' },
+  { id: 'thinking', label: 'wishlist.giftTags.thinking', icon: '🤔' },
+  { id: 'buy-myself', label: 'wishlist.giftTags.buyMyself', icon: '💰' },
 ];
 
 /**

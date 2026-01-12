@@ -5,6 +5,7 @@ import type { CreateWishlistForm } from '../../../features/create-wishlist';
 import { useMultipleDrawers, useImageUploadCrop, IMAGE_PRESETS } from '../../../shared/lib';
 import { useWishlistFormState } from './formState';
 import { useWishlistFormHandlers } from './formHandlers';
+import { useTranslation } from '@/app';
 
 interface UseWishlistFormProps {
   initialData?: Partial<CreateWishlistForm>;
@@ -12,6 +13,8 @@ interface UseWishlistFormProps {
 }
 
 export function useWishlistForm({ initialData, onSubmit }: UseWishlistFormProps) {
+  const { t } = useTranslation();
+  
   // Drawer management
   const drawers = useMultipleDrawers({
     calendarDrawer: false,
@@ -27,7 +30,13 @@ export function useWishlistForm({ initialData, onSubmit }: UseWishlistFormProps)
     compressionPreset: IMAGE_PRESETS.wishlistCover,
     maxSizeMB: 10,
     enableCompression: true,
-    onImageProcessed: () => drawers.cropDrawer.open()
+    onImageProcessed: () => drawers.cropDrawer.open(),
+    errorMessages: {
+      invalidFormat: t('imageUpload.invalidFormat'),
+      fileTooLarge: t('imageUpload.fileTooLarge', { maxSize: 10 }),
+      fileTooLargeDescription: (size) => t('imageUpload.fileTooLargeDescription', { fileSize: size }),
+      processingError: t('imageUpload.processingError')
+    }
   });
 
   // Form state management

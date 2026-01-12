@@ -74,6 +74,7 @@ export function WishlistSelectSection({
           selected={tempSelectedWishlistIds}
           onToggle={handleWishlistToggle}
           onDone={handleWishlistDone}
+          doneLabel={t('common.done')}
         />
       </BaseDrawer>
     </>

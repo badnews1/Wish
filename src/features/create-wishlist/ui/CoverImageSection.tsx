@@ -25,7 +25,7 @@ export function CoverImageSection({
         height="16rem"
         uploadInputId="cover-image"
         onUpload={onUploadImage}
-        emptyStateText="Загрузить обложку вишлиста"
+        emptyStateText={t('imageUpload.uploadImage')}
         overlayButton={
           coverImage ? (
             <Button

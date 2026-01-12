@@ -39,8 +39,7 @@ export function ItemTitleSection({
         width="8rem"
         uploadInputId="item-image"
         onUpload={onUploadImage}
-        emptyStateText="Главное фото"
-        emptyStateSubtext="(макс. 20 МБ)"
+        emptyStateText={t('imageUpload.uploadImage')}
         rounded="sm"
         className="flex-shrink-0 self-stretch"
         overlayButton={

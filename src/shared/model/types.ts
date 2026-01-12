@@ -12,7 +12,7 @@ export interface SelectOption {
   id: string;
   label: string;
   description?: string;
-  icon?: LucideIcon;
+  icon?: LucideIcon | string; // Поддержка как LucideIcon, так и эмодзи (string)
 }
 
 /**

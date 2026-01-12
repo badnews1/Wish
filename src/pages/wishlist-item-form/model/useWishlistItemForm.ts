@@ -4,6 +4,7 @@ import type { CreateWishlistItemForm } from '../../../features/create-wishlist-i
 import type { ParsedProduct } from '../../../features/product-parser';
 import { useMultipleDrawers, useImageUploadCrop } from '../../../shared/lib';
 import { createProductParsedHandler } from '../lib';
+import { useTranslation } from '@/app';
 
 interface UseWishlistItemFormProps {
   wishlists: Wishlist[];
@@ -20,6 +21,8 @@ export function useWishlistItemForm({
   mode,
   onSubmit
 }: UseWishlistItemFormProps) {
+  const { t } = useTranslation();
+  
   // Form state
   const [wishlistIds, setWishlistIds] = useState<string[]>(
     initialWishlistId ? [initialWishlistId] : []
@@ -43,7 +46,13 @@ export function useWishlistItemForm({
   const itemImageUpload = useImageUploadCrop({
     maxSizeMB: 20,
     enableCompression: false,
-    onImageProcessed: () => drawers.cropDrawer.open()
+    onImageProcessed: () => drawers.cropDrawer.open(),
+    errorMessages: {
+      invalidFormat: t('imageUpload.invalidFormat'),
+      fileTooLarge: t('imageUpload.fileTooLarge', { maxSize: 20 }),
+      fileTooLargeDescription: (size) => t('imageUpload.fileTooLargeDescription', { fileSize: size }),
+      processingError: t('imageUpload.processingError')
+    }
   });
 
   // Initialize form with initialData

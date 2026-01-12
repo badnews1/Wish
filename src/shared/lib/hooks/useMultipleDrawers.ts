@@ -51,7 +51,8 @@ export function useMultipleDrawers<T extends string>(
   const controls = useMemo(() => {
     const result = {} as DrawersControls<T>;
 
-    for (const drawerName in config) {
+    // Используем Object.keys от состояния вместо config для избежания пересоздания при каждом рендере
+    for (const drawerName in drawersState) {
       result[drawerName] = {
         isOpen: drawersState[drawerName],
         
@@ -77,7 +78,7 @@ export function useMultipleDrawers<T extends string>(
     }
 
     return result;
-  }, [drawersState, config]);
+  }, [drawersState]);
 
   return controls;
 }

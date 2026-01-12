@@ -1,12 +1,6 @@
 import { Check } from 'lucide-react';
 import { RoundedButton } from '../RoundedButton';
-import { useTranslation } from '@/app';
-
-interface SelectOption {
-  id: string;
-  label: string;
-  icon?: string;
-}
+import type { SelectOption } from '../../model';
 
 interface SingleSelectProps {
   mode: 'single';
@@ -24,13 +18,13 @@ interface MultiSelectProps {
   onDone: () => void;
   title?: string;
   maxSelections?: number;
+  doneLabel?: string;
 }
 
 type SelectListProps = SingleSelectProps | MultiSelectProps;
 
 export function SelectList(props: SelectListProps) {
   const { options, title } = props;
-  const { t } = useTranslation();
 
   const handleClick = (id: string) => {
     if (props.mode === 'single') {
@@ -94,7 +88,11 @@ export function SelectList(props: SelectListProps) {
                   }
                 `}
               >
-                {option.icon && <span className="text-xl">{option.icon}</span>}
+                {option.icon && (
+                  typeof option.icon === 'string' 
+                    ? <span className="text-xl">{option.icon}</span>
+                    : <option.icon className="w-5 h-5" />
+                )}
                 <span>{option.label}</span>
                 {selected && <Check className="w-5 h-5" strokeWidth={2.5} />}
               </button>
@@ -107,7 +105,7 @@ export function SelectList(props: SelectListProps) {
       {props.mode === 'multi' && (
         <div className="p-6">
           <RoundedButton
-            label={t('common.done')}
+            label={props.doneLabel || 'Done'}
             isActive={true}
             onClick={props.onDone}
             variant="full"

@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { compressImage, isValidImageFile, checkImageSize, notifications, type ImageCompressionOptions } from '../';
-import { useTranslation } from '@/app';
 
 interface UseImageUploadCropOptions {
   /** Пресет для сжатия изображения */
@@ -17,6 +16,14 @@ interface UseImageUploadCropOptions {
   
   /** Нужно ли сжатие (по умолчанию true для wishlist cover, false для item images) */
   enableCompression?: boolean;
+  
+  /** Тексты для ошибок (должны передаваться из компонента с доступом к useTranslation) */
+  errorMessages?: {
+    invalidFormat: string;
+    fileTooLarge: string;
+    fileTooLargeDescription: (fileSize: string) => string;
+    processingError: string;
+  };
 }
 
 interface UseImageUploadCropReturn {
@@ -45,6 +52,9 @@ interface UseImageUploadCropReturn {
 /**
  * Универсальный хук для управления flow загрузки и обрезки изображений
  * 
+ * ВАЖНО: shared компоненты НЕ могут импортировать useTranslation из app.
+ * Все тексты ошибок должны передаваться через errorMessages в options.
+ * 
  * Управляет процессом:
  * 1. Загрузка файла → валидация (тип, размер)
  * 2. (Опционально) Сжатие изображения
@@ -57,7 +67,13 @@ interface UseImageUploadCropReturn {
  *   compressionPreset: IMAGE_PRESETS.wishlistCover,
  *   maxSizeMB: 10,
  *   enableCompression: true,
- *   onImageProcessed: () => cropDrawer.open()
+ *   onImageProcessed: () => cropDrawer.open(),
+ *   errorMessages: {
+ *     invalidFormat: t('imageUpload.invalidFormat'),
+ *     fileTooLarge: t('imageUpload.fileTooLarge', { maxSize: 10 }),
+ *     fileTooLargeDescription: (size) => t('imageUpload.fileTooLargeDescription', { fileSize: size }),
+ *     processingError: t('imageUpload.processingError')
+ *   }
  * });
  * 
  * @example
@@ -65,18 +81,19 @@ interface UseImageUploadCropReturn {
  * const imageUpload = useImageUploadCrop({
  *   maxSizeMB: 20,
  *   enableCompression: false,
- *   onImageProcessed: () => cropDrawer.open()
+ *   onImageProcessed: () => cropDrawer.open(),
+ *   errorMessages: { ... }
  * });
  */
 export function useImageUploadCrop({
   compressionPreset,
   maxSizeMB = 10,
   onImageProcessed,
-  enableCompression = true
+  enableCompression = true,
+  errorMessages
 }: UseImageUploadCropOptions = {}): UseImageUploadCropReturn {
   const [originalImage, setOriginalImage] = useState<string | undefined>();
   const [finalImage, setFinalImage] = useState<string | undefined>();
-  const { t } = useTranslation();
 
   const handleUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -84,19 +101,24 @@ export function useImageUploadCrop({
 
     // Проверяем тип файла
     if (!isValidImageFile(file)) {
-      notifications.common.error(t('imageUpload.invalidFormat'));
+      if (errorMessages?.invalidFormat) {
+        notifications.common.error(errorMessages.invalidFormat);
+      }
       e.target.value = '';
       return;
     }
 
     // Проверяем размер файла
     if (!checkImageSize(file, maxSizeMB)) {
-      notifications.common.error(
-        t('imageUpload.fileTooLarge', { maxSize: maxSizeMB }),
-        {
-          description: t('imageUpload.fileTooLargeDescription', { fileSize: (file.size / (1024 * 1024)).toFixed(1) })
-        }
-      );
+      if (errorMessages?.fileTooLarge) {
+        const fileSize = (file.size / (1024 * 1024)).toFixed(1);
+        notifications.common.error(
+          errorMessages.fileTooLarge,
+          errorMessages.fileTooLargeDescription 
+            ? { description: errorMessages.fileTooLargeDescription(fileSize) }
+            : undefined
+        );
+      }
       e.target.value = '';
       return;
     }
@@ -122,10 +144,12 @@ export function useImageUploadCrop({
       e.target.value = '';
     } catch (error) {
       console.error('Ошибка при обработке изображения:', error);
-      notifications.common.error(t('imageUpload.processingError'));
+      if (errorMessages?.processingError) {
+        notifications.common.error(errorMessages.processingError);
+      }
       e.target.value = '';
     }
-  }, [compressionPreset, maxSizeMB, onImageProcessed, enableCompression, t]);
+  }, [compressionPreset, maxSizeMB, onImageProcessed, enableCompression, errorMessages]);
 
   const handleCropConfirm = useCallback((croppedImage: string) => {
     setFinalImage(croppedImage);
