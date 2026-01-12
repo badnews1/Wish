@@ -1,5 +1,4 @@
-import type { Wishlist, WishlistItem } from '../../../entities/wishlist';
-import type { PrivacyType } from '../../../features/create-wishlist/config';
+import type { Wishlist, WishlistItem, PrivacyType } from '../../../entities/wishlist';
 
 /**
  * ID таба страницы деталей вишлиста

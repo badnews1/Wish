@@ -1,12 +1,12 @@
 import React from 'react';
 import { Header } from '../../../widgets/Header';
 import { WishlistCard } from '../../../entities/wishlist';
-import { useTranslation } from '../../../shared/lib/hooks';
+import { useTranslation } from '@/app';
 import type { Wishlist } from '../../../entities/wishlist';
 import type { WishlistPageProps } from '../model';
 
 export function WishlistPage({ wishlists, onWishlistClick }: WishlistPageProps) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   return (
     <div className="flex flex-col bg-white pb-32 min-h-screen">
@@ -37,6 +37,8 @@ export function WishlistPage({ wishlists, onWishlistClick }: WishlistPageProps) 
                 iconId={wishlist.iconId}
                 variant="horizontal"
                 onClick={() => onWishlistClick?.(wishlist.id)}
+                t={t}
+                language={language}
               />
             ))}
           </div>

@@ -3,8 +3,11 @@ import { Bell } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { RoundedButton } from '../../../shared/ui/RoundedButton';
 import { Header } from '../../../widgets/Header';
-import { useTranslation } from '../../../shared/lib/hooks';
-import { HOME_TABS } from '../config';
+import { HomeTabId } from '../../../app/routing';
+import { homeTabs } from '../config';
+import { HomeTabsHeader } from './HomeTabsHeader';
+import { HomeTabsContent } from './HomeTabsContent';
+import { useTranslation } from '@/app';
 import type { HomePageProps } from '../model';
 
 export function HomePage({ currentSubPage, onTabChange, children }: HomePageProps) {
@@ -29,7 +32,7 @@ export function HomePage({ currentSubPage, onTabChange, children }: HomePageProp
       {/* Вкладки */}
       <div className="bg-white px-4 pb-2">
         <div className="flex gap-2">
-          {HOME_TABS.map((tab) => (
+          {homeTabs.map((tab) => (
             <RoundedButton
               key={tab.id}
               onClick={() => onTabChange(tab.id)}

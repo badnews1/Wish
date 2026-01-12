@@ -1,8 +1,8 @@
 import React from 'react';
-import { BaseDrawer } from '@/shared/ui';
+import { BaseDrawer, RoundedButton } from '@/shared/ui';
 import { SelectList } from '@/shared/ui';
-import { useTranslation } from '@/shared/lib';
 import type { Language } from '@/app';
+import { useTranslation } from '@/app';
 import { LANGUAGE_OPTIONS } from '../config';
 
 interface LanguageDrawerProps {
@@ -35,6 +35,9 @@ export function LanguageDrawer({ open, onOpenChange, selected, onSelect }: Langu
         selected={selected}
         onSelect={handleSelect}
       />
+      <RoundedButton onClick={() => onOpenChange(false)}>
+        {t('common.close')}
+      </RoundedButton>
     </BaseDrawer>
   );
 }

@@ -66,7 +66,8 @@ export const sharedRu = {
     invalidFormat: "Неверный формат файла. Пожалуйста, загрузите изображение (JPG, PNG, WebP).",
     fileTooLarge: "Размер файла слишком большой. Максимальный размер: {{maxSize}}MB.",
     fileTooLargeDescription: "Размер вашего файла: {{fileSize}}MB",
-    processingError: "Не удалось обработать изображение. Попробуйте другой файл."
+    processingError: "Не удалось обработать изображение. Попробуйте другой файл.",
+    uploadImage: "Загрузить изображение"
   },
   validation: {
     required: "Обязательное поле",

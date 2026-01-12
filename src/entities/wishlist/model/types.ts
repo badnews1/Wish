@@ -1,6 +1,16 @@
 import type { VisualEntity, TimestampedEntity } from '../../../shared/model';
 
 /**
+ * Тип приватности вишлиста
+ */
+export type PrivacyType = 'public' | 'friends' | 'selected' | 'private';
+
+/**
+ * Тип видимости бронирования
+ */
+export type BookingVisibilityType = 'show_names' | 'hide_names' | 'hide_all';
+
+/**
  * Метка подарка (gift tag)
  */
 export type GiftTag = 'none' | 'really-want' | 'would-be-nice' | 'thinking' | 'buy-myself';
@@ -26,8 +36,8 @@ export interface Wishlist extends VisualEntity, TimestampedEntity {
   description?: string;
   itemCount?: number;
   eventDate?: Date;
-  privacy?: string;
-  bookingVisibility?: string;
+  privacy?: PrivacyType;
+  bookingVisibility?: BookingVisibilityType;
   allowGroupGifting?: boolean;
   favoriteCount?: number;
   items?: WishlistItem[];
@@ -42,8 +52,8 @@ export interface WishlistInput {
   iconId: string;
   imageUrl?: string;
   eventDate?: Date;
-  privacy: string;
-  bookingVisibility: string;
+  privacy: PrivacyType;
+  bookingVisibility: BookingVisibilityType;
   allowGroupGifting: boolean;
 }
 

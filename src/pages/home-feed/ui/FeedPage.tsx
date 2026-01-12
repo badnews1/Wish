@@ -1,4 +1,4 @@
-import { useTranslation } from '../../../shared/lib/hooks';
+import { useTranslation } from '@/app';
 import type { FeedPageProps } from '../model';
 
 export function FeedPage({ onCreateWishlist }: FeedPageProps) {

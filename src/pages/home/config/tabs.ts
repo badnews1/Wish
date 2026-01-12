@@ -9,3 +9,6 @@ export const HOME_TABS: Array<{ id: HomeTabId; labelKey: string }> = [
   { id: 'popular', labelKey: 'pages.home.tabs.popular' },
   { id: 'wishlists', labelKey: 'pages.home.tabs.wishlists' },
 ] as const;
+
+// Экспорт с camelCase именем для удобства
+export const homeTabs = HOME_TABS;

@@ -66,7 +66,8 @@ export const sharedEn = {
     invalidFormat: "Invalid file format. Please upload an image (JPG, PNG, WebP).",
     fileTooLarge: "File size too large. Maximum size: {{maxSize}}MB.",
     fileTooLargeDescription: "Your file size: {{fileSize}}MB",
-    processingError: "Failed to process image. Try another file."
+    processingError: "Failed to process image. Try another file.",
+    uploadImage: "Upload image"
   },
   validation: {
     required: "Required field",

@@ -4,7 +4,7 @@ import { Input } from '../../../components/ui/input';
 import { Textarea } from '../../../components/ui/textarea';
 import { Button } from '../../../components/ui/button';
 import { ImageOverlay } from '../../../shared/ui';
-import { useTranslation } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 
 interface ItemTitleSectionProps {
   title: string;

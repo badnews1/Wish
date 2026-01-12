@@ -1,5 +1,5 @@
-import { MapPin } from 'lucide-react';
-import { useTranslation } from '../../../shared/lib/hooks';
+import React from 'react';
+import { useTranslation } from '@/app';
 import type { ItemAdditionalInfoProps } from '../model';
 
 /**

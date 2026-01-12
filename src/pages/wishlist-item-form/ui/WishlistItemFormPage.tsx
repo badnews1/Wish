@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormHeader } from '../../../widgets/Header';
 import { RoundedButton, ConfirmDialog } from '../../../shared/ui';
-import { useTranslation } from '../../../shared/lib/hooks';
+import { useTranslation } from '@/app';
 import { 
   ItemTitleSection,
   ItemSettingsSection,

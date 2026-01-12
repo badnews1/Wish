@@ -1,7 +1,8 @@
 import React from 'react';
 import { OptionSelectDrawer } from '../../../shared/ui/OptionSelectDrawer';
-import { useTranslation } from '../../../shared/lib';
-import { PRIVACY_OPTIONS, type PrivacyType } from '../config';
+import { useTranslation } from '@/app';
+import { PRIVACY_OPTIONS } from '../config';
+import type { PrivacyType } from '../../../entities/wishlist';
 import type { BaseSelectProps } from '../../../shared/model';
 
 interface PrivacySelectDrawerProps extends BaseSelectProps<PrivacyType> {}

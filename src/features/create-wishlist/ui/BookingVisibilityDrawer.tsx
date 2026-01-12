@@ -1,7 +1,8 @@
 import React from 'react';
 import { OptionSelectDrawer } from '../../../shared/ui/OptionSelectDrawer';
-import { useTranslation } from '../../../shared/lib';
-import { BOOKING_VISIBILITY_OPTIONS, type BookingVisibilityType } from '../config';
+import { useTranslation } from '@/app';
+import { BOOKING_VISIBILITY_OPTIONS } from '../config';
+import type { BookingVisibilityType } from '../../../entities/wishlist';
 import type { BaseSelectProps } from '../../../shared/model';
 
 interface BookingVisibilityDrawerProps extends BaseSelectProps<BookingVisibilityType> {}

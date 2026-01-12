@@ -1,4 +1,3 @@
-import type { Wishlist } from '../../../entities/wishlist';
 import { WishlistCover } from './WishlistCover';
 import { WishlistInfo } from './WishlistInfo';
 import { WishlistItemsList } from './WishlistItemsList';
@@ -28,7 +27,7 @@ export function WishlistDetailPage({
         description={wishlist.description}
         eventDate={wishlist.eventDate}
         itemCount={wishlist.itemCount || 0}
-        privacy={wishlist.privacy}
+        privacy={wishlist.privacy || 'public'}
         favoriteCount={wishlist.favoriteCount || 0}
       />
 

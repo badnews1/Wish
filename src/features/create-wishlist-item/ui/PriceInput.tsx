@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BaseDrawer } from '../../../shared/ui';
-import { useMultipleDrawers, useTranslation } from '../../../shared/lib';
+import { useMultipleDrawers } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { CURRENCY_OPTIONS, DEFAULT_CURRENCY } from '../config';

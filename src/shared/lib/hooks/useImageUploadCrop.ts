@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { compressImage, isValidImageFile, checkImageSize, notifications, type ImageCompressionOptions } from '../';
-import { useTranslation } from './useTranslation';
+import { useTranslation } from '@/app';
 
 interface UseImageUploadCropOptions {
   /** Пресет для сжатия изображения */

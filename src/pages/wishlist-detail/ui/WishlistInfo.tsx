@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react';
 import { formatDate } from '../../../shared/lib';
 import { formatItemCount } from '../../../entities/wishlist';
 import { PRIVACY_OPTIONS } from '../../../features/create-wishlist/config';
-import type { PrivacyType } from '../../../features/create-wishlist/config';
+import { useTranslation } from '@/app';
 import type { WishlistInfoProps } from '../model';
 
 /**
@@ -16,6 +16,7 @@ export function WishlistInfo({
   privacy,
   favoriteCount
 }: WishlistInfoProps) {
+  const { t, language } = useTranslation();
   // Находим настройки приватности
   const privacyOption = PRIVACY_OPTIONS.find(option => option.id === privacy) || PRIVACY_OPTIONS[0];
   const PrivacyIcon = privacyOption.icon;
@@ -28,11 +29,11 @@ export function WishlistInfo({
       <div className="flex items-center gap-2 mt-1.5">
         {eventDate && (
           <>
-            <span className="text-base text-gray-600">{formatDate(eventDate, true)}</span>
+            <span className="text-base text-gray-600">{formatDate(eventDate as Date, language)}</span>
             <span className="text-base text-gray-400">•</span>
           </>
         )}
-        <span className="text-base text-gray-600">{formatItemCount(itemCount)}</span>
+        <span className="text-base text-gray-600">{formatItemCount(itemCount, t, language)}</span>
       </div>
       
       {/* Описание */}
@@ -45,7 +46,7 @@ export function WishlistInfo({
       {/* Приватность и счетчик подписок */}
       <div className="flex items-center gap-1.5 mt-6">
         <PrivacyIcon className="w-4 h-4 text-gray-500" />
-        <span className="text-sm text-gray-600">{privacyOption.label}</span>
+        <span className="text-sm text-gray-600">{t(privacyOption.labelKey)}</span>
         <div className="w-4" />
         <Heart className="w-4 h-4 text-gray-500" />
         <span className="text-sm text-gray-600">

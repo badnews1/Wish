@@ -1,6 +1,5 @@
 import { Globe, Users, UserPlus, Lock } from 'lucide-react';
-
-export type PrivacyType = 'public' | 'friends' | 'selected' | 'private';
+import type { PrivacyType } from '../../../entities/wishlist';
 
 export interface PrivacyOption {
   id: PrivacyType;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Textarea } from '../../../components/ui/textarea';
-import { useTranslation } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 
 interface DescriptionSectionProps {
   description?: string;

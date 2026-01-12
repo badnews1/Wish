@@ -1,9 +1,10 @@
 import React from 'react';
 import { Separator } from '../../../components/ui/separator';
-import { formatDate, useTranslation } from '../../../shared/lib';
-import { ToggleSwitch, SelectButton } from '../../../shared/ui';
+import { SelectButton, ToggleSwitch } from '../../../shared/ui';
+import { formatDate } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 import { PRIVACY_OPTIONS, BOOKING_VISIBILITY_OPTIONS } from '../config';
-import type { PrivacyType, BookingVisibilityType } from '../config';
+import type { PrivacyType, BookingVisibilityType } from '../../../entities/wishlist';
 
 interface SettingsSectionProps {
   eventDate?: Date;
@@ -35,7 +36,7 @@ export function SettingsSection({
       {/* Настройка даты события */}
       <SelectButton
         label={t('createWishlist.ui.eventDateLabel')}
-        value={eventDate ? formatDate(eventDate, language) : t('createWishlist.ui.eventDateNotSet')}
+        value={eventDate ? formatDate(eventDate as Date, language) : t('createWishlist.ui.eventDateNotSet')}
         onClick={onDateClick}
         valueClassName="text-gray-500"
       />

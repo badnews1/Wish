@@ -1,1 +1,1 @@
-export { HOME_TABS } from './tabs';
+export { HOME_TABS, homeTabs } from './tabs';

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
-import { BOTTOM_MENU_ITEMS } from '../../../shared/config/navigation';
+import { BottomMenuFloatingButton } from './BottomMenuFloatingButton';
+import { FloatingCard } from '../../../shared/ui';
+import { useClickOutside } from '../../../shared/lib/hooks';
+import { BOTTOM_MENU_ITEMS } from '../../../shared/config';
 import { FLOATING_CARDS } from '../config';
-import { FloatingCard } from '../../../shared/ui/FloatingCard';
-import { useClickOutside } from '../../../shared/lib';
-import { useTranslation } from '../../../shared/lib/hooks/useTranslation';
+import { useTranslation } from '@/app';
 import type { BottomMenuItemId } from '../../../shared/config/navigation';
 import type { BottomMenuProps } from '../model';
 

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Link, Loader2, Check, Trash2, RefreshCw } from 'lucide-react';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
-import { toast } from 'sonner@2.0.3';
-import { useTranslation } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 
 import { parseProductUrl } from '../api/parseProduct';
 import type { ParsedProduct, ParserStatus } from '../model';

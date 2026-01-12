@@ -1,5 +1,4 @@
-import type { PrivacyType } from '../config';
-import type { BookingVisibilityType } from '../config';
+import type { PrivacyType, BookingVisibilityType } from '../../../entities/wishlist';
 
 export interface CreateWishlistForm {
   title: string;

@@ -29,6 +29,7 @@ export const wishlistEn = {
   itemCount: {
     one: "wish",
     few: "wishes",
-    many: "wishes"
+    many: "wishes",
+    other: "wishes"
   }
 } as const;

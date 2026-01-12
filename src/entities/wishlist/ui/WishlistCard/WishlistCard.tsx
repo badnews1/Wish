@@ -5,7 +5,6 @@ import type { WishlistVariant } from '../../config';
 import { WISHLIST_ICONS } from '../../../../shared/config';
 import { formatItemCount } from '../../lib';
 import { formatDate } from '../../../../shared/lib';
-import { useLanguageStore } from '../../../../app';
 
 interface WishlistCardProps {
   title: string;
@@ -16,10 +15,11 @@ interface WishlistCardProps {
   eventDate?: Date;
   variant?: WishlistVariant;
   iconId?: string;
+  t: (key: string) => string; // Функция перевода передается извне
+  language?: 'ru' | 'en'; // Язык для форматирования дат
 }
 
-export function WishlistCard({ title, onClick, itemCount, eventDate, variant = 'vertical', iconId }: WishlistCardProps) {
-  const { language } = useLanguageStore();
+export function WishlistCard({ title, onClick, itemCount, eventDate, variant = 'vertical', iconId, t, language = 'ru' }: WishlistCardProps) {
   const aspectRatio = variant === 'horizontal' ? WISHLIST_ASPECT_RATIO_HORIZONTAL : WISHLIST_ASPECT_RATIO;
   
   // Находим иконку по iconId
@@ -46,9 +46,9 @@ export function WishlistCard({ title, onClick, itemCount, eventDate, variant = '
           <h2 className="font-semibold text-white">{title}</h2>
           {(eventDate || itemCount !== undefined) && (
             <div className="flex items-center gap-2 text-white/80 text-sm">
-              {eventDate && <span>{formatDate(eventDate, language)}</span>}
+              {eventDate && <span>{formatDate(eventDate as Date, language)}</span>}
               {eventDate && itemCount !== undefined && <span>•</span>}
-              {itemCount !== undefined && <span>{formatItemCount(itemCount, language)}</span>}
+              {itemCount !== undefined && <span>{formatItemCount(itemCount, t, language)}</span>}
             </div>
           )}
         </div>

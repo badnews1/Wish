@@ -3,7 +3,7 @@ import Picker from 'react-mobile-picker';
 import { BaseDrawer, RoundedButton } from '../../../shared/ui';
 import type { BaseDrawerProps } from '../../../shared/model';
 import { Button } from '../../../components/ui/button';
-import { useTranslation } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 import { translations } from '@/app/config/i18n';
 
 interface DatePickerDrawerProps extends BaseDrawerProps {

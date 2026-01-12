@@ -1,7 +1,9 @@
 import React from 'react';
-import { Header } from '../../../widgets/Header';
+import { ChevronRight, Globe } from 'lucide-react';
+import { Header } from '@/widgets/Header';
+import { useDrawer } from '@/shared/lib';
 import { SelectButton } from '@/shared/ui';
-import { useDrawer, useTranslation } from '@/shared/lib';
+import { useTranslation } from '@/app';
 import { useLanguageStore } from '@/app';
 import { LanguageDrawer } from './LanguageDrawer';
 

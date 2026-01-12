@@ -1,0 +1,1 @@
+export { wishlistNotifications } from './wishlistNotifications';

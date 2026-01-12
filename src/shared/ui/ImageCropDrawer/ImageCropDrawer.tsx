@@ -5,7 +5,6 @@ import { BaseDrawer } from '../BaseDrawer';
 import { RoundedButton } from '../RoundedButton';
 import { Minus, Plus } from 'lucide-react';
 import { createCroppedImage } from '../../lib';
-import { useTranslation } from '../../lib/hooks';
 import type { BaseDrawerProps } from '../../model';
 
 interface ImageCropDrawerProps extends BaseDrawerProps {
@@ -13,11 +12,20 @@ interface ImageCropDrawerProps extends BaseDrawerProps {
   onConfirm: (croppedImage: string) => void;
   title: string;
   confirmLabel: string;
+  zoomInLabel: string;
+  zoomOutLabel: string;
+  cropErrorLabel: string;
   aspect?: number; // undefined для свободных пропорций, 1 для квадрата
   objectFit?: 'horizontal-cover' | 'contain';
   containerClassName?: string;
 }
 
+/**
+ * Drawer для обрезки изображения
+ * 
+ * ВАЖНО: shared компоненты НЕ могут импортировать useTranslation из app.
+ * Все тексты должны передаваться через пропсы.
+ */
 export function ImageCropDrawer({ 
   open, 
   onOpenChange, 
@@ -25,11 +33,13 @@ export function ImageCropDrawer({
   onConfirm,
   title,
   confirmLabel,
+  zoomInLabel,
+  zoomOutLabel,
+  cropErrorLabel,
   aspect = undefined,
   objectFit = 'horizontal-cover',
   containerClassName = 'relative w-full h-64 bg-gray-100 rounded-xl overflow-hidden mb-6'
 }: ImageCropDrawerProps) {
-  const { t } = useTranslation();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<{
@@ -55,7 +65,7 @@ export function ImageCropDrawer({
       onConfirm(croppedImage);
       onOpenChange(false);
     } catch (error) {
-      console.error(t('imageCrop.error'), error);
+      console.error(cropErrorLabel, error);
     }
   };
 
@@ -153,7 +163,7 @@ export function ImageCropDrawer({
             variant="secondary"
             size="icon"
             shape="circle"
-            aria-label={t('imageCrop.zoomOut')}
+            aria-label={zoomOutLabel}
           >
             <Minus />
           </Button>
@@ -178,7 +188,7 @@ export function ImageCropDrawer({
             variant="secondary"
             size="icon"
             shape="circle"
-            aria-label={t('imageCrop.zoomIn')}
+            aria-label={zoomInLabel}
           >
             <Plus />
           </Button>

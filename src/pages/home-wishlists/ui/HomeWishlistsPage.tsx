@@ -1,4 +1,4 @@
-import { useTranslation } from '../../../shared/lib/hooks';
+import { useTranslation } from '@/app';
 
 export function HomeWishlistsPage() {
   const { t } = useTranslation();

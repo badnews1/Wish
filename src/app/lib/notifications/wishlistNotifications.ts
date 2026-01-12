@@ -1,9 +1,10 @@
 import { toast } from 'sonner@2.0.3';
-import { getTranslation } from '@/app/config/i18n';
-import { useLanguageStore } from '../../../app';
+import { getTranslation } from '../../config/i18n';
+import { useLanguageStore } from '../../store';
 
 /**
  * Уведомления для Wishlist и WishlistItem
+ * Размещены в app/lib так как используют глобальный стор и getTranslation из app
  */
 export const wishlistNotifications = {
   wishlist: {

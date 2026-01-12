@@ -1,6 +1,5 @@
 import { Eye, EyeOff, UserX } from 'lucide-react';
-
-export type BookingVisibilityType = 'show_names' | 'hide_names' | 'hide_all';
+import type { BookingVisibilityType } from '../../../entities/wishlist';
 
 export interface BookingVisibilityOption {
   id: BookingVisibilityType;

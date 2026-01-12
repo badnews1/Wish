@@ -1,14 +1,18 @@
-import { getTranslation } from '@/app/config/i18n';
-import type { Language } from '../../../app';
-
 /**
  * Форматирует количество желаний с правильным склонением
+ * @param count - количество желаний
+ * @param t - функция перевода
+ * @param language - язык ('ru' | 'en')
  */
-export function formatItemCount(count: number, language: Language = 'ru'): string {
+export function formatItemCount(
+  count: number, 
+  t: (key: string) => string,
+  language: 'ru' | 'en' = 'ru'
+): string {
   if (language === 'en') {
     const word = count === 1 
-      ? getTranslation('en', 'wishlist.itemCount.one')
-      : getTranslation('en', 'wishlist.itemCount.other');
+      ? t('wishlist.itemCount.one')
+      : t('wishlist.itemCount.other');
     return `${count} ${word}`;
   }
   
@@ -19,9 +23,9 @@ export function formatItemCount(count: number, language: Language = 'ru'): strin
     : cases[Math.min(count % 10, 5)];
   
   const forms = [
-    getTranslation('ru', 'wishlist.itemCount.one'),
-    getTranslation('ru', 'wishlist.itemCount.few'),
-    getTranslation('ru', 'wishlist.itemCount.many'),
+    t('wishlist.itemCount.one'),
+    t('wishlist.itemCount.few'),
+    t('wishlist.itemCount.many'),
   ];
   
   return `${count} ${forms[caseIndex]}`;

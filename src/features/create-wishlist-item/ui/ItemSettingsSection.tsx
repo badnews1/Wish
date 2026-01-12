@@ -1,9 +1,10 @@
 import React from 'react';
-import { ChevronRight, Tag } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Input } from '../../../components/ui/input';
 import { Separator } from '../../../components/ui/separator';
 import { BaseDrawer, SelectList, RoundedButton, SelectButton } from '../../../shared/ui';
-import { useMultipleDrawers, useTempState, useTranslation } from '../../../shared/lib';
+import { useMultipleDrawers, useTempState } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 import { CATEGORIES } from '../config';
 import { getCategoryLabels } from '../lib';
 import type { GiftTag } from '../../../entities/wishlist';
@@ -57,7 +58,7 @@ export function ItemSettingsSection({
         {/* Настройка метки подарка */}
         <SelectButton
           label={t('createWishlistItem.ui.giftTagLabel')}
-          value={selectedGiftTag ? getGiftTagLabel(selectedGiftTag, language) : t('createWishlistItem.ui.selectGiftTag')}
+          value={selectedGiftTag ? getGiftTagLabel(selectedGiftTag, t) : t('createWishlistItem.ui.selectGiftTag')}
           onClick={drawers.giftTag.open}
         />
 

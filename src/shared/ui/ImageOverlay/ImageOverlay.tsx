@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Upload } from 'lucide-react';
+import { useTranslation } from '@/app';
 
 type ImageOverlaySize = 'sm' | 'md' | 'lg' | 'full';
 type ImageOverlayPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center';
@@ -127,7 +128,7 @@ export function ImageOverlay({
   overlayElements,
   uploadInputId,
   onUpload,
-  emptyStateText = 'Загрузить изображение',
+  emptyStateText,
   emptyStateSubtext,
   backgroundColor = '#f3f4f6',
   rounded = 'xl',
@@ -135,6 +136,7 @@ export function ImageOverlay({
   backgroundSize = 'cover',
   emptyStateContent
 }: ImageOverlayProps) {
+  const { t } = useTranslation();
   const sizeClass = SIZE_MAP[size] || SIZE_MAP.lg;
   const roundedClass = ROUNDED_MAP[rounded];
   
@@ -152,8 +154,8 @@ export function ImageOverlay({
         style={containerStyle}
       >
         <Upload size={24} className="text-gray-400 mb-2" />
-        {emptyStateText && (
-          <span className="text-sm text-gray-500 text-center px-2">{emptyStateText}</span>
+        {(emptyStateText || !emptyStateText) && (
+          <span className="text-sm text-gray-500 text-center px-2">{emptyStateText || t('imageUpload.uploadImage')}</span>
         )}
         {emptyStateSubtext && (
           <span className="text-xs text-gray-400 text-center px-2 mt-1">{emptyStateSubtext}</span>

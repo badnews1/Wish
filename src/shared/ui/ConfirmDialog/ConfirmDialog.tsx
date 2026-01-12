@@ -9,7 +9,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '../../../components/ui/alert-dialog';
-import { useTranslation } from '../../lib/hooks';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -17,11 +16,17 @@ interface ConfirmDialogProps {
   title: string;
   description: string;
   onConfirm: () => void;
-  confirmLabel?: string;
-  cancelLabel?: string;
+  confirmLabel: string;
+  cancelLabel: string;
   variant?: 'default' | 'destructive';
 }
 
+/**
+ * Диалог подтверждения действия
+ * 
+ * ВАЖНО: shared компоненты НЕ могут импортировать useTranslation из app.
+ * Все тексты должны передаваться через пропсы.
+ */
 export function ConfirmDialog({
   open,
   onOpenChange,
@@ -32,8 +37,6 @@ export function ConfirmDialog({
   cancelLabel,
   variant = 'default'
 }: ConfirmDialogProps) {
-  const { t } = useTranslation();
-
   const handleConfirm = () => {
     onConfirm();
     onOpenChange(false);
@@ -49,12 +52,12 @@ export function ConfirmDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelLabel || t('common.cancel')}</AlertDialogCancel>
+          <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
           <AlertDialogAction 
             onClick={handleConfirm}
             className={variant === 'destructive' ? 'bg-red-600 hover:bg-red-700' : ''}
           >
-            {confirmLabel || t('common.confirm')}
+            {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

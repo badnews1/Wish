@@ -2,7 +2,7 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { ImageOverlay } from '../../../shared/ui';
-import { useTranslation } from '../../../shared/lib';
+import { useTranslation } from '@/app';
 
 interface CoverImageSectionProps {
   coverImage?: string;

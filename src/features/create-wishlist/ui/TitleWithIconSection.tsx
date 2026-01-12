@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
-import { useTranslation } from '../../../shared/lib';
-import { WISHLIST_ICONS } from '../config';
+import { WISHLIST_ICONS } from '../../../shared/config';
+import { useTranslation } from '@/app';
 
 interface TitleWithIconSectionProps {
   title: string;

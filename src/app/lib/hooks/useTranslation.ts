@@ -1,8 +1,12 @@
-import { useLanguageStore } from '@/app';
+import { useLanguageStore } from '@/app/store';
 import { getTranslation } from '@/app/config/i18n';
 
 /**
  * Хук для работы с переводами приложения
+ * 
+ * Размещён в app/lib/hooks/ т.к. использует app-зависимости:
+ * - useLanguageStore из app/store
+ * - getTranslation из app/config/i18n
  * 
  * @returns Объект с текущим языком и функцией перевода
  * 

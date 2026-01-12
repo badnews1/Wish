@@ -5,10 +5,11 @@
  */
 
 import { useCallback } from 'react';
-import type { CreateWishlistForm } from '../../features/create-wishlist';
-import type { WishlistInput } from '../../entities/wishlist';
+import type { NavigationView } from './types';
 import { convertWishlistFormToInput } from './converters';
-import { wishlistNotifications } from '../../entities/wishlist';
+import type { CreateWishlistForm } from '../../features/create-wishlist';
+import type { Wishlist, WishlistInput } from '../../entities/wishlist';
+import { wishlistNotifications } from '../lib';
 
 interface UseWishlistActionsParams {
   addWishlist: (data: WishlistInput) => void;
