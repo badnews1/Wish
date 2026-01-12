@@ -14,5 +14,4 @@ export type ParserStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export interface ParserError {
   code: 'INVALID_URL' | 'PARSE_ERROR' | 'NETWORK_ERROR' | 'UNSUPPORTED_SITE';
-  message: string;
 }

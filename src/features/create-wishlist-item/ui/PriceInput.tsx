@@ -90,7 +90,7 @@ export function PriceInput({
                   : 'bg-gray-50 text-gray-900 active:bg-gray-100'
               }`}
             >
-              {option.label}
+              {t(option.labelKey)}
             </button>
           ))}
         </div>

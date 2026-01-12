@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
 import { generateId, useLocalStorage } from '@/shared/lib';
 import { WISHLIST_STORAGE_KEY } from '../config';

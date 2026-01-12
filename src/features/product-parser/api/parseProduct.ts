@@ -50,8 +50,7 @@ export async function parseProductUrl(url: string): Promise<ParsedProduct> {
     new URL(url);
   } catch {
     const error: ParserError = {
-      code: 'INVALID_URL',
-      message: 'Некорректная ссылка'
+      code: 'INVALID_URL'
     };
     throw error;
   }

@@ -45,6 +45,12 @@ export const createWishlistItemEn = {
     travel: "Travel",
     other: "Other"
   },
+  currencies: {
+    USD: "USD - US Dollar",
+    EUR: "EUR - Euro",
+    GBP: "GBP - British Pound",
+    RUB: "RUB - Russian Ruble"
+  },
   errors: {
     imageCropFailed: "Image crop failed:"
   }

@@ -15,5 +15,11 @@ export const productParserEn = {
     dataLoadedDescription: "Form auto-filled",
     loadError: "Load error",
     loadErrorDescription: "Failed to load product data"
+  },
+  errors: {
+    INVALID_URL: "Invalid URL",
+    PARSE_ERROR: "Parse error",
+    NETWORK_ERROR: "Network error",
+    UNSUPPORTED_SITE: "Unsupported site"
   }
 } as const;

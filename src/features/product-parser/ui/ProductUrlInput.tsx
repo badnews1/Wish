@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/app';
 
 import { parseProductUrl } from '../api/parseProduct';
-import type { ParsedProduct, ParserStatus } from '../model';
+import type { ParsedProduct, ParserStatus, ParserError } from '../model';
 
 interface ProductUrlInputProps {
   value: string;
@@ -62,8 +62,14 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
       onParsed(parsedProduct);
     } catch (error: any) {
       setStatus('error');
+      
+      // Переводим код ошибки, если есть, иначе используем fallback
+      const errorMessage = error?.code 
+        ? t(`productParser.errors.${error.code}`)
+        : t('productParser.toast.loadErrorDescription');
+      
       toast.error(t('productParser.toast.loadError'), {
-        description: error?.message || t('productParser.toast.loadErrorDescription')
+        description: errorMessage
       });
       
       // Сбрасываем статус ошибки через 2 секунды

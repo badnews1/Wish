@@ -1,6 +1,6 @@
 import type { Wishlist } from '../../../entities/wishlist';
 import type { CreateWishlistForm } from '../model';
-import { DEFAULT_ICON_ID } from '../config';
+import { DEFAULT_ICON_ID } from '@/shared/config';
 
 /**
  * Конвертирует данные вишлиста в форму для редактирования

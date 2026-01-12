@@ -15,5 +15,11 @@ export const productParserRu = {
     dataLoadedDescription: "Форма автоматически заполнена",
     loadError: "Ошибка загрузки",
     loadErrorDescription: "Не удалось загрузить данные товара"
+  },
+  errors: {
+    INVALID_URL: "Некорректная ссылка",
+    PARSE_ERROR: "Ошибка парсинга",
+    NETWORK_ERROR: "Проблемы с сетью",
+    UNSUPPORTED_SITE: "Сайт не поддерживается"
   }
 } as const;

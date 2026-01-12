@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { type PrivacyType, type BookingVisibilityType } from '../../../entities/wishlist';
-import { DEFAULT_ICON_ID } from '../../../features/create-wishlist/config';
+import { DEFAULT_ICON_ID } from '@/shared/config';
 import type { CreateWishlistForm } from '../../../features/create-wishlist';
 
 interface UseWishlistFormStateProps {
