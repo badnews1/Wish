@@ -18,7 +18,7 @@ interface MultiSelectProps {
   onDone: () => void;
   title?: string;
   maxSelections?: number;
-  doneLabel?: string;
+  doneLabel: string; // Обязательное поле для избежания hardcoded текста
 }
 
 type SelectListProps = SingleSelectProps | MultiSelectProps;
@@ -105,7 +105,7 @@ export function SelectList(props: SelectListProps) {
       {props.mode === 'multi' && (
         <div className="p-6">
           <RoundedButton
-            label={props.doneLabel || 'Done'}
+            label={props.doneLabel}
             isActive={true}
             onClick={props.onDone}
             variant="full"
