@@ -74,7 +74,7 @@ export function ItemSettingsSection({
         {/* Настройка категории */}
         <SelectButton
           label={t('createWishlistItem.ui.categoryLabel')}
-          value={selectedCategory ? getCategoryLabels(selectedCategory, language) : t('createWishlistItem.ui.selectCategory')}
+          value={selectedCategory ? getCategoryLabels(selectedCategory, t) : t('createWishlistItem.ui.selectCategory')}
           onClick={drawers.category.open}
         />
 

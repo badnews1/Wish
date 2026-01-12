@@ -2,9 +2,8 @@ import React from 'react';
 import Picker from 'react-mobile-picker';
 import { Button } from '@/components/ui/button';
 import { BaseDrawer, RoundedButton } from '@/shared/ui';
-import { useTranslation } from '@/app';
+import { useTranslation, translations } from '@/app';
 import type { BaseDrawerProps } from '@/shared/model';
-import { MONTHS_GENITIVE } from '../config';
 
 interface DatePickerDrawerProps extends BaseDrawerProps {
   selectedDate: Date | undefined;
@@ -17,26 +16,28 @@ const YEARS = Array.from({ length: 12 }, (_, i) => (2024 + i).toString());
 export function DatePickerDrawer({ open, onOpenChange, selectedDate, onConfirm }: DatePickerDrawerProps) {
   const { t, language } = useTranslation();
   
-  // Получаем названия месяцев из конфигурации
-  const MONTH_NAMES = MONTHS_GENITIVE[language];
+  // Получаем названия месяцев из i18n
+  const MONTH_NAMES = React.useMemo(() => {
+    return translations[language as keyof typeof translations].createWishlist.months.genitive;
+  }, [language]);
   
   // Инициализация значений из selectedDate или текущей даты
-  const initializeValues = () => {
+  const initializeValues = React.useCallback(() => {
     const date = selectedDate || new Date();
     return {
       day: date.getDate().toString(),
       month: MONTH_NAMES[date.getMonth()],
       year: date.getFullYear().toString()
     };
-  };
+  }, [selectedDate, MONTH_NAMES]);
 
-  const [pickerValue, setPickerValue] = React.useState(initializeValues());
+  const [pickerValue, setPickerValue] = React.useState(initializeValues);
 
   React.useEffect(() => {
     if (open) {
       setPickerValue(initializeValues());
     }
-  }, [open, selectedDate]);
+  }, [open, initializeValues]);
 
   const handleConfirm = () => {
     // Преобразуем выбранные значения в Date

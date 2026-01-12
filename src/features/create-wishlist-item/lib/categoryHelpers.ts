@@ -1,22 +1,24 @@
-import { getTranslation } from '@/app/config/i18n';
-import type { Language } from '@/app';
 import { CATEGORIES } from '../config';
 
 /**
  * Получить название категории по ID
+ * @param categoryId - ID категории
+ * @param t - функция перевода
  */
-export function getCategoryLabel(categoryId: string, language: Language = 'ru'): string {
+export function getCategoryLabel(categoryId: string, t: (key: string) => string): string {
   const category = CATEGORIES.find(cat => cat.id === categoryId);
-  return category ? getTranslation(language, category.labelKey) : getTranslation(language, 'common.other');
+  return category ? t(category.labelKey) : t('common.other');
 }
 
 /**
  * Получить названия нескольких категорий через запятую
+ * @param categoryIds - Массив ID категорий
+ * @param t - функция перевода
  */
-export function getCategoryLabels(categoryIds?: string[], language: Language = 'ru'): string {
+export function getCategoryLabels(categoryIds: string[] | undefined, t: (key: string) => string): string {
   if (!categoryIds || categoryIds.length === 0) return '';
   return categoryIds
-    .map(id => getCategoryLabel(id, language))
+    .map(id => getCategoryLabel(id, t))
     .join(', ');
 }
 

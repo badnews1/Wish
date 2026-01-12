@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import type { Wishlist, WishlistItem, GiftTag } from '@/entities/wishlist';
 import { DEFAULT_GIFT_TAG } from '@/entities/wishlist';
 import type { CreateWishlistItemForm } from './types';
-import type { ParsedProduct } from './productParser';
 import { useMultipleDrawers, useImageUploadCrop } from '@/shared/lib';
 import { useTranslation } from '@/app';
 import { createProductParsedHandler } from '../lib';
@@ -75,7 +74,7 @@ export function useWishlistItemForm({
         itemImageUpload.setOriginalImage(initialData.imageUrl);
       }
     }
-  }, [mode, initialData]);
+  }, [mode, initialData, itemImageUpload.setFinalImage, itemImageUpload.setOriginalImage]);
 
   // Form submission
   const handleSubmit = useCallback(() => {
@@ -107,7 +106,7 @@ export function useWishlistItemForm({
       setPrice,
       setCurrency
     ),
-    [itemImageUpload]
+    [itemImageUpload.setFinalImage]
   );
 
   return {
