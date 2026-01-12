@@ -12,12 +12,21 @@ interface FloatingCardProps {
 /**
  * Санитизирует HTML строку, разрешая только безопасные теги для переносов строк
  * 
+ * Сначала экранирует все HTML символы, затем восстанавливает только <br/> теги.
+ * Это защищает от XSS атак через другие HTML теги и скрипты.
+ * 
  * Разрешено: <br/>, <br>, <br />
- * Всё остальное экранируется
+ * Всё остальное экранируется и отображается как текст
  */
 function sanitizeTitle(html: string): string {
-  // Разрешаем только теги <br/>, <br>, <br />
-  return html.replace(/<br\s*\/?>/gi, '<br/>');
+  // Сначала экранируем всё
+  const escaped = html
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  
+  // Восстанавливаем только безопасные <br/> теги
+  return escaped.replace(/&lt;br\s*\/?&gt;/gi, '<br/>');
 }
 
 export function FloatingCard({ icon: Icon, title, backgroundColor, rotation, onClick }: FloatingCardProps) {

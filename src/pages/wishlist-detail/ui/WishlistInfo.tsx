@@ -28,7 +28,7 @@ export function WishlistInfo({
       <div className="flex items-center gap-2 mt-1.5">
         {eventDate && (
           <>
-            <span className="text-base text-gray-600">{formatDate(eventDate as Date, language)}</span>
+            <span className="text-base text-gray-600">{formatDate(eventDate, language)}</span>
             <span className="text-base text-gray-400">•</span>
           </>
         )}

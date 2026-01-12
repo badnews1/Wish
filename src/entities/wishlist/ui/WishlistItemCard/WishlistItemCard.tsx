@@ -12,6 +12,9 @@ interface WishlistItemCardProps {
 }
 
 export function WishlistItemCard({ item, onClick, t }: WishlistItemCardProps) {
+  // Вычисляем стили метки один раз для избежания дублирования вызова
+  const tagStyles = getGiftTagStyles(item.giftTag);
+
   return (
     <div 
       className="flex gap-4 items-start cursor-pointer"
@@ -59,7 +62,7 @@ export function WishlistItemCard({ item, onClick, t }: WishlistItemCardProps) {
           {item.giftTag && item.giftTag !== 'none' && (
             <Badge 
               variant="secondary"
-              className={`px-4 py-1.5 rounded-full text-sm border-0 ${getGiftTagStyles(item.giftTag).bg} ${getGiftTagStyles(item.giftTag).text}`}
+              className={`px-4 py-1.5 rounded-full text-sm border-0 ${tagStyles.bg} ${tagStyles.text}`}
             >
               {getGiftTagLabel(item.giftTag, t)}
             </Badge>

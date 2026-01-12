@@ -81,9 +81,9 @@ export const GIFT_TAG_OPTIONS: readonly GiftTagOption[] = GIFT_TAG_ORDER.map((id
 /**
  * Стили для меток подарка (для Badge компонента) - генерируются из GIFT_TAG_CONFIG (DRY)
  */
-export const GIFT_TAG_STYLES: Record<GiftTag, { bg: string; text: string }> = (
-  Object.entries(GIFT_TAG_CONFIG) as [GiftTag, typeof GIFT_TAG_CONFIG[GiftTag]][]
-).reduce((acc, [id, config]) => {
-  acc[id] = { bg: config.bgClass, text: config.textClass };
-  return acc;
-}, {} as Record<GiftTag, { bg: string; text: string }>);
+export const GIFT_TAG_STYLES = Object.fromEntries(
+  Object.entries(GIFT_TAG_CONFIG).map(([id, config]) => [
+    id, 
+    { bg: config.bgClass, text: config.textClass }
+  ])
+) as Record<GiftTag, { bg: string; text: string }>;

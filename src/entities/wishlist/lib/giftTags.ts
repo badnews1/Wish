@@ -14,7 +14,7 @@ export function getGiftTagLabel(
     return t('wishlist.giftTags.none');
   }
   
-  const tag = GIFT_TAG_OPTIONS.find(t => t.id === tagId);
+  const tag = GIFT_TAG_OPTIONS.find(option => option.id === tagId);
   if (!tag) {
     return t('wishlist.giftTags.none');
   }

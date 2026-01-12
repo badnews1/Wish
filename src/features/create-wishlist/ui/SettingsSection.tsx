@@ -36,7 +36,7 @@ export function SettingsSection({
       {/* Настройка даты события */}
       <SelectButton
         label={t('createWishlist.ui.eventDateLabel')}
-        value={eventDate ? formatDate(eventDate as Date, language) : t('createWishlist.ui.eventDateNotSet')}
+        value={eventDate ? formatDate(eventDate, language) : t('createWishlist.ui.eventDateNotSet')}
         onClick={onDateClick}
         valueClassName="text-gray-500"
       />

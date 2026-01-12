@@ -84,6 +84,11 @@ const ROUNDED_MAP = {
   full: 'rounded-full'
 };
 
+const BG_SIZE_CLASS = {
+  cover: 'bg-cover',
+  contain: 'bg-contain'
+} as const;
+
 /**
  * Универсальный компонент для отображения изображения с overlay кнопками
  * 
@@ -180,7 +185,7 @@ export function ImageOverlay({
     >
       {imageUrl ? (
         <div
-          className={`w-full h-full bg-${backgroundSize} bg-center`}
+          className={`w-full h-full ${BG_SIZE_CLASS[backgroundSize]} bg-center`}
           style={{ 
             backgroundImage: `url(${imageUrl})`,
             backgroundSize

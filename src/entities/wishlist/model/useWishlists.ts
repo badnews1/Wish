@@ -1,18 +1,24 @@
 import { generateId, useLocalStorage } from '@/shared/lib';
 import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
 import { WISHLIST_STORAGE_KEY } from '../config';
+import { wishlistsArraySchema } from './schemas';
 
-// Парсер для конвертации дат из строк в Date объекты
+/**
+ * Парсер для безопасной валидации и конвертации данных вишлистов
+ * Использует zod для строгой проверки типов и преобразования дат из строк в Date объекты
+ */
 function parseWishlists(data: unknown[]): Wishlist[] {
-  return data.map((wishlist: unknown) => {
-    // Проверка типа для безопасного приведения
-    const w = wishlist as Record<string, unknown>;
-    return {
-      ...w,
-      eventDate: w.eventDate ? new Date(w.eventDate as string) : undefined,
-      createdAt: new Date(w.createdAt as string),
-    } as Wishlist;
-  });
+  // Валидация с помощью zod - безопасно и строго типизировано
+  const result = wishlistsArraySchema.safeParse(data);
+  
+  if (!result.success) {
+    // Логируем ошибку валидации для debugging
+    console.error('Failed to parse wishlists from localStorage:', result.error);
+    // Возвращаем пустой массив при ошибке валидации
+    return [];
+  }
+  
+  return result.data;
 }
 
 interface UseWishlistsReturn {
@@ -83,7 +89,8 @@ export function useWishlists(): UseWishlistsReturn {
 
   const updateWishlistItem = (wishlistId: string, itemId: string, updates: Partial<WishlistItem>): void => {
     setWishlists(prev => prev.map(w => {
-      if (w.items && w.items.some(item => item.id === itemId)) {
+      // Обновляем item только в указанном вишлисте для оптимизации и безопасности
+      if (w.id === wishlistId && w.items && w.items.some(item => item.id === itemId)) {
         return {
           ...w,
           items: w.items.map(item => item.id === itemId ? { ...item, ...updates } : item),
@@ -95,7 +102,8 @@ export function useWishlists(): UseWishlistsReturn {
 
   const removeWishlistItem = (wishlistId: string, itemId: string): void => {
     setWishlists(prev => prev.map(w => {
-      if (w.items && w.items.some(item => item.id === itemId)) {
+      // Удаляем item только из указанного вишлиста для оптимизации и безопасности
+      if (w.id === wishlistId && w.items && w.items.some(item => item.id === itemId)) {
         const newItems = w.items.filter(item => item.id !== itemId);
         return {
           ...w,
