@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
-import type { BottomMenuItemId, BottomMenuNavigationMap } from '../../shared/config';
-import { isValidBottomMenuId, createBottomMenuNavigator } from '../../shared/config';
+import type { BottomMenuItemId, BottomMenuNavigationMap } from '@/shared/config';
+import { isValidBottomMenuId, createBottomMenuNavigator } from '@/shared/config';
 
 /**
  * Хук для управления переключением элементов нижнего меню приложения

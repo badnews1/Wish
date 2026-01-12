@@ -1,6 +1,7 @@
-import { useWishlists } from './entities/wishlist';
-import { useAppNavigation, useBottomMenuNavigation, useHomeTabsLogic, AppRouter, useWishlistActions, useItemActions } from './app';
-import { BottomMenu } from './widgets/BottomMenu';
+import { useWishlists } from '@/entities/wishlist';
+import { useAppNavigation, useBottomMenuNavigation, useHomeTabsLogic, AppRouter, useWishlistActions, useItemActions } from '@/app';
+import { BottomMenu } from '@/widgets/BottomMenu';
+import { useEffect } from 'react';
 
 function App() {
   const { wishlists, addWishlist, updateWishlist, removeWishlist, addWishlistItem, updateWishlistItem, removeWishlistItem } = useWishlists();
@@ -19,8 +20,40 @@ function App() {
   // Bottom menu navigation with callbacks
   const { activeMenuItem, handleMenuItemChange, switchToMenuItem } = useBottomMenuNavigation(
     navigation.navigateToHomeFeed,
-    navigation.navigateToWishlist
+    navigation.navigateToWishlist,
+    navigation.navigateToCommunity,
+    navigation.navigateToProfile
   );
+
+  // Синхронизация activeMenuItem с currentView
+  useEffect(() => {
+    const view = navigation.currentView;
+    
+    // Если мы на странице вишлистов или детальной странице вишлиста
+    if (view === 'wishlist' || view === 'wishlist-detail') {
+      if (activeMenuItem !== 'wishlist') {
+        switchToMenuItem('wishlist');
+      }
+    }
+    // Если мы на любой странице home
+    else if (view.startsWith('home')) {
+      if (activeMenuItem !== 'home') {
+        switchToMenuItem('home');
+      }
+    }
+    // Если мы на странице community
+    else if (view === 'community') {
+      if (activeMenuItem !== 'community') {
+        switchToMenuItem('community');
+      }
+    }
+    // Если мы на странице profile
+    else if (view === 'profile') {
+      if (activeMenuItem !== 'profile') {
+        switchToMenuItem('profile');
+      }
+    }
+  }, [navigation.currentView, activeMenuItem, switchToMenuItem]);
 
   // CRUD операции для вишлистов
   const wishlistActions = useWishlistActions({
@@ -84,6 +117,8 @@ function App() {
           navigateToCreateItem={navigation.navigateToCreateItem}
           navigateToEditItem={navigation.navigateToEditItem}
           navigateToItemDetail={navigation.navigateToItemDetail}
+          navigateToCommunity={navigation.navigateToCommunity}
+          navigateToProfile={navigation.navigateToProfile}
 
           // Действия
           handleCreateWishlist={wishlistActions.handleCreate}

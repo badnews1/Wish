@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Wishlist, WishlistItem, GiftTag } from '../../../entities/wishlist';
-import type { CreateWishlistItemForm } from '../../../features/create-wishlist-item';
-import type { ParsedProduct } from '../../../features/product-parser';
-import { useMultipleDrawers, useImageUploadCrop } from '../../../shared/lib';
+import type { Wishlist, WishlistItem, GiftTag } from '@/entities/wishlist';
+import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
+import type { ParsedProduct } from '@/features/product-parser';
+import { useMultipleDrawers, useImageUploadCrop } from '@/shared/lib';
 import { createProductParsedHandler } from '../lib';
 import { useTranslation } from '@/app';
 

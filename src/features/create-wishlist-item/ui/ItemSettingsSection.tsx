@@ -36,6 +36,13 @@ export function ItemSettingsSection({
   const [tempPurchaseLocation, setTempPurchaseLocation] = useTempState(purchaseLocation || '', drawers.purchaseLocation.isOpen);
   const [tempCategories, setTempCategories] = useTempState<string[]>(selectedCategory || [], drawers.category.isOpen);
 
+  // Преобразуем опции меток подарков с переводами
+  const giftTagOptions = GIFT_TAG_OPTIONS.map(tag => ({
+    id: tag.id,
+    label: getGiftTagLabel(tag.id, t),
+    icon: tag.icon
+  }));
+
   const categoryOptions = CATEGORIES.map(category => ({
     id: category.id,
     label: t(category.labelKey),
@@ -88,7 +95,7 @@ export function ItemSettingsSection({
       >
         <SelectList
           mode="single"
-          options={GIFT_TAG_OPTIONS}
+          options={giftTagOptions}
           selected={selectedGiftTag || 'none'}
           onSelect={(tagId) => {
             onGiftTagChange(tagId as GiftTag);

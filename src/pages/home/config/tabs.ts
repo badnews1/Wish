@@ -1,4 +1,4 @@
-import type { HomeTabId } from '../../../app/routing';
+import type { HomeTabId } from '@/app/routing';
 
 /**
  * Конфигурация табов главной страницы

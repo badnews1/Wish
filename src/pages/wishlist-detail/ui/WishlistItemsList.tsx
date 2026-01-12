@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { UnderlinedTabs } from '@/shared/ui/UnderlinedTabs';
 import { WishlistItemCard } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
@@ -15,6 +15,12 @@ export function WishlistItemsList({
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<WishlistTabId>('active');
 
+  // Подсчёт желаний по статусам
+  const counts = useMemo(() => ({
+    active: items.filter(item => !item.isPurchased).length,
+    fulfilled: items.filter(item => item.isPurchased).length,
+  }), [items]);
+
   // Фильтруем карточки по статусу
   const filteredItems = items.filter(item => 
     activeTab === 'active' ? !item.isPurchased : item.isPurchased
@@ -30,7 +36,11 @@ export function WishlistItemsList({
       {/* Табы */}
       <div className="mt-2">
         <UnderlinedTabs<WishlistTabId>
-          tabs={WISHLIST_TABS.map(tab => ({ ...tab, label: t(tab.labelKey) }))}
+          tabs={WISHLIST_TABS.map(tab => ({ 
+            ...tab, 
+            label: t(tab.labelKey),
+            badge: counts[tab.id]
+          }))}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />

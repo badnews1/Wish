@@ -1,4 +1,5 @@
 import React from 'react';
+import { ImageOverlay } from '@/shared/ui';
 import type { HeaderProps } from '../model';
 
 export function Header({ 
@@ -6,8 +7,51 @@ export function Header({
   titleAlign = 'center',
   leftAction,
   rightAction,
+  variant = 'default',
+  imageUrl,
+  imageAlt = '',
+  backgroundColor,
+  height = '16rem',
+  emptyStateContent,
+  bottomOverlayElements,
   className = ''
 }: HeaderProps) {
+  // Overlay вариант - header над изображением
+  if (variant === 'overlay') {
+    const overlayElements = [
+      {
+        element: leftAction,
+        position: 'top-left' as const
+      },
+      {
+        element: rightAction,
+        position: 'top-right' as const
+      }
+    ];
+
+    // Добавляем нижние элементы, если есть
+    if (bottomOverlayElements) {
+      overlayElements.push({
+        element: bottomOverlayElements,
+        position: 'bottom-left' as const
+      });
+    }
+
+    return (
+      <ImageOverlay
+        imageUrl={imageUrl}
+        alt={imageAlt}
+        backgroundColor={backgroundColor}
+        height={height}
+        rounded="lg"
+        className={`rounded-t-none ${className}`}
+        emptyStateContent={emptyStateContent}
+        overlayElements={overlayElements}
+      />
+    );
+  }
+
+  // Default вариант - обычный header с белым фоном
   const isCenter = titleAlign === 'center';
 
   return (
@@ -19,13 +63,15 @@ export function Header({
         </div>
 
         {/* Заголовок */}
-        <h1 
-          className={`text-xl font-bold text-foreground ${
-            isCenter ? 'absolute left-1/2 -translate-x-1/2' : ''
-          }`}
-        >
-          {title}
-        </h1>
+        {title && (
+          <h1 
+            className={`text-xl font-bold text-foreground ${
+              isCenter ? 'absolute left-1/2 -translate-x-1/2' : ''
+            }`}
+          >
+            {title}
+          </h1>
+        )}
 
         {/* Правая часть */}
         <div className="flex items-center gap-2 flex-shrink-0 min-h-9">

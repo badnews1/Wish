@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import type { Wishlist, WishlistInput } from '../../entities/wishlist';
+import type { Wishlist, WishlistInput } from '@/entities/wishlist';
 import { navigationReducer, initialNavigationState } from './navigationReducer';
 import { useHomeNavigation } from './useHomeNavigation';
 import { useWishlistNavigation } from './useWishlistNavigation';
@@ -46,6 +46,16 @@ export function useAppNavigation(
     });
   }, [state.currentView, state.wishlistFormMode, state.itemFormMode, state.selectedWishlistId, state.selectedItemId]);
 
+  // Навигация к Community
+  const navigateToCommunity = useCallback(() => {
+    dispatch({ type: 'NAVIGATE_TO_COMMUNITY' });
+  }, []);
+
+  // Навигация к Profile
+  const navigateToProfile = useCallback(() => {
+    dispatch({ type: 'NAVIGATE_TO_PROFILE' });
+  }, []);
+
   return {
     // Состояние
     ...state,
@@ -61,5 +71,7 @@ export function useAppNavigation(
 
     // Базовая навигация
     navigateBack,
+    navigateToCommunity,
+    navigateToProfile,
   } as const;
 }

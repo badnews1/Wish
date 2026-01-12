@@ -4,9 +4,9 @@ import {
   Drawer,
   DrawerContent,
   DrawerTitle,
-} from '../../../components/ui/drawer';
-import { OptionSelectList } from '../OptionSelectList';
-import type { SelectOption, BaseSelectProps } from '../../model';
+} from '@/components/ui/drawer';
+import { OptionSelectList } from '@/shared/ui';
+import type { SelectOption, BaseSelectProps } from '@/shared/model';
 
 interface OptionSelectDrawerProps<T extends string> extends BaseSelectProps<T> {
   options: readonly SelectOption[];

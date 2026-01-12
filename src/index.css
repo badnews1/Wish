@@ -453,8 +453,8 @@
     top: calc(var(--spacing) * 0);
   }
 
-  .top-2 {
-    top: calc(var(--spacing) * 2);
+  .top-6 {
+    top: calc(var(--spacing) * 6);
   }
 
   .top-\[50\%\] {
@@ -469,16 +469,16 @@
     right: 33.3333%;
   }
 
-  .right-2 {
-    right: calc(var(--spacing) * 2);
+  .right-4 {
+    right: calc(var(--spacing) * 4);
   }
 
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
 
-  .bottom-2 {
-    bottom: calc(var(--spacing) * 2);
+  .bottom-4 {
+    bottom: calc(var(--spacing) * 4);
   }
 
   .bottom-\[36px\] {
@@ -501,8 +501,8 @@
     left: 33.3333%;
   }
 
-  .left-2 {
-    left: calc(var(--spacing) * 2);
+  .left-4 {
+    left: calc(var(--spacing) * 4);
   }
 
   .left-\[50\%\] {

@@ -1,4 +1,4 @@
-import type { Wishlist } from '../../../entities/wishlist';
+import type { Wishlist } from '@/entities/wishlist';
 
 export interface WishlistPageProps {
   wishlists: Wishlist[];

@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { Button } from '../../../components/ui/button';
-import { BaseDrawer } from '../BaseDrawer';
-import { RoundedButton } from '../RoundedButton';
+import { Button } from '@/components/ui/button';
+import { BaseDrawer } from '@/shared/ui';
+import { RoundedButton } from '@/shared/ui';
 import { Minus, Plus } from 'lucide-react';
-import { createCroppedImage } from '../../lib';
-import type { BaseDrawerProps } from '../../model';
+import { createCroppedImage } from '@/shared/lib';
+import type { BaseDrawerProps } from '@/shared/model';
 
 interface ImageCropDrawerProps extends BaseDrawerProps {
   imageSrc: string;

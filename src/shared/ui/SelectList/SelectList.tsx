@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react';
-import { RoundedButton } from '../RoundedButton';
-import type { SelectOption } from '../../model';
+import { RoundedButton } from '@/shared/ui';
+import type { SelectOption } from '@/shared/model';
 
 interface SingleSelectProps {
   mode: 'single';

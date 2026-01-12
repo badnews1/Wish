@@ -1,7 +1,7 @@
 export const wishlistDetailRu = {
   title: "Желания",
   tabs: {
-    active: "Актуальные",
-    fulfilled: "Выполненные"
+    active: "Актуально",
+    fulfilled: "Исполнено"
   }
 } as const;

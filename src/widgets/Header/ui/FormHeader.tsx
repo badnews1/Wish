@@ -1,8 +1,8 @@
 import React from 'react';
-import { ChevronLeft, Trash2 } from 'lucide-react';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/app';
 import { Header } from './Header';
+import { createBackButton, createDeleteButton } from '../lib';
 
 interface FormHeaderProps {
   /** Заголовок формы */
@@ -60,29 +60,5 @@ export function FormHeader({
       }
       className={className}
     />
-  );
-}
-
-function createBackButton({ onClick, ariaLabel }: { onClick: () => void, ariaLabel: string }) {
-  return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      aria-label={ariaLabel}
-    >
-      <ChevronLeft className="h-5 w-5" />
-    </Button>
-  );
-}
-
-function createDeleteButton({ onClick, ariaLabel }: { onClick: () => void, ariaLabel: string }) {
-  return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      aria-label={ariaLabel}
-    >
-      <Trash2 className="h-5 w-5" />
-    </Button>
   );
 }

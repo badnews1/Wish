@@ -2,6 +2,6 @@ export const wishlistDetailEn = {
   title: "Wishes",
   tabs: {
     active: "Active",
-    fulfilled: "Fulfilled"
+    fulfilled: "Completed"
   }
 } as const;

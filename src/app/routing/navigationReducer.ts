@@ -71,6 +71,26 @@ export function navigationReducer(state: NavigationState, action: NavigationActi
         itemFormMode: 'create',
       };
 
+    case 'NAVIGATE_TO_COMMUNITY':
+      return {
+        currentView: 'community',
+        previousView: state.currentView,
+        selectedWishlistId: null,
+        selectedItemId: null,
+        wishlistFormMode: 'create',
+        itemFormMode: 'create',
+      };
+
+    case 'NAVIGATE_TO_PROFILE':
+      return {
+        currentView: 'profile',
+        previousView: state.currentView,
+        selectedWishlistId: null,
+        selectedItemId: null,
+        wishlistFormMode: 'create',
+        itemFormMode: 'create',
+      };
+
     case 'NAVIGATE_TO_WISHLIST_DETAIL':
       return {
         currentView: 'wishlist-detail',

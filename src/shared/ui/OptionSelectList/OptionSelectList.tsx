@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
-import type { SelectOption } from '../../model';
+import type { SelectOption } from '@/shared/model';
 
 interface OptionSelectListProps<T extends string> {
   options: readonly SelectOption[];

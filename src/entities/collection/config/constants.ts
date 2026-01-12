@@ -1,4 +1,4 @@
-import type { CollectionSize } from '../model';
+import type { CollectionSize } from '@/entities/collection/model';
 
 export const ASPECT_RATIOS: Record<CollectionSize, string> = {
   small: '1 / 1',

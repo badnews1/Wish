@@ -3,6 +3,7 @@ import React from 'react';
 interface TabOption {
   id: string;
   label: string;
+  badge?: number;
 }
 
 interface UnderlinedTabsProps<T extends string = string> {
@@ -32,7 +33,14 @@ export function UnderlinedTabs<T extends string = string>({
                 ${isActive ? 'text-[var(--color-accent)]' : 'text-gray-400'}
               `}
             >
-              {tab.label}
+              <span className="inline-flex items-center gap-1.5">
+                {tab.label}
+                {tab.badge !== undefined && (
+                  <span>
+                    {tab.badge}
+                  </span>
+                )}
+              </span>
               
               {/* Подчеркивающая линия для активного таба */}
               {isActive && (

@@ -1,4 +1,4 @@
-import type { Wishlist, WishlistItem, PrivacyType } from '../../../entities/wishlist';
+import type { Wishlist, WishlistItem, PrivacyType } from '@/entities/wishlist';
 
 /**
  * ID таба страницы деталей вишлиста

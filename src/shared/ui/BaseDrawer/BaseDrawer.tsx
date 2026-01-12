@@ -5,8 +5,8 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerTitle,
-} from '../../../components/ui/drawer';
-import type { BaseDrawerProps } from '../../model';
+} from '@/components/ui/drawer';
+import type { BaseDrawerProps } from '@/shared/model';
 
 interface BaseDrawerWrapperProps extends BaseDrawerProps {
   children: React.ReactNode;

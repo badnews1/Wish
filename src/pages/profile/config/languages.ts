@@ -1,4 +1,4 @@
-import type { Language } from '../../../app';
+import type { Language } from '@/app';
 
 /**
  * Опции выбора языка приложения

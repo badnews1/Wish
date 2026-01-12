@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { Wishlist, WishlistItem } from '../../entities/wishlist';
+import type { Wishlist, WishlistItem } from '@/entities/wishlist';
 
 /**
  * Композиционный хук для навигации по желаниям

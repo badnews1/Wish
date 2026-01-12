@@ -1,4 +1,4 @@
-import type { ParsedProduct } from '../../../features/product-parser';
+import type { ParsedProduct } from '@/features/product-parser';
 
 /**
  * Создаёт обработчик автозаполнения формы из распарсенного товара

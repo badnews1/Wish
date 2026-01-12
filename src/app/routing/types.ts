@@ -3,7 +3,7 @@
  * @module app/routing/types
  */
 
-import type { Wishlist, WishlistInput, WishlistItem } from '../../entities/wishlist';
+import type { Wishlist, WishlistInput, WishlistItem } from '@/entities/wishlist';
 
 /**
  * ID таба главной страницы (внутренние названия навигации)
@@ -32,7 +32,9 @@ export type NavigationView =
   | 'wishlist-detail' 
   | 'wishlist-form'
   | 'item-form'
-  | 'item-detail';
+  | 'item-detail'
+  | 'community'
+  | 'profile';
 
 /**
  * Состояние навигации приложения
@@ -62,6 +64,8 @@ export type NavigationAction =
   | { type: 'NAVIGATE_TO_CREATE_ITEM'; payload: string }
   | { type: 'NAVIGATE_TO_EDIT_ITEM'; payload: { wishlistId: string; itemId: string } }
   | { type: 'NAVIGATE_TO_ITEM_DETAIL'; payload: { wishlistId: string; itemId: string } }
+  | { type: 'NAVIGATE_TO_COMMUNITY' }
+  | { type: 'NAVIGATE_TO_PROFILE' }
   | { type: 'NAVIGATE_BACK'; payload: { currentView: NavigationView; formMode: 'create' | 'edit'; itemFormMode: 'create' | 'edit'; wishlistId: string | null; itemId: string | null } };
 
 /**
@@ -89,6 +93,8 @@ export interface AppRouterProps {
   navigateToCreateItem: (wishlistId: string) => void;
   navigateToEditItem: (wishlistId: string, itemId: string) => void;
   navigateToItemDetail: (wishlistId: string, itemId: string) => void;
+  navigateToCommunity: () => void;
+  navigateToProfile: () => void;
 
   // Действия
   handleCreateWishlist: (data: WishlistInput) => void;

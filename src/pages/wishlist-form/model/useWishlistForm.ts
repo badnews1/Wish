@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { type PrivacyType, type BookingVisibilityType } from '../../../entities/wishlist';
-import { DEFAULT_ICON_ID } from '../../../features/create-wishlist/config';
-import type { CreateWishlistForm } from '../../../features/create-wishlist';
-import { useMultipleDrawers, useImageUploadCrop, IMAGE_PRESETS } from '../../../shared/lib';
+import { type PrivacyType, type BookingVisibilityType } from '@/entities/wishlist';
+import { DEFAULT_ICON_ID } from '@/features/create-wishlist/config';
+import type { CreateWishlistForm } from '@/features/create-wishlist';
+import { useMultipleDrawers, useImageUploadCrop, IMAGE_PRESETS } from '@/shared/lib';
 import { useWishlistFormState } from './formState';
 import { useWishlistFormHandlers } from './formHandlers';
 import { useTranslation } from '@/app';

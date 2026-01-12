@@ -1,6 +1,6 @@
 import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
 import { generateId, useLocalStorage } from '@/shared/lib';
-import { WISHLIST_STORAGE_KEY } from '../config';
+import { WISHLIST_STORAGE_KEY } from '@/entities/wishlist/config';
 
 // Парсер для конвертации дат из строк в Date объекты
 function parseWishlists(data: any[]): Wishlist[] {

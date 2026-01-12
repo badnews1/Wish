@@ -1,7 +1,6 @@
-import type { ItemCategory } from '../model';
 import { getTranslation } from '@/app/config/i18n';
 import type { Language } from '@/app';
-import { CATEGORIES } from '../config';
+import { CATEGORIES } from '@/features/create-wishlist-item/config';
 
 /**
  * Получить название категории по ID

@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import type { BottomMenuItemId } from '../../../shared/config/navigation';
+import type { BottomMenuItemId } from '@/shared/config';
 
 /**
  * Конфигурация всплывающей карточки для создания

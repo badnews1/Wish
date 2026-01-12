@@ -68,11 +68,11 @@ const SIZE_MAP: Record<ImageOverlaySize, string> = {
 };
 
 const POSITION_MAP: Record<ImageOverlayPosition, string> = {
-  'top-left': 'top-2 left-2',
-  'top-right': 'top-2 right-2',
-  'bottom-left': 'bottom-2 left-2',
-  'bottom-right': 'bottom-2 right-2',
-  'top-center': 'top-2 left-1/2 -translate-x-1/2'
+  'top-left': 'top-6 left-4',
+  'top-right': 'top-6 right-4',
+  'bottom-left': 'bottom-4 left-4',
+  'bottom-right': 'bottom-4 right-4',
+  'top-center': 'top-6 left-1/2 -translate-x-1/2'
 };
 
 const ROUNDED_MAP = {

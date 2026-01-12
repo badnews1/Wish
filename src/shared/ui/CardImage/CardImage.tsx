@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageWithFallback } from '../../../components/figma/ImageWithFallback';
+import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 
 interface CardImageProps {
   imageUrl?: string;

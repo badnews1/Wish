@@ -1,4 +1,4 @@
-import type { GiftTag } from '../../../entities/wishlist';
+import type { GiftTag } from '@/entities/wishlist';
 
 /**
  * Форма создания/редактирования элемента вишлиста

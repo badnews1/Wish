@@ -1,5 +1,5 @@
-import type { GiftTag } from '../model';
-import { GIFT_TAG_OPTIONS, GIFT_TAG_STYLES } from '../config';
+import type { GiftTag } from '@/entities/wishlist/model';
+import { GIFT_TAG_OPTIONS, GIFT_TAG_STYLES } from '@/entities/wishlist/config';
 
 /**
  * Получить название метки по ID

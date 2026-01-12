@@ -1,5 +1,5 @@
-import type { Wishlist, WishlistItem } from '../../../entities/wishlist';
-import type { CreateWishlistItemForm } from '../../../features/create-wishlist-item';
+import type { Wishlist, WishlistItem } from '@/entities/wishlist';
+import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
 
 export interface WishlistItemFormPageProps {
   wishlists: Wishlist[];

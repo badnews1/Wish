@@ -1,4 +1,4 @@
-import type { CreateWishlistForm } from '../../../features/create-wishlist';
+import type { CreateWishlistForm } from '@/features/create-wishlist';
 
 export interface WishlistFormPageProps {
   onBack: () => void;

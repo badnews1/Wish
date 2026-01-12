@@ -1,13 +1,13 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import { BottomMenuFloatingButton } from './BottomMenuFloatingButton';
-import { FloatingCard } from '../../../shared/ui';
-import { useClickOutside } from '../../../shared/lib/hooks';
-import { BOTTOM_MENU_ITEMS } from '../../../shared/config';
+import { FloatingCard } from '@/shared/ui';
+import { useClickOutside } from '@/shared/lib/hooks';
+import { BOTTOM_MENU_ITEMS } from '@/shared/config';
 import { FLOATING_CARDS } from '../config';
 import { useTranslation } from '@/app';
-import type { BottomMenuItemId } from '../../../shared/config/navigation';
+import type { BottomMenuItemId } from '@/shared/config/navigation';
 import type { BottomMenuProps } from '../model';
 
 export function BottomMenu({ activeMenuItem, onMenuItemChange, onSelectWishlist, onSelectWish }: BottomMenuProps) {
