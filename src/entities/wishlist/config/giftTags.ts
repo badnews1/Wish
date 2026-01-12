@@ -1,5 +1,5 @@
-import type { GiftTag } from '@/entities/wishlist/model';
 import type { SelectOption } from '@/shared/model';
+import type { GiftTag } from '../model';
 
 /**
  * Конфигурация меток подарка

@@ -96,17 +96,6 @@ export async function compressImage(
             result = canvas.toDataURL('image/jpeg', quality);
             currentSize = Math.round((result.length * 3) / 4);
           }
-
-          const finalSizeKB = Math.round(currentSize / 1024);
-          console.log(
-            `✅ Изображение сжато: ${width}x${height}px, ${finalSizeKB}KB (качество: ${Math.round(quality * 100)}%)`
-          );
-        } else {
-          const currentSize = Math.round((result.length * 3) / 4);
-          const finalSizeKB = Math.round(currentSize / 1024);
-          console.log(
-            `✅ Изображение обработано: ${width}x${height}px, ${finalSizeKB}KB (качество: ${Math.round(quality * 100)}%)`
-          );
         }
 
         resolve(result);

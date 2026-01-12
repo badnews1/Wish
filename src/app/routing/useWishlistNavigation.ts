@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
 import type { Wishlist, WishlistInput } from '@/entities/wishlist';
+import type { NavigationAction } from './types';
 
 /**
  * Композиционный хук для навигации по вишлистам
  */
 export function useWishlistNavigation(
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<NavigationAction>,
   wishlists: Wishlist[],
   selectedWishlistId: string | null,
   onCreateWishlist: (data: WishlistInput) => void,

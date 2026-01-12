@@ -9,7 +9,7 @@ export function WishlistDetailPage({
   onEdit,
   onAddItem,
   onItemClick
-}: WishlistDetailPageProps) {
+}: WishlistDetailPageProps): JSX.Element {
   return (
     <div className="min-h-screen bg-white pb-32">
       {/* Обложка вишлиста */}

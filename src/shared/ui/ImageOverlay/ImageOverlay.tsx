@@ -205,8 +205,8 @@ export function ImageOverlay({
       )}
 
       {/* Множественные overlay элементы */}
-      {overlayElements?.map((item, index) => (
-        <div key={index} className={`absolute ${POSITION_MAP[item.position]}`}>
+      {overlayElements?.map((item) => (
+        <div key={item.position} className={`absolute ${POSITION_MAP[item.position]}`}>
           {item.element}
         </div>
       ))}

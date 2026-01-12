@@ -4,9 +4,8 @@ import { toast } from 'sonner@2.0.3';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/app';
-
 import { parseProductUrl } from '../api/parseProduct';
-import type { ParsedProduct, ParserStatus, ParserError } from '../model';
+import type { ParsedProduct, ParserStatus, ParserError } from '../model/productParser';
 
 interface ProductUrlInputProps {
   value: string;
@@ -24,11 +23,11 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
       const text = await navigator.clipboard.readText();
       if (text) {
         onChange(text);
-        toast.success(t('productParser.toast.linkPasted'));
+        toast.success(t('createWishlistItem.productParser.toast.linkPasted'));
       }
     } catch (error) {
-      toast.error(t('productParser.toast.pasteError'), {
-        description: t('productParser.toast.pasteErrorDescription')
+      toast.error(t('createWishlistItem.productParser.toast.pasteError'), {
+        description: t('createWishlistItem.productParser.toast.pasteErrorDescription')
       });
     }
   };
@@ -55,20 +54,20 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
         setShowSuccess(false);
       }, 1000);
 
-      toast.success(t('productParser.toast.dataLoadedSuccess'), {
-        description: t('productParser.toast.dataLoadedDescription')
+      toast.success(t('createWishlistItem.productParser.toast.dataLoadedSuccess'), {
+        description: t('createWishlistItem.productParser.toast.dataLoadedDescription')
       });
 
       onParsed(parsedProduct);
-    } catch (error: any) {
+    } catch (error: unknown) {
       setStatus('error');
       
       // Переводим код ошибки, если есть, иначе используем fallback
-      const errorMessage = error?.code 
-        ? t(`productParser.errors.${error.code}`)
-        : t('productParser.toast.loadErrorDescription');
+      const errorMessage = (error as ParserError)?.code 
+        ? t(`createWishlistItem.productParser.errors.${(error as ParserError).code}`)
+        : t('createWishlistItem.productParser.toast.loadErrorDescription');
       
-      toast.error(t('productParser.toast.loadError'), {
+      toast.error(t('createWishlistItem.productParser.toast.loadError'), {
         description: errorMessage
       });
       
@@ -90,7 +89,7 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
         <div className="flex-1 relative">
           <Input
             type="url"
-            placeholder={t('productParser.ui.urlPlaceholder')}
+            placeholder={t('createWishlistItem.productParser.ui.urlPlaceholder')}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={isLoading}
@@ -105,7 +104,7 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
           shape="square"
           onClick={isEmpty ? handlePaste : handleClear}
           disabled={isLoading}
-          aria-label={isEmpty ? t('productParser.ui.pasteAria') : t('productParser.ui.clearAria')}
+          aria-label={isEmpty ? t('createWishlistItem.productParser.ui.pasteAria') : t('createWishlistItem.productParser.ui.clearAria')}
           className="flex-shrink-0"
         >
           {isEmpty ? (
@@ -122,7 +121,7 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
           shape="square"
           onClick={handleSync}
           disabled={isDisabled}
-          aria-label={t('productParser.ui.syncAria')}
+          aria-label={t('createWishlistItem.productParser.ui.syncAria')}
           className="flex-shrink-0"
         >
           {isLoading ? (
@@ -138,7 +137,7 @@ export function ProductUrlInput({ value, onChange, onParsed }: ProductUrlInputPr
       </div>
 
       <p className="text-sm text-white/80">
-        {t('productParser.ui.hint')}
+        {t('createWishlistItem.productParser.ui.hint')}
       </p>
     </div>
   );

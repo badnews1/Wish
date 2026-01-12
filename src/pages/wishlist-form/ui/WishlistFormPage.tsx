@@ -4,6 +4,7 @@ import { RoundedButton, ConfirmDialog } from '@/shared/ui';
 import { useTranslation } from '@/app';
 import type { CreateWishlistForm } from '@/features/create-wishlist';
 import { 
+  useWishlistForm,
   DatePickerDrawer,
   PrivacySelectDrawer,
   BookingVisibilityDrawer,
@@ -13,8 +14,7 @@ import {
   TitleWithIconSection,
   DescriptionSection,
   SettingsSection
-} from '@/features/create-wishlist/ui';
-import { useWishlistForm } from '../model';
+} from '@/features/create-wishlist';
 import type { WishlistFormPageProps } from '../model';
 
 export function WishlistFormPage({ 
@@ -23,7 +23,7 @@ export function WishlistFormPage({
   onDelete,
   initialData,
   mode = 'create'
-}: WishlistFormPageProps) {
+}: WishlistFormPageProps): JSX.Element {
   const { t } = useTranslation();
   const {
     formState,

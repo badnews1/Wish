@@ -1,20 +1,37 @@
-import { useWishlists } from '@/entities/wishlist';
+import { useEffect } from 'react';
 import { useAppNavigation, useBottomMenuNavigation, useHomeTabsLogic, AppRouter, useWishlistActions, useItemActions } from '@/app';
 import { BottomMenu } from '@/widgets/BottomMenu';
-import { useEffect } from 'react';
+import { useWishlists } from '@/entities/wishlist';
+import type { NavigationView } from '@/app';
+import type { MenuItemId } from '@/widgets/BottomMenu';
 
-function App() {
+/**
+ * Определить активный пункт меню на основе текущего view
+ */
+function getMenuItemByView(view: NavigationView): MenuItemId {
+  if (view === 'wishlist' || view === 'wishlist-detail') {
+    return 'wishlist';
+  }
+  if (view.startsWith('home')) {
+    return 'home';
+  }
+  if (view === 'community') {
+    return 'community';
+  }
+  if (view === 'profile') {
+    return 'profile';
+  }
+  return 'home'; // fallback
+}
+
+function App(): JSX.Element {
   const { wishlists, addWishlist, updateWishlist, removeWishlist, addWishlistItem, updateWishlistItem, removeWishlistItem } = useWishlists();
 
   // Main navigation with callbacks
   const navigation = useAppNavigation(
     wishlists,
-    (data) => {
-      addWishlist(data);
-    },
-    (id, data) => {
-      updateWishlist(id, data);
-    }
+    addWishlist,
+    updateWishlist
   );
 
   // Bottom menu navigation with callbacks
@@ -27,31 +44,9 @@ function App() {
 
   // Синхронизация activeMenuItem с currentView
   useEffect(() => {
-    const view = navigation.currentView;
-    
-    // Если мы на странице вишлистов или детальной странице вишлиста
-    if (view === 'wishlist' || view === 'wishlist-detail') {
-      if (activeMenuItem !== 'wishlist') {
-        switchToMenuItem('wishlist');
-      }
-    }
-    // Если мы на любой странице home
-    else if (view.startsWith('home')) {
-      if (activeMenuItem !== 'home') {
-        switchToMenuItem('home');
-      }
-    }
-    // Если мы на странице community
-    else if (view === 'community') {
-      if (activeMenuItem !== 'community') {
-        switchToMenuItem('community');
-      }
-    }
-    // Если мы на странице profile
-    else if (view === 'profile') {
-      if (activeMenuItem !== 'profile') {
-        switchToMenuItem('profile');
-      }
+    const expectedMenuItem = getMenuItemByView(navigation.currentView);
+    if (activeMenuItem !== expectedMenuItem) {
+      switchToMenuItem(expectedMenuItem);
     }
   }, [navigation.currentView, activeMenuItem, switchToMenuItem]);
 

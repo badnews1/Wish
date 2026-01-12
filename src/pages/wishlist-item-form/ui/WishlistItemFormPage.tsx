@@ -8,11 +8,11 @@ import {
   ItemImageCropDrawer,
   PriceInput,
   WishlistSelectSection,
-} from '@/features/create-wishlist-item/ui';
-import { ProductUrlInput } from '@/features/product-parser';
+  useWishlistItemForm,
+  ProductUrlInput,
+} from '@/features/create-wishlist-item';
 import type { Wishlist, WishlistItem } from '@/entities/wishlist';
 import type { WishlistItemFormPageProps } from '../model';
-import { useWishlistItemForm } from '../model';
 
 export function WishlistItemFormPage({ 
   wishlists,
@@ -22,7 +22,7 @@ export function WishlistItemFormPage({
   onSubmit,
   onDelete,
   mode = 'create'
-}: WishlistItemFormPageProps) {
+}: WishlistItemFormPageProps): JSX.Element {
   const { t } = useTranslation();
   const {
     formState,

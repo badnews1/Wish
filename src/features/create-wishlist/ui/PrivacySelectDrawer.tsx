@@ -1,7 +1,7 @@
 import React from 'react';
 import { OptionSelectDrawer } from '@/shared/ui/OptionSelectDrawer';
 import { useTranslation } from '@/app';
-import { PRIVACY_OPTIONS } from '../config';
+import { PRIVACY_OPTIONS } from '@/entities/wishlist';
 import type { PrivacyType } from '@/entities/wishlist';
 import type { BaseSelectProps } from '@/shared/model';
 

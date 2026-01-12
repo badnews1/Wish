@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
+import { WISHLIST_ICONS } from '@/shared/config';
+import { formatDate } from '@/shared/lib';
 import { WISHLIST_ASPECT_RATIO, WISHLIST_ASPECT_RATIO_HORIZONTAL } from '../../config';
 import type { WishlistVariant } from '../../config';
-import { WISHLIST_ICONS } from '@/shared/config';
 import { formatItemCount } from '../../lib';
-import { formatDate } from '@/shared/lib';
 
 interface WishlistCardProps {
   title: string;

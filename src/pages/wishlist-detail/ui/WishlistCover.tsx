@@ -12,7 +12,7 @@ export function WishlistCover({
   title,
   onBack,
   onEdit
-}: WishlistCoverProps) {
+}: WishlistCoverProps): JSX.Element {
   return (
     <Header
       variant="overlay"

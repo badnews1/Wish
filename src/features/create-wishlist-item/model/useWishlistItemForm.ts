@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Wishlist, WishlistItem, GiftTag } from '@/entities/wishlist';
-import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
-import type { ParsedProduct } from '@/features/product-parser';
+import type { CreateWishlistItemForm } from './types';
+import type { ParsedProduct } from './productParser';
 import { useMultipleDrawers, useImageUploadCrop } from '@/shared/lib';
-import { createProductParsedHandler } from '../lib';
 import { useTranslation } from '@/app';
+import { createProductParsedHandler } from '../lib';
 
 interface UseWishlistItemFormProps {
   wishlists: Wishlist[];

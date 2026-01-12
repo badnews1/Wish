@@ -2,6 +2,12 @@ import { useState, useCallback, useMemo } from 'react';
 import type { BottomMenuItemId, BottomMenuNavigationMap } from '@/shared/config';
 import { isValidBottomMenuId, createBottomMenuNavigator } from '@/shared/config';
 
+interface UseBottomMenuNavigationReturn {
+  activeMenuItem: BottomMenuItemId;
+  handleMenuItemChange: (itemId: BottomMenuItemId) => void;
+  switchToMenuItem: (itemId: Exclude<BottomMenuItemId, 'add'>) => void;
+}
+
 /**
  * Хук для управления переключением элементов нижнего меню приложения
  */
@@ -10,7 +16,7 @@ export function useBottomMenuNavigation(
   onNavigateToWishlist: () => void,
   onNavigateToCommunity?: () => void,
   onNavigateToProfile?: () => void
-) {
+): UseBottomMenuNavigationReturn {
   const [activeMenuItem, setActiveMenuItem] = useState<BottomMenuItemId>('home');
 
   // ✅ Создаём связь между конфигурацией и логикой навигации

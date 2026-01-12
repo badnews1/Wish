@@ -10,8 +10,8 @@ import { useState, useEffect, useCallback } from 'react';
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  parser?: (data: any) => T
-) {
+  parser?: (data: unknown) => T
+): readonly [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   // Инициализация состояния из localStorage
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
@@ -21,7 +21,7 @@ export function useLocalStorage<T>(
       const parsed = JSON.parse(item);
       return parser ? parser(parsed) : parsed;
     } catch (error) {
-      console.error(`Ошибка загрузки данных из localStorage [${key}]:`, error);
+      // Возвращаем начальное значение при ошибке
       return initialValue;
     }
   });
@@ -32,7 +32,7 @@ export function useLocalStorage<T>(
       const dataString = JSON.stringify(storedValue);
       localStorage.setItem(key, dataString);
     } catch (error) {
-      console.error(`Ошибка сохранения данных в localStorage [${key}]:`, error);
+      // Тихо пропускаем ошибки сохранения
     }
   }, [key, storedValue]);
 
@@ -42,7 +42,7 @@ export function useLocalStorage<T>(
       localStorage.removeItem(key);
       setStoredValue(initialValue);
     } catch (error) {
-      console.error(`Ошибка удаления данных из localStorage [${key}]:`, error);
+      // Тихо пропускаем ошибки удаления
     }
   }, [key, initialValue]);
 

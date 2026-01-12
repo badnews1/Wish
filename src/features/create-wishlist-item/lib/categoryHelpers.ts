@@ -1,6 +1,6 @@
 import { getTranslation } from '@/app/config/i18n';
 import type { Language } from '@/app';
-import { CATEGORIES } from '@/features/create-wishlist-item/config';
+import { CATEGORIES } from '../config';
 
 /**
  * Получить название категории по ID

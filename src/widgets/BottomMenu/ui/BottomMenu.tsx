@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FloatingCard } from '@/shared/ui';
-import { useClickOutside } from '@/shared/lib/hooks';
+import { useClickOutside } from '@/shared/lib';
 import { BOTTOM_MENU_ITEMS, type BottomMenuItemId } from '@/shared/config';
-import { FLOATING_CARDS } from '../config';
 import { useTranslation } from '@/app';
+import { FLOATING_CARDS } from '../config';
 import type { BottomMenuProps } from '../model';
 
-export function BottomMenu({ activeMenuItem, onMenuItemChange, onSelectWishlist, onSelectWish }: BottomMenuProps) {
-  const [isAddMenuOpen, setIsAddMenuOpen] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
+export function BottomMenu({ activeMenuItem, onMenuItemChange, onSelectWishlist, onSelectWish }: BottomMenuProps): JSX.Element {
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
   const handleAddClick = () => {

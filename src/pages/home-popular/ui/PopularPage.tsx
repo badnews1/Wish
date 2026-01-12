@@ -1,6 +1,6 @@
 import { useTranslation } from '@/app';
 
-export function PopularPage() {
+export function PopularPage(): JSX.Element {
   const { t } = useTranslation();
 
   return (

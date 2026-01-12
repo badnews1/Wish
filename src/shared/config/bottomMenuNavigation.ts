@@ -20,7 +20,7 @@ export type BottomMenuNavigationMap = Record<
  * Создаёт хелпер для навигации по нижнему меню
  * Предотвращает рассинхронизацию между конфигурацией и логикой
  */
-export function createBottomMenuNavigator(navigationMap: BottomMenuNavigationMap) {
+export function createBottomMenuNavigator(navigationMap: BottomMenuNavigationMap): (itemId: BottomMenuItemId) => void {
   return (itemId: BottomMenuItemId): void => {
     // Специальная кнопка "add" не вызывает навигацию
     if (itemId === 'add') {
@@ -29,7 +29,7 @@ export function createBottomMenuNavigator(navigationMap: BottomMenuNavigationMap
 
     const handler = navigationMap[itemId];
     if (!handler) {
-      console.error(`No navigation handler found for bottom menu item: ${itemId}`);
+      // Пропускаем навигацию если обработчик не найден
       return;
     }
     handler();

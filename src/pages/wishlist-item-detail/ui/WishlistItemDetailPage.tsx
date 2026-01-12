@@ -12,7 +12,7 @@ export function WishlistItemDetailPage({
   onEdit,
   onWishlistClick,
   onToggleFulfilled
-}: WishlistItemDetailPageProps) {
+}: WishlistItemDetailPageProps): JSX.Element {
   return (
     <div className="min-h-screen bg-white pb-32">
       {/* Изображение товара */}

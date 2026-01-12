@@ -1,8 +1,6 @@
 import React from 'react';
-import { BaseDrawer, RoundedButton } from '@/shared/ui';
-import { SelectList } from '@/shared/ui';
-import type { Language } from '@/app';
-import { useTranslation } from '@/app';
+import { BaseDrawer, RoundedButton, SelectList } from '@/shared/ui';
+import { useTranslation, type Language } from '@/app';
 import { LANGUAGE_OPTIONS } from '../config';
 
 interface LanguageDrawerProps {
@@ -12,7 +10,7 @@ interface LanguageDrawerProps {
   onSelect: (language: Language) => void;
 }
 
-export function LanguageDrawer({ open, onOpenChange, selected, onSelect }: LanguageDrawerProps) {
+export function LanguageDrawer({ open, onOpenChange, selected, onSelect }: LanguageDrawerProps): JSX.Element {
   const { t } = useTranslation();
   
   const handleSelect = (languageId: string) => {

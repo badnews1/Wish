@@ -24,6 +24,3 @@ export { useItemActions } from './useItemActions';
 
 // Конвертеры
 export { convertWishlistFormToInput, convertItemFormToInput } from './converters';
-
-// Навигация по табам
-export * from './homeTabNavigation';

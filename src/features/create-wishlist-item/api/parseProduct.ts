@@ -1,5 +1,5 @@
-import type { ParsedProduct, ParserError } from '@/features/product-parser/model';
-import { getMockProductByUrl } from '@/features/product-parser/model';
+import type { ParsedProduct, ParserError } from '../model/productParser';
+import { getMockProductByUrl } from '../model/productParser';
 
 /**
  * API-заглушка для парсинга товаров по URL

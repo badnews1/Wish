@@ -3,11 +3,11 @@ import { Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RoundedButton } from '@/shared/ui/RoundedButton';
 import { Header } from '@/widgets/Header';
-import { homeTabs } from '../config';
 import { useTranslation } from '@/app';
+import { homeTabs } from '../config';
 import type { HomePageProps } from '../model';
 
-export function HomePage({ currentSubPage, onTabChange, children }: HomePageProps) {
+export function HomePage({ currentSubPage, onTabChange, children }: HomePageProps): JSX.Element {
   const { t } = useTranslation();
 
   return (
@@ -18,7 +18,7 @@ export function HomePage({ currentSubPage, onTabChange, children }: HomePageProp
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => console.log('Notifications clicked')}
+            onClick={() => {/* TODO: Реализовать уведомления */}}
             className="active:scale-90 transition-transform"
           >
             <Bell className="w-6 h-6" strokeWidth={2} />

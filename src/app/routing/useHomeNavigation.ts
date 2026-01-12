@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { NavigationView, HomeTabId } from './types';
+import type { NavigationView, HomeTabId, NavigationAction } from './types';
 import { isValidHomeTabId } from './types';
 import type { HomeTabNavigationMap } from './homeTabNavigation';
 import { createHomeTabNavigator } from './homeTabNavigation';
@@ -7,7 +7,7 @@ import { createHomeTabNavigator } from './homeTabNavigation';
 /**
  * Композиционный хук для навигации по табам главной страницы
  */
-export function useHomeNavigation(dispatch: React.Dispatch<any>) {
+export function useHomeNavigation(dispatch: React.Dispatch<NavigationAction>) {
   // Навигация на главную
   const navigateToHome = useCallback(() => {
     dispatch({ type: 'NAVIGATE_TO_HOME' });

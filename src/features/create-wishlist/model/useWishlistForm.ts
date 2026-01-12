@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { type PrivacyType, type BookingVisibilityType } from '@/entities/wishlist';
-import { DEFAULT_ICON_ID } from '@/features/create-wishlist/config';
-import type { CreateWishlistForm } from '@/features/create-wishlist';
+import { DEFAULT_ICON_ID } from '@/shared/config';
+import type { CreateWishlistForm } from './types';
 import { useMultipleDrawers, useImageUploadCrop, IMAGE_PRESETS } from '@/shared/lib';
+import { useTranslation } from '@/app';
 import { useWishlistFormState } from './formState';
 import { useWishlistFormHandlers } from './formHandlers';
-import { useTranslation } from '@/app';
 
 interface UseWishlistFormProps {
   initialData?: Partial<CreateWishlistForm>;

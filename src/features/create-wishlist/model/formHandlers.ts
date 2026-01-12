@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { type PrivacyType, type BookingVisibilityType } from '@/entities/wishlist';
-import type { CreateWishlistForm } from '@/features/create-wishlist';
+import type { CreateWishlistForm } from './types';
 
 interface UseWishlistFormHandlersProps {
   // State values

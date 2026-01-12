@@ -15,8 +15,3 @@ export const LANGUAGE_OPTIONS = [
     icon: '🇬🇧'
   }
 ] as const;
-
-/**
- * Тип опции языка
- */
-export type LanguageOption = typeof LANGUAGE_OPTIONS[number];

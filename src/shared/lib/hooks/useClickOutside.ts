@@ -10,7 +10,7 @@ export function useClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   handler: (event: MouseEvent | TouchEvent) => void,
   isActive: boolean = true
-) {
+): void {
   useEffect(() => {
     if (!isActive) return;
 

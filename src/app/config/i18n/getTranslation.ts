@@ -1,4 +1,4 @@
-import { translations, type Language } from './index';
+import { translations, type Language } from './translations';
 
 /**
  * Получить перевод по ключу из распределённой системы переводов
@@ -19,22 +19,20 @@ export function getTranslation(
   params?: Record<string, string | number>
 ): string {
   const keys = key.split('.');
-  let value: any = translations[language];
+  let value: Record<string, unknown> | string | undefined = translations[language];
 
   // Навигация по вложенной структуре
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
-      value = value[k];
+      value = value[k] as Record<string, unknown> | string;
     } else {
       // Перевод не найден - возвращаем ключ
-      console.warn(`Translation not found: ${key} (${language})`);
       return key;
     }
   }
 
   // Если значение не строка - возвращаем ключ
   if (typeof value !== 'string') {
-    console.warn(`Translation value is not a string: ${key} (${language})`);
     return key;
   }
 

@@ -1,5 +1,6 @@
 import { useReducer, useCallback } from 'react';
 import type { Wishlist, WishlistInput } from '@/entities/wishlist';
+import type { NavigationAction } from './types';
 import { navigationReducer, initialNavigationState } from './navigationReducer';
 import { useHomeNavigation } from './useHomeNavigation';
 import { useWishlistNavigation } from './useWishlistNavigation';

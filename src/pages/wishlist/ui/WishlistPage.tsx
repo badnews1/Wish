@@ -1,11 +1,10 @@
 import React from 'react';
 import { Header } from '@/widgets/Header';
-import { WishlistCard } from '@/entities/wishlist';
+import { WishlistCard, type Wishlist } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
-import type { Wishlist } from '@/entities/wishlist';
 import type { WishlistPageProps } from '../model';
 
-export function WishlistPage({ wishlists, onWishlistClick }: WishlistPageProps) {
+export function WishlistPage({ wishlists, onWishlistClick }: WishlistPageProps): JSX.Element {
   const { t, language } = useTranslation();
 
   return (

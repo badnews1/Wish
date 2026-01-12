@@ -15,7 +15,7 @@ export function Header({
   emptyStateContent,
   bottomOverlayElements,
   className = ''
-}: HeaderProps) {
+}: HeaderProps): JSX.Element {
   // Overlay вариант - header над изображением
   if (variant === 'overlay') {
     const overlayElements = [

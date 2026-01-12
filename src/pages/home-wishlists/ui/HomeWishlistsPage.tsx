@@ -1,6 +1,6 @@
 import { useTranslation } from '@/app';
 
-export function HomeWishlistsPage() {
+export function HomeWishlistsPage(): JSX.Element {
   const { t } = useTranslation();
 
   return (

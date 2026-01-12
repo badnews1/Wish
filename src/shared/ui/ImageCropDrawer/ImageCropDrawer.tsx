@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { Button } from '@/components/ui/button';
-import { BaseDrawer } from '@/shared/ui';
-import { RoundedButton } from '@/shared/ui';
 import { Minus, Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { BaseDrawer, RoundedButton } from '@/shared/ui';
 import { createCroppedImage } from '@/shared/lib';
 import type { BaseDrawerProps } from '@/shared/model';
 
@@ -65,7 +64,7 @@ export function ImageCropDrawer({
       onConfirm(croppedImage);
       onOpenChange(false);
     } catch (error) {
-      console.error(cropErrorLabel, error);
+      // Тихо обрабатываем ошибку crop - пользователь может попробовать снова
     }
   };
 

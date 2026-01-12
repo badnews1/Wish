@@ -4,9 +4,8 @@
  */
 
 import type { CreateWishlistForm } from '@/features/create-wishlist';
-import type { WishlistInput } from '@/entities/wishlist';
 import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
-import type { WishlistItemInput } from '@/entities/wishlist';
+import type { WishlistInput, WishlistItemInput } from '@/entities/wishlist';
 
 /**
  * Конвертирует данные формы создания вишлиста в формат для сохранения

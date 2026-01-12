@@ -3,7 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import { SelectButton, ToggleSwitch } from '@/shared/ui';
 import { formatDate } from '@/shared/lib';
 import { useTranslation } from '@/app';
-import { PRIVACY_OPTIONS, BOOKING_VISIBILITY_OPTIONS } from '../config';
+import { PRIVACY_OPTIONS, BOOKING_VISIBILITY_OPTIONS } from '@/entities/wishlist';
 import type { PrivacyType, BookingVisibilityType } from '@/entities/wishlist';
 
 interface SettingsSectionProps {

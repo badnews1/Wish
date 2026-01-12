@@ -1,7 +1,7 @@
 import React from 'react';
 import { OptionSelectDrawer } from '@/shared/ui/OptionSelectDrawer';
 import { useTranslation } from '@/app';
-import { BOOKING_VISIBILITY_OPTIONS } from '../config';
+import { BOOKING_VISIBILITY_OPTIONS } from '@/entities/wishlist';
 import type { BookingVisibilityType } from '@/entities/wishlist';
 import type { BaseSelectProps } from '@/shared/model';
 

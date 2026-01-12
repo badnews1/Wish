@@ -1,4 +1,24 @@
-import type { ParsedProduct } from './types';
+/**
+ * Типы для парсера товаров
+ */
+
+export interface ParsedProduct {
+  title: string;
+  description?: string;
+  price?: number;
+  currency?: string;
+  imageUrl?: string;
+  additionalImages?: string[];
+  brand?: string;
+  sizes?: string[];
+  color?: string;
+}
+
+export type ParserStatus = 'idle' | 'loading' | 'success' | 'error';
+
+export interface ParserError {
+  code: 'INVALID_URL' | 'PARSE_ERROR' | 'NETWORK_ERROR' | 'UNSUPPORTED_SITE';
+}
 
 // Моковые данные для демонстрации автозаполнения
 export const MOCK_PARSED_PRODUCTS: Record<string, ParsedProduct> = {
@@ -36,7 +56,9 @@ export const MOCK_PARSED_PRODUCTS: Record<string, ParsedProduct> = {
   }
 };
 
-// Функция для получения mock-данных на основе URL
+/**
+ * Функция для получения mock-данных на основе URL
+ */
 export function getMockProductByUrl(url: string): ParsedProduct {
   const hostname = new URL(url).hostname.toLowerCase();
   

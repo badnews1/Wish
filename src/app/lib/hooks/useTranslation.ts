@@ -1,5 +1,10 @@
-import { useLanguageStore } from '@/app/store';
-import { getTranslation } from '@/app/config/i18n';
+import { useLanguageStore } from '../../store';
+import { getTranslation } from '../../config/i18n';
+
+interface UseTranslationReturn {
+  t: (key: string, params?: Record<string, string | number>) => string;
+  language: string;
+}
 
 /**
  * Хук для работы с переводами приложения
@@ -20,7 +25,7 @@ import { getTranslation } from '@/app/config/i18n';
  * t('imageUpload.fileTooLarge', { maxSize: 5 }) 
  * // 'Размер файла слишком большой. Максимальный размер: 5MB.'
  */
-export function useTranslation() {
+export function useTranslation(): UseTranslationReturn {
   const { language } = useLanguageStore();
   
   /**
@@ -30,7 +35,7 @@ export function useTranslation() {
    * @param params - Параметры для подстановки (например, { maxSize: 5 })
    * @returns Переведенная строка
    */
-  const t = (key: string, params?: Record<string, string | number>) => {
+  const t = (key: string, params?: Record<string, string | number>): string => {
     return getTranslation(language, key, params);
   };
   

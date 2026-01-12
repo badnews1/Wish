@@ -143,7 +143,7 @@ export function useImageUploadCrop({
       // Очищаем input для возможности повторной загрузки того же файла
       e.target.value = '';
     } catch (error) {
-      console.error('Ошибка при обработке изображения:', error);
+      // Показываем ошибку пользователю
       if (errorMessages?.processingError) {
         notifications.common.error(errorMessages.processingError);
       }

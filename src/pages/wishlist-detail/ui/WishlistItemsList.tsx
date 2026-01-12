@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react';
 import { UnderlinedTabs } from '@/shared/ui/UnderlinedTabs';
 import { WishlistItemCard } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
-import { WISHLIST_TABS, type WishlistTabId } from '../config';
-import type { WishlistItemsListProps } from '../model';
+import { WISHLIST_TABS } from '../config';
+import type { WishlistItemsListProps, WishlistTabId } from '../model';
 
 /**
  * Список желаний с табами для фильтрации
@@ -11,7 +11,7 @@ import type { WishlistItemsListProps } from '../model';
 export function WishlistItemsList({ 
   items,
   onItemClick 
-}: WishlistItemsListProps) {
+}: WishlistItemsListProps): JSX.Element {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<WishlistTabId>('active');
 

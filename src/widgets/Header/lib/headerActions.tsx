@@ -17,7 +17,7 @@ interface DeleteButtonProps {
  * @param onClick - Обработчик клика
  * @param ariaLabel - ARIA метка для доступности (обязательна)
  */
-export function createBackButton({ onClick, ariaLabel }: BackButtonProps) {
+export function createBackButton({ onClick, ariaLabel }: BackButtonProps): JSX.Element {
   return (
     <Button
       onClick={onClick}
@@ -36,7 +36,7 @@ export function createBackButton({ onClick, ariaLabel }: BackButtonProps) {
  * @param onClick - Обработчик клика
  * @param ariaLabel - ARIA метка для доступности (обязательна)
  */
-export function createDeleteButton({ onClick, ariaLabel }: DeleteButtonProps) {
+export function createDeleteButton({ onClick, ariaLabel }: DeleteButtonProps): JSX.Element {
   return (
     <Button
       onClick={onClick}

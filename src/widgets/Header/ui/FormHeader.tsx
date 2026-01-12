@@ -48,7 +48,7 @@ export function FormHeader({
   onDelete,
   ariaLabels,
   className
-}: FormHeaderProps) {
+}: FormHeaderProps): JSX.Element {
   const { t } = useTranslation();
 
   return (

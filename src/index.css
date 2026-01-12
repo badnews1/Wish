@@ -2237,6 +2237,8 @@
   --sidebar-accent-foreground: oklch(.205 0 0);
   --sidebar-border: oklch(.922 0 0);
   --sidebar-ring: oklch(.708 0 0);
+  --floating-card-wishlist: #ff6b9d;
+  --floating-card-wish: #ffa726;
 }
 
 .dark {

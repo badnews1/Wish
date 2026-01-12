@@ -1,7 +1,6 @@
 import { Heart } from 'lucide-react';
 import { formatDate } from '@/shared/lib';
-import { formatItemCount } from '@/entities/wishlist';
-import { PRIVACY_OPTIONS } from '@/features/create-wishlist/config';
+import { formatItemCount, PRIVACY_OPTIONS } from '@/entities/wishlist';
 import { useTranslation } from '@/app';
 import type { WishlistInfoProps } from '../model';
 
@@ -15,7 +14,7 @@ export function WishlistInfo({
   itemCount,
   privacy,
   favoriteCount
-}: WishlistInfoProps) {
+}: WishlistInfoProps): JSX.Element {
   const { t, language } = useTranslation();
   // Находим настройки приватности
   const privacyOption = PRIVACY_OPTIONS.find(option => option.id === privacy) || PRIVACY_OPTIONS[0];

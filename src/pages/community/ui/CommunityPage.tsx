@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTranslation } from '@/app';
 import { Header } from '@/widgets/Header';
+import { useTranslation } from '@/app';
 
-export function CommunityPage() {
+export function CommunityPage(): JSX.Element {
   const { t } = useTranslation();
 
   return (

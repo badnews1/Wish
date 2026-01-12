@@ -5,7 +5,13 @@ import { useState, useCallback } from 'react';
  * @param initialState - Начальное состояние (по умолчанию false)
  * @returns [isOpen, open, close, toggle, setOpen]
  */
-export function useDrawer(initialState: boolean = false) {
+export function useDrawer(initialState: boolean = false): {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+  setOpen: (value: boolean | ((prev: boolean) => boolean)) => void;
+} {
   const [isOpen, setIsOpen] = useState(initialState);
 
   const open = useCallback(() => {

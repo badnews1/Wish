@@ -1,10 +1,10 @@
 import React from 'react';
 import Picker from 'react-mobile-picker';
-import { BaseDrawer, RoundedButton } from '@/shared/ui';
-import type { BaseDrawerProps } from '@/shared/model';
 import { Button } from '@/components/ui/button';
+import { BaseDrawer, RoundedButton } from '@/shared/ui';
 import { useTranslation } from '@/app';
-import { translations } from '@/app/config/i18n';
+import type { BaseDrawerProps } from '@/shared/model';
+import { MONTHS_GENITIVE } from '../config';
 
 interface DatePickerDrawerProps extends BaseDrawerProps {
   selectedDate: Date | undefined;
@@ -17,8 +17,8 @@ const YEARS = Array.from({ length: 12 }, (_, i) => (2024 + i).toString());
 export function DatePickerDrawer({ open, onOpenChange, selectedDate, onConfirm }: DatePickerDrawerProps) {
   const { t, language } = useTranslation();
   
-  // Получаем названия месяцев напрямую из объекта переводов
-  const MONTH_NAMES = translations[language].createWishlist.months.genitive;
+  // Получаем названия месяцев из конфигурации
+  const MONTH_NAMES = MONTHS_GENITIVE[language];
   
   // Инициализация значений из selectedDate или текущей даты
   const initializeValues = () => {

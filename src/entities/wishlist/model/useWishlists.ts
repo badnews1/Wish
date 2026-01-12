@@ -1,24 +1,38 @@
-import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
 import { generateId, useLocalStorage } from '@/shared/lib';
-import { WISHLIST_STORAGE_KEY } from '@/entities/wishlist/config';
+import type { Wishlist, WishlistInput, WishlistItem, WishlistItemInput } from './types';
+import { WISHLIST_STORAGE_KEY } from '../config';
 
 // Парсер для конвертации дат из строк в Date объекты
-function parseWishlists(data: any[]): Wishlist[] {
-  return data.map((wishlist: any) => ({
-    ...wishlist,
-    eventDate: wishlist.eventDate ? new Date(wishlist.eventDate) : undefined,
-    createdAt: new Date(wishlist.createdAt),
-  }));
+function parseWishlists(data: unknown[]): Wishlist[] {
+  return data.map((wishlist: unknown) => {
+    // Проверка типа для безопасного приведения
+    const w = wishlist as Record<string, unknown>;
+    return {
+      ...w,
+      eventDate: w.eventDate ? new Date(w.eventDate as string) : undefined,
+      createdAt: new Date(w.createdAt as string),
+    } as Wishlist;
+  });
 }
 
-export function useWishlists() {
+interface UseWishlistsReturn {
+  wishlists: Wishlist[];
+  addWishlist: (formData: WishlistInput) => Wishlist;
+  removeWishlist: (id: string) => void;
+  updateWishlist: (id: string, updates: Partial<Wishlist>) => void;
+  addWishlistItem: (wishlistIds: string[], item: WishlistItemInput) => WishlistItem;
+  updateWishlistItem: (wishlistId: string, itemId: string, updates: Partial<WishlistItem>) => void;
+  removeWishlistItem: (wishlistId: string, itemId: string) => void;
+}
+
+export function useWishlists(): UseWishlistsReturn {
   const [wishlists, setWishlists] = useLocalStorage<Wishlist[]>(
     WISHLIST_STORAGE_KEY, 
     [], 
     parseWishlists
   );
 
-  const addWishlist = (formData: WishlistInput) => {
+  const addWishlist = (formData: WishlistInput): Wishlist => {
     const newWishlist: Wishlist = {
       id: generateId(),
       title: formData.title,
@@ -37,15 +51,15 @@ export function useWishlists() {
     return newWishlist;
   };
 
-  const removeWishlist = (id: string) => {
+  const removeWishlist = (id: string): void => {
     setWishlists(prev => prev.filter(w => w.id !== id));
   };
 
-  const updateWishlist = (id: string, updates: Partial<Wishlist>) => {
+  const updateWishlist = (id: string, updates: Partial<Wishlist>): void => {
     setWishlists(prev => prev.map(w => w.id === id ? { ...w, ...updates } : w));
   };
 
-  const addWishlistItem = (wishlistIds: string[], item: WishlistItemInput) => {
+  const addWishlistItem = (wishlistIds: string[], item: WishlistItemInput): WishlistItem => {
     const newItem: WishlistItem = {
       id: generateId(),
       ...item,
@@ -67,7 +81,7 @@ export function useWishlists() {
     return newItem;
   };
 
-  const updateWishlistItem = (wishlistId: string, itemId: string, updates: Partial<WishlistItem>) => {
+  const updateWishlistItem = (wishlistId: string, itemId: string, updates: Partial<WishlistItem>): void => {
     setWishlists(prev => prev.map(w => {
       if (w.items && w.items.some(item => item.id === itemId)) {
         return {
@@ -79,7 +93,7 @@ export function useWishlists() {
     }));
   };
 
-  const removeWishlistItem = (wishlistId: string, itemId: string) => {
+  const removeWishlistItem = (wishlistId: string, itemId: string): void => {
     setWishlists(prev => prev.map(w => {
       if (w.items && w.items.some(item => item.id === itemId)) {
         const newItems = w.items.filter(item => item.id !== itemId);

@@ -1,1 +1,0 @@
-export { createProductParsedHandler } from './productHandler';

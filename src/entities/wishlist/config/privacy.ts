@@ -1,5 +1,5 @@
 import { Globe, Users, UserPlus, Lock } from 'lucide-react';
-import type { PrivacyType } from '@/entities/wishlist';
+import type { PrivacyType } from '../model';
 
 export interface PrivacyOption {
   id: PrivacyType;

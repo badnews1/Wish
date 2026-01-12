@@ -1,7 +1,7 @@
 import { useTranslation } from '@/app';
 import type { FeedPageProps } from '../model';
 
-export function FeedPage({ onCreateWishlist }: FeedPageProps) {
+export function FeedPage({ onCreateWishlist }: FeedPageProps): JSX.Element {
   const { t } = useTranslation();
 
   return (

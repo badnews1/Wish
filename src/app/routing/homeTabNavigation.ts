@@ -15,7 +15,7 @@ export type HomeTabNavigationMap = Record<HomeTabId, HomeTabNavigationHandler>;
  * Создаёт хелпер для навигации по табам главной страницы
  * Предотвращает рассинхронизацию между конфигурацией и логикой
  */
-export function createHomeTabNavigator(navigationMap: HomeTabNavigationMap) {
+export function createHomeTabNavigator(navigationMap: HomeTabNavigationMap): (tabId: HomeTabId) => void {
   return (tabId: HomeTabId): void => {
     const handler = navigationMap[tabId];
     if (!handler) {

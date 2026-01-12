@@ -1,7 +1,4 @@
-import { wishlistToFormData } from '@/features/create-wishlist';
-import type { AppRouterProps } from './types';
 import { HomePage } from '@/pages/home';
-import { HomeRouter } from './HomeRouter';
 import { WishlistPage } from '@/pages/wishlist';
 import { WishlistDetailPage } from '@/pages/wishlist-detail';
 import { WishlistFormPage } from '@/pages/wishlist-form';
@@ -9,12 +6,15 @@ import { WishlistItemDetailPage } from '@/pages/wishlist-item-detail';
 import { WishlistItemFormPage } from '@/pages/wishlist-item-form';
 import { CommunityPage } from '@/pages/community';
 import { ProfilePage } from '@/pages/profile';
+import { wishlistToFormData } from '@/features/create-wishlist';
+import type { AppRouterProps } from './types';
+import { HomeRouter } from './HomeRouter';
 
 /**
  * Главный роутер приложения
  * Определяет, какую страницу отображать на основе currentView
  */
-export function AppRouter(props: AppRouterProps) {
+export function AppRouter(props: AppRouterProps): JSX.Element {
   const {
     currentView,
     activeMenuItem,
