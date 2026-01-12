@@ -1,4 +1,3 @@
-import type { WishlistItem } from '@/entities/wishlist';
 import { ItemImageSection } from './ItemImageSection';
 import { ItemMainInfo } from './ItemMainInfo';
 import { ItemCategories } from './ItemCategories';

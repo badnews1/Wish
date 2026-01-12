@@ -14,6 +14,12 @@ interface FormHeaderProps {
   /** Обработчик кнопки "Удалить" (опционально, для режима редактирования) */
   onDelete?: () => void;
   
+  /** Aria-labels для кнопок (опционально) */
+  ariaLabels?: {
+    back?: string;
+    delete?: string;
+  };
+  
   /** Дополнительный CSS класс */
   className?: string;
 }
@@ -40,6 +46,7 @@ export function FormHeader({
   title,
   onBack,
   onDelete,
+  ariaLabels,
   className
 }: FormHeaderProps) {
   const { t } = useTranslation();
@@ -50,12 +57,12 @@ export function FormHeader({
       titleAlign="left"
       leftAction={createBackButton({ 
         onClick: onBack, 
-        ariaLabel: t('widgets.header.backButtonAria')
+        ariaLabel: ariaLabels?.back ?? t('widgets.header.backButtonAria')
       })}
       rightAction={
         onDelete ? createDeleteButton({ 
           onClick: onDelete, 
-          ariaLabel: t('widgets.header.deleteButtonAria')
+          ariaLabel: ariaLabels?.delete ?? t('widgets.header.deleteButtonAria')
         }) : null
       }
       className={className}

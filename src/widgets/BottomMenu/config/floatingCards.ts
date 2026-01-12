@@ -1,5 +1,5 @@
 import { ListChecks, Sparkles } from 'lucide-react';
-import type { FloatingCardConfig } from '@/widgets/BottomMenu/model';
+import type { FloatingCardConfig } from '../model';
 
 export const FLOATING_CARDS: FloatingCardConfig[] = [
   {

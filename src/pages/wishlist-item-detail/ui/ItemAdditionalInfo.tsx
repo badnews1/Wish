@@ -1,4 +1,5 @@
 import React from 'react';
+import { MapPin } from 'lucide-react';
 import { useTranslation } from '@/app';
 import type { ItemAdditionalInfoProps } from '../model';
 

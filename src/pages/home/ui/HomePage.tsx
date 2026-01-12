@@ -3,10 +3,7 @@ import { Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RoundedButton } from '@/shared/ui/RoundedButton';
 import { Header } from '@/widgets/Header';
-import { HomeTabId } from '@/app/routing';
 import { homeTabs } from '../config';
-import { HomeTabsHeader } from './HomeTabsHeader';
-import { HomeTabsContent } from './HomeTabsContent';
 import { useTranslation } from '@/app';
 import type { HomePageProps } from '../model';
 
