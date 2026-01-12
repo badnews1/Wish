@@ -1,0 +1,1 @@
+export type { CreateWishlistForm } from './types';
