@@ -1,9 +1,11 @@
 import { useLanguageStore } from '../../store';
 import { getTranslation } from '../../config/i18n';
+import type { Language } from '../../config/i18n';
 
 interface UseTranslationReturn {
   t: (key: string, params?: Record<string, string | number>) => string;
-  language: string;
+  language: Language;
+  setLanguage: (language: Language) => void;
 }
 
 /**
@@ -13,10 +15,10 @@ interface UseTranslationReturn {
  * - useLanguageStore из app/store
  * - getTranslation из app/config/i18n
  * 
- * @returns Объект с текущим языком и функцией перевода
+ * @returns Объект с текущим языком, функцией перевода и функцией смены языка
  * 
  * @example
- * const { t, language } = useTranslation();
+ * const { t, language, setLanguage } = useTranslation();
  * 
  * // Простой перевод
  * t('common.save') // 'Сохранить' (ru) или 'Save' (en)
@@ -24,9 +26,12 @@ interface UseTranslationReturn {
  * // С параметрами
  * t('imageUpload.fileTooLarge', { maxSize: 5 }) 
  * // 'Размер файла слишком большой. Максимальный размер: 5MB.'
+ * 
+ * // Смена языка
+ * setLanguage('en');
  */
 export function useTranslation(): UseTranslationReturn {
-  const { language } = useLanguageStore();
+  const { language, setLanguage } = useLanguageStore();
   
   /**
    * Получить перевод по ключу
@@ -42,5 +47,6 @@ export function useTranslation(): UseTranslationReturn {
   return {
     t,
     language,
+    setLanguage,
   };
 }

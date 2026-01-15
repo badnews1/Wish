@@ -91,6 +91,26 @@ export function navigationReducer(state: NavigationState, action: NavigationActi
         itemFormMode: 'create',
       };
 
+    case 'NAVIGATE_TO_SETTINGS':
+      return {
+        currentView: 'settings',
+        previousView: state.currentView,
+        selectedWishlistId: null,
+        selectedItemId: null,
+        wishlistFormMode: 'create',
+        itemFormMode: 'create',
+      };
+
+    case 'NAVIGATE_TO_EDIT_PROFILE':
+      return {
+        currentView: 'edit-profile',
+        previousView: state.currentView,
+        selectedWishlistId: null,
+        selectedItemId: null,
+        wishlistFormMode: 'create',
+        itemFormMode: 'create',
+      };
+
     case 'NAVIGATE_TO_WISHLIST_DETAIL':
       return {
         currentView: 'wishlist-detail',
@@ -220,6 +240,26 @@ export function navigationReducer(state: NavigationState, action: NavigationActi
       } else if (currentView === 'wishlist-detail') {
         return {
           currentView: 'wishlist',
+          previousView: null,
+          selectedWishlistId: null,
+          selectedItemId: null,
+          wishlistFormMode: 'create',
+          itemFormMode: 'create',
+        };
+      } else if (currentView === 'settings') {
+        // Со страницы настроек возвращаемся в профиль
+        return {
+          currentView: 'profile',
+          previousView: null,
+          selectedWishlistId: null,
+          selectedItemId: null,
+          wishlistFormMode: 'create',
+          itemFormMode: 'create',
+        };
+      } else if (currentView === 'edit-profile') {
+        // Со страницы редактирования профиля возвращаемся в настройки
+        return {
+          currentView: 'settings',
           previousView: null,
           selectedWishlistId: null,
           selectedItemId: null,

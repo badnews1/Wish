@@ -30,6 +30,86 @@ export const sharedRu = {
     wishlist: "Вишлист",
     profile: "Профиль"
   },
+  profile: {
+    noWishlists: "У вас пока нет вишлистов"
+  },
+  community: {
+    tabs: {
+      search: "Поиск",
+      friends: "Друзья",
+      requests: "Запросы"
+    },
+    search: {
+      userPlaceholder: "Найти по никнейму",
+      friendPlaceholder: "Поиск по имени",
+      emptySearch: "Введите никнейм в поиск",
+      noResults: "Пользователь не найден",
+      noResultsDescription: "Попробуйте изменить запрос",
+      findFriends: "Найдите друзей"
+    },
+    friends: {
+      title: "Друзья",
+      noFriends: "У вас пока нет друзей",
+      noFriendsDescription: "Найдите друзей через поиск выше",
+      noSearchResults: "Ничего не найдено",
+      noSearchResultsDescription: "Попробуйте изменить запрос"
+    },
+    requests: {
+      title: "Запросы",
+      noRequests: "Нет новых запросов",
+      noRequestsDescription: "Здесь появятся входящие запросы в друзья"
+    },
+    actions: {
+      add: "Добавить",
+      adding: "Отправка...",
+      accept: "Принять",
+      reject: "Отклонить",
+      remove: "Удалить",
+      sendRequest: "Добавить в друзья",
+      acceptRequest: "Принять запрос",
+      rejectRequest: "Отклонить запрос",
+      removeFriend: "Удалить из друзей"
+    },
+    confirmRemove: {
+      title: "Удалить из друзей?",
+      description: "Вы уверены, что хотите удалить {{name}} из друзей? Это действие можно будет отменить, отправив новый запрос.",
+      cancel: "Отмена",
+      confirm: "Удалить"
+    },
+    toasts: {
+      requestSent: "Запрос в друзья отправлен",
+      requestSentError: "Не удалось отправить запрос",
+      requestAccepted: "Запрос принят",
+      requestAcceptedError: "Не удалось принять запрос",
+      requestRejected: "Запрос отклонен",
+      requestRejectedError: "Не удалось отклонить запрос",
+      requestCanceled: "Запрос отменен",
+      requestCanceledError: "Не удалось отменить запрос",
+      friendRemoved: "Удалено из друзей",
+      friendRemovedError: "Не удалось удалить из друзей",
+      loadFriendsError: "Ошибка загрузки друзей",
+      loadRequestsError: "Ошибка загрузки запросов",
+      searchError: "Ошибка поиска"
+    }
+  },
+  auth: {
+    welcomeTitle: "Создавайте и делитесь вишлистами",
+    welcomeDescription: "Сохраняйте желания, делитесь с друзьями и отслеживайте подарки",
+    getStarted: "Начать",
+    signIn: "Войти",
+    signUp: "Создать аккаунт",
+    orContinueWith: "или продолжить с",
+    createAccount: "Создать аккаунт",
+    yourName: "Ваше имя",
+    email: "Email",
+    password: "Пароль",
+    alreadyHaveAccount: "Уже есть аккаунт?",
+    welcomeBack: "С возвращением",
+    forgotPassword: "Забыли пароль?",
+    dontHaveAccount: "Нет аккаунта?",
+    continueWithGoogle: "Продолжить с Google",
+    continueWithApple: "Продолжить с Apple",
+  },
   language: {
     select: "Выбрать язык",
     russian: "Русский",
@@ -37,7 +117,35 @@ export const sharedRu = {
   },
   settings: {
     title: "Настройки",
-    language: "Язык"
+    language: "Язык",
+    account: {
+      title: "Аккаунт",
+      name: "Имя",
+      bio: "О себе",
+      email: "Email",
+      changePassword: "Изменить пароль"
+    },
+    privacy: {
+      title: "Приватность",
+      profileVisibility: "Видимость профиля",
+      profileVisibilityDescription: "Кто может видеть ваш профиль",
+      public: "Публичный",
+      friendsOnly: "Только друзья",
+      private: "Приватный",
+      showStats: "Показывать статистику",
+      showStatsDescription: "Отображать количество вишлистов и желаний"
+    },
+    notifications: {
+      title: "Уведомления",
+      pushNotifications: "Push-уведомления",
+      pushNotificationsDescription: "Получать уведомления на устройство",
+      emailNotifications: "Email-уведомления",
+      emailNotificationsDescription: "Получать уведомления на почту",
+      giftReminders: "Напоминания о подарках",
+      giftRemindersDescription: "Напомнить о важных датах",
+      newFollowers: "Новые подписчики",
+      newFollowersDescription: "Уведомлять о новых подписчиках"
+    }
   },
   icons: {
     gift: "Подарок",
@@ -78,7 +186,7 @@ export const sharedRu = {
   },
   errors: {
     networkError: "Ошибка сети. Проверьте подключение к интернету.",
-    serverError: "Ошибка сервера. Попробуйте позже.",
+    serverError: "Ошиба сервера. Попробуйте позже.",
     unknownError: "Неизвестная ошибка. Попробуйте еще раз."
   }
 } as const;

@@ -41,8 +41,11 @@ export interface WishlistItem {
 }
 
 export interface Wishlist extends VisualEntity, TimestampedEntity {
+  userId: string; // ID владельца вишлиста
   iconId?: string;
   description?: string;
+  coverImage?: string; // URL обложки из Supabase Storage
+  icon?: string; // Emoji иконка
   itemCount?: number;
   eventDate?: Date;
   privacy?: PrivacyType;

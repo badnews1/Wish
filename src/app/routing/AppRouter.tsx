@@ -6,6 +6,8 @@ import { WishlistItemDetailPage } from '@/pages/wishlist-item-detail';
 import { WishlistItemFormPage } from '@/pages/wishlist-item-form';
 import { CommunityPage } from '@/pages/community';
 import { ProfilePage } from '@/pages/profile';
+import { SettingsPage } from '@/pages/settings';
+import { EditProfilePage } from '@/pages/edit-profile';
 import { wishlistToFormData } from '@/features/create-wishlist';
 import type { AppRouterProps } from './types';
 import { HomeRouter } from './HomeRouter';
@@ -31,6 +33,8 @@ export function AppRouter(props: AppRouterProps): JSX.Element {
     navigateToCreateItem,
     navigateToEditItem,
     navigateToItemDetail,
+    navigateToSettings,
+    navigateToEditProfile,
     handleCreateWishlist,
     handleUpdateWishlist,
     handleDeleteWishlist,
@@ -117,6 +121,16 @@ export function AppRouter(props: AppRouterProps): JSX.Element {
     );
   }
 
+  // НАСТРОЙКИ (БЕЗ нижнего меню)
+  if (currentView === 'settings') {
+    return <SettingsPage onNavigateBack={navigateBack} onNavigateToEditProfile={navigateToEditProfile} />;
+  }
+
+  // РЕДАКТИРОВАНИЕ ПРОФИЛЯ (БЕЗ нижнего меню)
+  if (currentView === 'edit-profile') {
+    return <EditProfilePage onNavigateBack={navigateBack} />;
+  }
+
   // ОСНОВНЫЕ страницы (С нижним меню)
   return (
     <>
@@ -136,12 +150,19 @@ export function AppRouter(props: AppRouterProps): JSX.Element {
         <WishlistPage
           wishlists={wishlists}
           onWishlistClick={navigateToWishlistDetail}
+          onCreateWishlist={navigateToCreateWishlist}
         />
       )}
 
       {activeMenuItem === 'community' && <CommunityPage />}
 
-      {activeMenuItem === 'profile' && <ProfilePage />}
+      {activeMenuItem === 'profile' && (
+        <ProfilePage 
+          onNavigateToSettings={navigateToSettings}
+          onNavigateToWishlistDetail={navigateToWishlistDetail}
+          onNavigateToWishlistsTab={props.navigateToWishlist}
+        />
+      )}
     </>
   );
 }

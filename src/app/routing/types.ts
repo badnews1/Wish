@@ -36,7 +36,9 @@ export type NavigationView =
   | 'item-form'
   | 'item-detail'
   | 'community'
-  | 'profile';
+  | 'profile'
+  | 'settings'
+  | 'edit-profile';
 
 /**
  * Состояние навигации приложения
@@ -68,6 +70,8 @@ export type NavigationAction =
   | { type: 'NAVIGATE_TO_ITEM_DETAIL'; payload: { wishlistId: string; itemId: string } }
   | { type: 'NAVIGATE_TO_COMMUNITY' }
   | { type: 'NAVIGATE_TO_PROFILE' }
+  | { type: 'NAVIGATE_TO_SETTINGS' }
+  | { type: 'NAVIGATE_TO_EDIT_PROFILE' }
   | { type: 'NAVIGATE_BACK'; payload: { currentView: NavigationView; formMode: 'create' | 'edit'; itemFormMode: 'create' | 'edit'; wishlistId: string | null; itemId: string | null } };
 
 /**
@@ -92,11 +96,14 @@ export interface AppRouterProps {
   navigateToCreateWishlist: () => void;
   navigateToEditWishlist: (id: string) => void;
   navigateToWishlistDetail: (id: string) => void;
+  navigateToWishlist: () => void;
   navigateToCreateItem: (wishlistId: string) => void;
   navigateToEditItem: (wishlistId: string, itemId: string) => void;
   navigateToItemDetail: (wishlistId: string, itemId: string) => void;
   navigateToCommunity: () => void;
   navigateToProfile: () => void;
+  navigateToSettings: () => void;
+  navigateToEditProfile: () => void;
 
   // Действия
   handleCreateWishlist: (data: CreateWishlistForm) => void;

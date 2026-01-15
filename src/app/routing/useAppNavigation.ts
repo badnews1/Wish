@@ -57,6 +57,16 @@ export function useAppNavigation(
     dispatch({ type: 'NAVIGATE_TO_PROFILE' });
   }, []);
 
+  // Навигация к Settings
+  const navigateToSettings = useCallback(() => {
+    dispatch({ type: 'NAVIGATE_TO_SETTINGS' });
+  }, []);
+
+  // Навигация к Edit Profile
+  const navigateToEditProfile = useCallback(() => {
+    dispatch({ type: 'NAVIGATE_TO_EDIT_PROFILE' });
+  }, []);
+
   return {
     // Состояние
     ...state,
@@ -74,5 +84,7 @@ export function useAppNavigation(
     navigateBack,
     navigateToCommunity,
     navigateToProfile,
+    navigateToSettings,
+    navigateToEditProfile,
   } as const;
 }

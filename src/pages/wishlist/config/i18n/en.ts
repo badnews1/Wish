@@ -3,5 +3,11 @@ export const wishlistPageEn = {
   emptyState: {
     title: "You don't have any wishlists yet",
     description: "Create your first wishlist and start adding wishes"
+  },
+  createCard: {
+    title: "Create new wishlist"
+  },
+  emptyWishlist: {
+    text: "No wishes"
   }
 } as const;

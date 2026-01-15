@@ -20,6 +20,9 @@ export type {
   HomeTabId,
 } from './routing';
 
+// Providers
+export { QueryProvider } from './providers';
+
 // Store
 export { useLanguageStore } from './store';
 

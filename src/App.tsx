@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useAppNavigation, useBottomMenuNavigation, useHomeTabsLogic, AppRouter, useWishlistActions, useItemActions } from '@/app';
+import { QueryProvider, AuthProvider } from '@/app/providers';
 import { BottomMenu } from '@/widgets/BottomMenu';
+import { Toaster } from '@/components/ui/sonner';
 import { useWishlists } from '@/entities/wishlist';
 import type { NavigationView } from '@/app';
 import type { MenuItemId } from '@/widgets/BottomMenu';
@@ -18,7 +20,7 @@ function getMenuItemByView(view: NavigationView): MenuItemId {
   if (view === 'community') {
     return 'community';
   }
-  if (view === 'profile') {
+  if (view === 'profile' || view === 'settings' || view === 'edit-profile') {
     return 'profile';
   }
   return 'home'; // fallback
@@ -109,11 +111,14 @@ function App(): JSX.Element {
           navigateToCreateWishlist={navigation.navigateToCreateWishlist}
           navigateToEditWishlist={navigation.navigateToEditWishlist}
           navigateToWishlistDetail={navigation.navigateToWishlistDetail}
+          navigateToWishlist={navigation.navigateToWishlist}
           navigateToCreateItem={navigation.navigateToCreateItem}
           navigateToEditItem={navigation.navigateToEditItem}
           navigateToItemDetail={navigation.navigateToItemDetail}
           navigateToCommunity={navigation.navigateToCommunity}
           navigateToProfile={navigation.navigateToProfile}
+          navigateToSettings={navigation.navigateToSettings}
+          navigateToEditProfile={navigation.navigateToEditProfile}
 
           // Действия
           handleCreateWishlist={wishlistActions.handleCreate}
@@ -130,9 +135,11 @@ function App(): JSX.Element {
         />
       </div>
 
-      {/* Нижнее меню скрыто ТОЛЬКО на формах создания/редактирования */}
+      {/* Нижнее меню скрыто ТОЛЬКО на формах создания/редактирования, на странице настроек и редактирования профиля */}
       {navigation.currentView !== 'wishlist-form' && 
-       navigation.currentView !== 'item-form' && (
+       navigation.currentView !== 'item-form' &&
+       navigation.currentView !== 'settings' &&
+       navigation.currentView !== 'edit-profile' && (
         <BottomMenu 
           activeMenuItem={activeMenuItem}
           onMenuItemChange={handleMenuItemChange}
@@ -144,4 +151,13 @@ function App(): JSX.Element {
   );
 }
 
-export default App;
+export default function AppWithProviders(): JSX.Element {
+  return (
+    <QueryProvider>
+      <AuthProvider>
+        <App />
+        <Toaster />
+      </AuthProvider>
+    </QueryProvider>
+  );
+}

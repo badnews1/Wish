@@ -12,6 +12,9 @@ import { createWishlistItemRu, createWishlistItemEn } from '@/features/create-wi
 // Импорты из widgets
 import { bottomMenuRu, bottomMenuEn } from '@/widgets/BottomMenu/config/i18n';
 import { headerRu, headerEn } from '@/widgets/Header/config/i18n';
+import { profileHeaderRu, profileHeaderEn } from '@/widgets/profile-header/config/i18n';
+import { profileStatsRu, profileStatsEn } from '@/widgets/profile-stats/config/i18n';
+import { profileQuickActionsRu, profileQuickActionsEn } from '@/widgets/profile-quick-actions/config/i18n';
 
 // Импорты из pages
 import { homeRu, homeEn } from '@/pages/home/config/i18n';
@@ -19,12 +22,12 @@ import { homeFeedRu, homeFeedEn } from '@/pages/home-feed/config/i18n';
 import { homePopularRu, homePopularEn } from '@/pages/home-popular/config/i18n';
 import { homeWishlistsRu, homeWishlistsEn } from '@/pages/home-wishlists/config/i18n';
 import { communityRu, communityEn } from '@/pages/community/config/i18n';
-import { profileRu, profileEn } from '@/pages/profile/config/i18n';
 import { wishlistPageRu, wishlistPageEn } from '@/pages/wishlist/config/i18n';
 import { wishlistDetailRu, wishlistDetailEn } from '@/pages/wishlist-detail/config/i18n';
 import { wishlistFormRu, wishlistFormEn } from '@/pages/wishlist-form/config/i18n';
 import { wishlistItemDetailRu, wishlistItemDetailEn } from '@/pages/wishlist-item-detail/config/i18n';
 import { wishlistItemFormRu, wishlistItemFormEn } from '@/pages/wishlist-item-form/config/i18n';
+import { settingsRu, settingsEn } from '@/pages/settings/config/i18n';
 
 /**
  * Центральная система сборки переводов
@@ -48,7 +51,10 @@ export const translations = {
     createWishlistItem: createWishlistItemRu,
     widgets: {
       bottomMenu: bottomMenuRu,
-      header: headerRu
+      header: headerRu,
+      profileHeader: profileHeaderRu,
+      profileStats: profileStatsRu,
+      profileQuickActions: profileQuickActionsRu
     },
     pages: {
       home: homeRu,
@@ -56,12 +62,12 @@ export const translations = {
       homePopular: homePopularRu,
       homeWishlists: homeWishlistsRu,
       community: communityRu,
-      profile: profileRu,
       wishlist: wishlistPageRu,
       wishlistDetail: wishlistDetailRu,
       wishlistForm: wishlistFormRu,
       wishlistItemDetail: wishlistItemDetailRu,
-      wishlistItemForm: wishlistItemFormRu
+      wishlistItemForm: wishlistItemFormRu,
+      settings: settingsRu
     }
   },
   en: {
@@ -71,7 +77,10 @@ export const translations = {
     createWishlistItem: createWishlistItemEn,
     widgets: {
       bottomMenu: bottomMenuEn,
-      header: headerEn
+      header: headerEn,
+      profileHeader: profileHeaderEn,
+      profileStats: profileStatsEn,
+      profileQuickActions: profileQuickActionsEn
     },
     pages: {
       home: homeEn,
@@ -79,12 +88,12 @@ export const translations = {
       homePopular: homePopularEn,
       homeWishlists: homeWishlistsEn,
       community: communityEn,
-      profile: profileEn,
       wishlist: wishlistPageEn,
       wishlistDetail: wishlistDetailEn,
       wishlistForm: wishlistFormEn,
       wishlistItemDetail: wishlistItemDetailEn,
-      wishlistItemForm: wishlistItemFormEn
+      wishlistItemForm: wishlistItemFormEn,
+      settings: settingsEn
     }
   }
 } as const;

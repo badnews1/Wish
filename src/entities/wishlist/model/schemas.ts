@@ -45,8 +45,11 @@ export const wishlistSchema = z.object({
   updatedAt: z.string().optional().transform((val) => val ? new Date(val) : undefined),
   
   // Wishlist специфичные поля
+  userId: z.string(),
   iconId: z.string().optional(),
   description: z.string().optional(),
+  coverImage: z.string().optional(),
+  icon: z.string().optional(),
   itemCount: z.number().optional(),
   eventDate: z.string().optional().transform((val) => val ? new Date(val) : undefined),
   privacy: privacyTypeSchema.optional(),

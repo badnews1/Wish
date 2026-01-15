@@ -7,8 +7,13 @@
 export function formatDate(date: Date, language: 'ru' | 'en' = 'ru'): string {
   const day = date.getDate();
   const year = date.getFullYear();
-  const locale = language === 'ru' ? 'ru-RU' : 'en-US';
-  const month = date.toLocaleDateString(locale, { month: 'long' });
-
-  return `${day} ${month} ${year}`;
+  
+  // Используем Intl.DateTimeFormat для корректного склонения месяца
+  const formatter = new Intl.DateTimeFormat(language === 'ru' ? 'ru-RU' : 'en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  
+  return formatter.format(date);
 }

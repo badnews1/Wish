@@ -30,6 +30,27 @@ export const sharedEn = {
     wishlist: "Wishlist",
     profile: "Profile"
   },
+  profile: {
+    noWishlists: "You don't have any wishlists yet"
+  },
+  auth: {
+    welcomeTitle: "Create & Share Wishlists",
+    welcomeDescription: "Save your wishes, share with friends and track gifts",
+    getStarted: "Get Started",
+    signIn: "Sign In",
+    signUp: "Sign Up",
+    orContinueWith: "or continue with",
+    createAccount: "Create Account",
+    yourName: "Your Name",
+    email: "Email",
+    password: "Password",
+    alreadyHaveAccount: "Already have an account?",
+    welcomeBack: "Welcome Back",
+    forgotPassword: "Forgot password?",
+    dontHaveAccount: "Don't have an account?",
+    continueWithGoogle: "Continue with Google",
+    continueWithApple: "Continue with Apple",
+  },
   language: {
     select: "Select language",
     russian: "Русский",
@@ -37,7 +58,35 @@ export const sharedEn = {
   },
   settings: {
     title: "Settings",
-    language: "Language"
+    language: "Language",
+    account: {
+      title: "Account",
+      name: "Name",
+      bio: "Bio",
+      email: "Email",
+      changePassword: "Change password"
+    },
+    privacy: {
+      title: "Privacy",
+      profileVisibility: "Profile visibility",
+      profileVisibilityDescription: "Who can see your profile",
+      public: "Public",
+      friendsOnly: "Friends only",
+      private: "Private",
+      showStats: "Show statistics",
+      showStatsDescription: "Display wishlists and items count"
+    },
+    notifications: {
+      title: "Notifications",
+      pushNotifications: "Push notifications",
+      pushNotificationsDescription: "Receive notifications on device",
+      emailNotifications: "Email notifications",
+      emailNotificationsDescription: "Receive notifications via email",
+      giftReminders: "Gift reminders",
+      giftRemindersDescription: "Remind about important dates",
+      newFollowers: "New followers",
+      newFollowersDescription: "Notify about new followers"
+    }
   },
   icons: {
     gift: "Gift",
