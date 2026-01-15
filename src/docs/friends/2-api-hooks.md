@@ -577,12 +577,18 @@ export function useSearchUsers(query: string) {
       );
 
       // 2. Поиск пользователей (исключая себя и друзей)
-      const { data: users } = await supabase
+      let usersQuery = supabase
         .from('users')
         .select('*')
         .ilike('display_name', `%${query}%`)
-        .neq('id', currentUserId)
-        .not('id', 'in', `(${friendIds.join(',')})`)
+        .neq('id', currentUserId);
+
+      // Добавить исключение друзей только если они есть
+      if (friendIds.length > 0) {
+        usersQuery = usersQuery.not('id', 'in', `(${friendIds.join(',')})`);
+      }
+
+      const { data: users } = await usersQuery
         .order('created_at', { ascending: false })
         .limit(20);
 

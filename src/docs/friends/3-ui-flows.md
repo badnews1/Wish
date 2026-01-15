@@ -232,10 +232,12 @@ import { useSearchUsers } from '@/entities/friend/api';
 import { UserCard } from '@/entities/user/ui/UserCard';
 import { FriendActionButton } from '@/entities/friend/ui/FriendActionButton';
 import { Input } from '@/components/ui/input';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
 
 export function SearchUsersPage() {
   const [query, setQuery] = useState('');
-  const { data, isLoading } = useSearchUsers(query);
+  const debouncedQuery = useDebounce(query, 300);
+  const { data, isLoading } = useSearchUsers(debouncedQuery);
 
   return (
     <div>
@@ -304,7 +306,65 @@ export function SearchUsersPage() {
 
 ---
 
-### 5. Профиль пользователя (с кнопкой действия)
+### 5. Исходящие запросы
+
+**Компонент:** `pages/friends/ui/OutgoingRequestsPage.tsx`
+
+```typescript
+import { useOutgoingRequests } from '@/entities/friend/api';
+import { UserCard } from '@/entities/user/ui/UserCard';
+import { FriendActionButton } from '@/entities/friend/ui/FriendActionButton';
+
+export function OutgoingRequestsPage() {
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useOutgoingRequests();
+
+  const requests = data?.pages.flatMap(page => page.data) ?? [];
+
+  if (isLoading) {
+    return <div>Загрузка...</div>;
+  }
+
+  if (requests.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">Нет исходящих запросов</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-4">
+        Исходящие запросы ({requests.length})
+      </h1>
+
+      <div className="space-y-2">
+        {requests.map(user => (
+          <UserCard 
+            key={user.id}
+            user={user}
+            action={<FriendActionButton userId={user.id} userName={user.display_name} />}
+          />
+        ))}
+      </div>
+
+      {hasNextPage && (
+        <Button 
+          onClick={() => fetchNextPage()}
+          disabled={isFetchingNextPage}
+          className="w-full mt-4"
+        >
+          {isFetchingNextPage ? 'Загрузка...' : 'Показать ещё'}
+        </Button>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+### 6. Профиль пользователя (с кнопкой действия)
 
 **Компонент:** `pages/profile/ui/UserProfilePage.tsx`
 
@@ -313,6 +373,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
 import { FriendActionButton } from '@/entities/friend/ui/FriendActionButton';
+import { declension } from '@/shared/lib/utils';
 
 export function UserProfilePage() {
   const { userId } = useParams<{ userId: string }>();
@@ -425,3 +486,103 @@ export function MyFriendsPage() {
 ## ✅ Готово к имплементации!
 
 Все компоненты готовы к использованию, обрабатывают все edge cases и показывают понятные сообщения пользователю.
+
+---
+
+## 🛠️ Вспомогательные утилиты
+
+### useDebounce Hook
+
+**Путь:** `shared/lib/hooks/useDebounce.ts`
+
+```typescript
+import { useEffect, useState } from 'react';
+
+/**
+ * Хук для дебаунса значения
+ * @param value - Значение для дебаунса
+ * @param delay - Задержка в миллисекундах (по умолчанию 500)
+ * @returns Дебаунснутое значение
+ */
+export function useDebounce<T>(value: T, delay: number = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+```
+
+**Использование:**
+```typescript
+const [query, setQuery] = useState('');
+const debouncedQuery = useDebounce(query, 300);
+const { data } = useSearchUsers(debouncedQuery);
+```
+
+---
+
+### declension — склонение числительных
+
+**Путь:** `shared/lib/utils/declension.ts`
+
+```typescript
+/**
+ * Склонение числительных для русского языка
+ * @param n - Число
+ * @param forms - Массив форм [1, 2, 5] (например: ['друг', 'друга', 'друзей'])
+ * @returns Правильная форма слова
+ * 
+ * @example
+ * declension(1, ['друг', 'друга', 'друзей']) // "друг"
+ * declension(2, ['друг', 'друга', 'друзей']) // "друга"
+ * declension(5, ['друг', 'друга', 'друзей']) // "друзей"
+ * declension(21, ['друг', 'друга', 'друзей']) // "друг"
+ */
+export function declension(n: number, forms: [string, string, string]): string {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return forms[
+    n % 100 > 4 && n % 100 < 20 
+      ? 2 
+      : cases[Math.min(n % 10, 5)]
+  ];
+}
+```
+
+**Использование:**
+```typescript
+import { declension } from '@/shared/lib/utils/declension';
+
+// Пример 1: Друзья
+{user.friends_count} {declension(user.friends_count, ['друг', 'друга', 'друзей'])}
+// 1 друг, 2 друга, 5 друзей, 21 друг
+
+// Пример 2: Вишлисты
+{count} {declension(count, ['вишлист', 'вишлиста', 'вишлистов'])}
+
+// Пример 3: Желания
+{count} {declension(count, ['желание', 'желания', 'желаний'])}
+```
+
+**Экспорт:** `shared/lib/utils/index.ts`
+```typescript
+export { declension } from './declension';
+```
+
+---
+
+## 📦 Импорты утилит
+
+```typescript
+// В компонентах
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { declension } from '@/shared/lib/utils';
+```
