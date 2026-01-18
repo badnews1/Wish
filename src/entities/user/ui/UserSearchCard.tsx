@@ -12,13 +12,15 @@ interface UserSearchCardProps {
   actionSlot?: React.ReactNode;
   /** Обработчик клика на карточку */
   onClick?: () => void;
+  /** Функция перевода */
+  t: (key: string) => string;
 }
 
 /**
  * Компонент карточки пользователя в результатах поиска
  */
-export function UserSearchCard({ user, actionSlot, onClick }: UserSearchCardProps): JSX.Element {
-  const displayText = user.displayName || user.username || 'Пользователь';
+export function UserSearchCard({ user, actionSlot, onClick, t }: UserSearchCardProps): JSX.Element {
+  const displayText = user.displayName || user.username || t('common.noResults');
   const secondaryText = user.displayName && user.username ? `@${user.username}` : null;
 
   return (

@@ -3,15 +3,32 @@
  * @module widgets/friend-requests-list/ui
  */
 
-import { usePendingRequests, FriendCard } from '@/entities/friendship';
-import { FriendRequestActions } from '@/features/manage-friend-request';
+import { useMemo } from 'react';
+import { useIncomingFriendRequests, FriendRequestCard } from '@/entities/friend';
+import { useCurrentUser } from '@/entities/user';
+import { FriendRequestActions } from '@/features/manage-friend';
 import { UserPlus } from 'lucide-react';
+import { useTranslation } from '@/app';
 
 /**
  * Виджет отображения входящих запросов в друзья
  */
 export function FriendRequestsList(): JSX.Element {
-  const { data: requests = [], isLoading, error } = usePendingRequests();
+  const { data: currentUser } = useCurrentUser();
+  const { t } = useTranslation();
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useIncomingFriendRequests({ userId: currentUser?.id || '' });
+
+  // Собрать все запросы из страниц
+  const requests = useMemo(() => {
+    return data?.pages.flatMap(page => page.data) || [];
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -26,8 +43,8 @@ export function FriendRequestsList(): JSX.Element {
   if (error) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600">Ошибка загрузки запросов</p>
-        <p className="text-sm text-gray-500 mt-1">Попробуйте обновить страницу</p>
+        <p className="text-red-600">{t('widgets.friendRequestsList.errorLoading')}</p>
+        <p className="text-sm text-gray-500 mt-1">{t('widgets.friendRequestsList.errorRetry')}</p>
       </div>
     );
   }
@@ -36,25 +53,39 @@ export function FriendRequestsList(): JSX.Element {
     return (
       <div className="text-center py-12">
         <UserPlus className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-        <p className="text-gray-600 font-medium">Нет новых запросов</p>
+        <p className="text-gray-600 font-medium">{t('widgets.friendRequestsList.emptyTitle')}</p>
         <p className="text-sm text-gray-500 mt-1">
-          Здесь появятся входящие запросы в друзья
+          {t('widgets.friendRequestsList.emptySubtitle')}
         </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-3">
-      {requests.map((request) => (
-        <FriendCard
-          key={request.friendshipId}
-          friend={request}
-          actionsSlot={
-            <FriendRequestActions friendshipId={request.friendshipId} />
-          }
-        />
-      ))}
+    <div className="space-y-4">
+      <div className="space-y-3">
+        {requests.map((friendship) => (
+          <FriendRequestCard
+            key={friendship.id}
+            profile={friendship.profile}
+            actionsSlot={
+              <FriendRequestActions targetUserId={friendship.profile.id} />
+            }
+            t={t}
+          />
+        ))}
+      </div>
+      
+      {/* Кнопка "Загрузить еще" */}
+      {hasNextPage && (
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={isFetchingNextPage}
+          className="w-full py-3 bg-white rounded-2xl text-purple-600 font-medium hover:bg-purple-50 transition-colors disabled:opacity-50"
+        >
+          {isFetchingNextPage ? t('widgets.friendRequestsList.loading') : t('widgets.friendRequestsList.loadMore')}
+        </button>
+      )}
     </div>
   );
 }

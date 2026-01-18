@@ -2,6 +2,7 @@ import { Hono } from "npm:hono";
 import { cors } from "npm:hono/cors";
 import { logger } from "npm:hono/logger";
 import * as kv from "./kv_store.tsx";
+import { handleParseProduct } from "./parse-product.ts";
 const app = new Hono();
 
 // Enable logger
@@ -23,5 +24,8 @@ app.use(
 app.get("/make-server-557c7f29/health", (c) => {
   return c.json({ status: "ok" });
 });
+
+// Parse product endpoint
+app.post("/make-server-557c7f29/parse-product", handleParseProduct);
 
 Deno.serve(app.fetch);

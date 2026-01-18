@@ -1,35 +1,53 @@
 import React from 'react';
 import Picker from 'react-mobile-picker';
+import { useTranslation } from '@/app';
 import { Button } from '@/components/ui/button';
 import { BaseDrawer, RoundedButton } from '@/shared/ui';
-import { useTranslation, translations } from '@/app';
 import type { BaseDrawerProps } from '@/shared/model';
 
 interface DatePickerDrawerProps extends BaseDrawerProps {
   selectedDate: Date | undefined;
   onConfirm: (date: Date | undefined) => void;
+  mode?: 'future' | 'past'; // Режим: future - для событий (годы вперед), past - для ДР (годы назад)
 }
 
-const DAYS = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
-const YEARS = Array.from({ length: 12 }, (_, i) => (2024 + i).toString());
+// Генерация массива годов в зависимости от режима
+const getYears = (mode: 'future' | 'past' = 'future'): string[] => {
+  const currentYear = new Date().getFullYear();
+  if (mode === 'past') {
+    // Для даты рождения: 1925-2025 (100 лет назад до текущего года)
+    return Array.from({ length: 101 }, (_, i) => (1925 + i).toString());
+  }
+  // Для событий: 2024-2035 (12 лет вперед)
+  return Array.from({ length: 12 }, (_, i) => (currentYear + i).toString());
+};
 
-export function DatePickerDrawer({ open, onOpenChange, selectedDate, onConfirm }: DatePickerDrawerProps) {
-  const { t, language } = useTranslation();
+const DAYS = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+
+export function DatePickerDrawer({ open, onOpenChange, selectedDate, onConfirm, mode = 'future' }: DatePickerDrawerProps) {
+  const { t, getMonthsGenitive } = useTranslation();
   
-  // Получаем названия месяцев из i18n
+  // Получаем названия месяцев из i18n через хелпер
   const MONTH_NAMES = React.useMemo(() => {
-    return translations[language as keyof typeof translations].createWishlist.months.genitive;
-  }, [language]);
+    return getMonthsGenitive();
+  }, [getMonthsGenitive]);
   
-  // Инициализация значений из selectedDate или текущей даты
+  // Инициализация значений из selectedDate или дефолтной даты
   const initializeValues = React.useCallback(() => {
-    const date = selectedDate || new Date();
+    let date: Date;
+    if (selectedDate) {
+      date = selectedDate;
+    } else {
+      // Для режима 'past' (ДР) - дефолт 1 января 2001
+      // Для режима 'future' (события) - текущая дата
+      date = mode === 'past' ? new Date(2001, 0, 1) : new Date();
+    }
     return {
       day: date.getDate().toString(),
       month: MONTH_NAMES[date.getMonth()],
       year: date.getFullYear().toString()
     };
-  }, [selectedDate, MONTH_NAMES]);
+  }, [selectedDate, MONTH_NAMES, mode]);
 
   const [pickerValue, setPickerValue] = React.useState(initializeValues);
 
@@ -106,7 +124,7 @@ export function DatePickerDrawer({ open, onOpenChange, selectedDate, onConfirm }
             </Picker.Column>
             
             <Picker.Column name="year">
-              {YEARS.map(year => (
+              {getYears(mode).map(year => (
                 <Picker.Item key={year} value={year}>
                   {year}
                 </Picker.Item>

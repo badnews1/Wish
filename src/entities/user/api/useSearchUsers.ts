@@ -5,6 +5,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
+import { getTranslation } from '@/shared/lib';
 import type { UserProfile } from '../model/types';
 
 /**
@@ -28,7 +29,7 @@ export function useSearchUsers(searchQuery: string) {
       }
 
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Пользователь не авторизован');
+      if (!user) throw new Error(getTranslation('user.errors.notAuthorized'));
 
       const trimmedQuery = searchQuery.trim();
 
@@ -47,9 +48,6 @@ export function useSearchUsers(searchQuery: string) {
         username: profile.username,
         displayName: profile.display_name,
         avatarUrl: profile.avatar_url,
-        bio: null, // Bio не нужно для результатов поиска
-        createdAt: '',
-        updatedAt: '',
       }));
     },
     // Включаем запрос только если есть валидная строка поиска

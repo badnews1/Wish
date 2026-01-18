@@ -9,7 +9,6 @@ import type { CreateWishlistItemForm } from '@/features/create-wishlist-item';
 import type { WishlistItem, WishlistItemInput } from '@/entities/wishlist';
 import type { NavigationView } from './types';
 import { convertItemFormToInput } from './converters';
-import { wishlistNotifications } from '../lib';
 
 interface UseItemActionsParams {
   addWishlistItem: (wishlistIds: string[], data: WishlistItemInput) => void;
@@ -50,7 +49,6 @@ export function useItemActions({
     if (data.wishlistIds.length > 0) {
       navigateToWishlistDetail(data.wishlistIds[0]);
     }
-    wishlistNotifications.wish.created();
   }, [addWishlistItem, navigateToWishlistDetail]);
 
   const handleUpdate = useCallback((data: CreateWishlistItemForm) => {
@@ -60,7 +58,6 @@ export function useItemActions({
         updateWishlistItem(wishlistId, selectedItemId, convertItemFormToInput(data));
       });
       navigateToWishlistDetail(selectedWishlistId);
-      wishlistNotifications.wish.updated();
     }
   }, [selectedItemId, selectedWishlistId, updateWishlistItem, navigateToWishlistDetail]);
 
@@ -68,7 +65,6 @@ export function useItemActions({
     if (selectedWishlistId && selectedItemId) {
       removeWishlistItem(selectedWishlistId, selectedItemId);
       navigateToWishlistDetail(selectedWishlistId);
-      wishlistNotifications.wish.deleted();
     }
   }, [selectedWishlistId, selectedItemId, removeWishlistItem, navigateToWishlistDetail]);
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link as LinkIcon, RefreshCw, Trash2, Loader2, Check } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import { useTranslation } from '@/app';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useTranslation } from '@/app';
 import { parseProductUrl } from '../api/parseProduct';
 import type { ParsedProduct, ParserStatus, ParserError } from '../model/productParser';
 

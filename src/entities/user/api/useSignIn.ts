@@ -1,8 +1,9 @@
 // Хук для входа пользователя
 import { useMutation } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
-import type { SignInData } from '../model/types';
 import { toast } from 'sonner@2.0.3';
+import { useTranslation } from '@/app';
+import type { SignInData } from '../model/types';
 
 interface SignInResponse {
   userId: string;
@@ -30,13 +31,15 @@ async function signIn(data: SignInData): Promise<SignInResponse> {
 }
 
 export function useSignIn() {
+  const { t } = useTranslation();
+  
   return useMutation({
     mutationFn: signIn,
     onSuccess: () => {
-      toast.success('Вход выполнен успешно!');
+      toast.success(t('auth.welcomeBack'));
     },
     onError: (error: Error) => {
-      toast.error(`Ошибка входа: ${error.message}`);
+      toast.error(`${t('auth.signIn')}: ${error.message}`);
     },
   });
 }

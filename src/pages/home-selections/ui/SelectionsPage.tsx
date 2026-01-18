@@ -1,4 +1,5 @@
-import { CollectionCard, mockCollectionsColumn1, mockCollectionsColumn2 } from '@/entities/collection';
+import { CollectionCard } from '@/entities/collection';
+import { mockCollectionsColumn1, mockCollectionsColumn2 } from '../model/mock';
 
 export function SelectionsPage(): JSX.Element {
   const handleCollectionClick = (collectionId: string) => {

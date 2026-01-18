@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Camera, User, Loader2, Check, X } from 'lucide-react';
+import { Camera, User, Loader2, Check, X, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useTranslation } from '@/app';
+import { DatePickerDrawer } from '@/features/create-wishlist';
 import type { EditProfileForm as EditProfileFormData } from '../model/types';
 import type { EditProfileErrors } from '../model/validation';
 import { validateUsername, checkUsernameAvailability } from '@/entities/user';
@@ -37,16 +39,18 @@ export function EditProfileForm({
   onCancel,
   onAvatarSelect,
 }: EditProfileFormProps): JSX.Element {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<EditProfileFormData>(initialData);
   const [usernameCheckStatus, setUsernameCheckStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle');
   const [usernameError, setUsernameError] = useState<string>('');
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const usernameCheckTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Синхронизация formData при изменении initialData
   useEffect(() => {
     setFormData(initialData);
-  }, [initialData.name, initialData.username, initialData.bio, initialData.avatar_url]);
+  }, [initialData.name, initialData.username, initialData.bio, initialData.avatar_url, initialData.birth_date]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +80,11 @@ export function EditProfileForm({
     }
 
     // Валидация формата
-    const validation = validateUsername(username);
+    const validation = validateUsername(username, {
+      minLength: t('user.validation.username.minLength'),
+      maxLength: t('user.validation.username.maxLength'),
+      invalidFormat: t('user.validation.username.invalidFormat'),
+    });
     
     if (!validation.isValid) {
       setUsernameCheckStatus('idle');
@@ -99,11 +107,11 @@ export function EditProfileForm({
         const isAvailable = await checkUsernameAvailability(username);
         setUsernameCheckStatus(isAvailable ? 'available' : 'taken');
         if (!isAvailable) {
-          setUsernameError('Никнейм уже занят');
+          setUsernameError(t('editProfile.ui.usernameTaken'));
         }
       } catch (error) {
         setUsernameCheckStatus('idle');
-        setUsernameError('Не удалось проверить никнейм');
+        setUsernameError(t('editProfile.ui.usernameCheckError'));
       }
     }, 500);
   };
@@ -132,7 +140,7 @@ export function EditProfileForm({
               {formData.avatar_url ? (
                 <img 
                   src={formData.avatar_url} 
-                  alt="Avatar"
+                  alt={t('editProfile.ui.avatarAlt')}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -149,21 +157,21 @@ export function EditProfileForm({
               </div>
             </button>
             <p className="text-sm text-gray-500 mt-2">
-              Нажмите чтобы изменить фото
+              {t('editProfile.ui.changePhotoHint')}
             </p>
           </div>
 
           {/* Имя */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-              Имя
+              {t('editProfile.ui.nameLabel')}
             </label>
             <Input
               id="name"
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="Введите ваше имя"
+              placeholder={t('editProfile.ui.namePlaceholder')}
               error={errors?.name}
               disabled={isLoading}
             />
@@ -175,14 +183,14 @@ export function EditProfileForm({
           {/* Имя пользователя */}
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-              Имя пользователя
+              {t('editProfile.ui.usernameLabel')}
             </label>
             <Input
               id="username"
               type="text"
               value={formData.username}
               onChange={handleUsernameChange}
-              placeholder="Введите ваше имя пользователя"
+              placeholder={t('editProfile.ui.usernamePlaceholder')}
               error={usernameError || errors?.username}
               disabled={isLoading}
             />
@@ -193,26 +201,26 @@ export function EditProfileForm({
               <p className="text-sm text-red-500 mt-1">{errors.username}</p>
             )}
             {usernameCheckStatus === 'checking' && (
-              <p className="text-sm text-gray-500 mt-1">Проверка...</p>
+              <p className="text-sm text-gray-500 mt-1">{t('editProfile.ui.usernameChecking')}</p>
             )}
             {usernameCheckStatus === 'available' && (
-              <p className="text-sm text-green-500 mt-1">Имя пользователя доступно</p>
+              <p className="text-sm text-green-500 mt-1">{t('editProfile.ui.usernameAvailable')}</p>
             )}
             {usernameCheckStatus === 'taken' && (
-              <p className="text-sm text-red-500 mt-1">Имя пользователя уже занято</p>
+              <p className="text-sm text-red-500 mt-1">{t('editProfile.ui.usernameTaken')}</p>
             )}
           </div>
 
           {/* Описание */}
           <div>
             <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
-              Описание
+              {t('editProfile.ui.bioLabel')}
             </label>
             <Textarea
               id="bio"
               value={formData.bio}
               onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-              placeholder="Расскажите о себе..."
+              placeholder={t('editProfile.ui.bioPlaceholder')}
               rows={4}
               disabled={isLoading}
               className={errors?.bio ? 'border-red-500' : ''}
@@ -222,13 +230,60 @@ export function EditProfileForm({
                 <p className="text-sm text-red-500">{errors.bio}</p>
               ) : (
                 <p className="text-sm text-gray-500">
-                  {formData.bio.length}/200
+                  {t('editProfile.ui.bioCounter', { count: formData.bio.length })}
                 </p>
               )}
             </div>
           </div>
+
+          {/* Дата рождения */}
+          <div>
+            <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700 mb-2">
+              {t('editProfile.ui.birthDateLabel')}
+            </label>
+            <button
+              type="button"
+              onClick={() => setIsDatePickerOpen(true)}
+              disabled={isLoading}
+              className="w-full flex items-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-xl text-left transition-colors active:bg-gray-50"
+            >
+              <Calendar className="w-5 h-5 text-gray-400" />
+              <span className={formData.birth_date ? 'text-gray-900' : 'text-gray-400'}>
+                {formData.birth_date 
+                  ? new Date(formData.birth_date).toLocaleDateString('ru-RU', { 
+                      day: 'numeric', 
+                      month: 'long', 
+                      year: 'numeric' 
+                    })
+                  : t('editProfile.ui.birthDatePlaceholder')
+                }
+              </span>
+            </button>
+            <p className="text-sm text-gray-500 mt-1">
+              {t('editProfile.ui.birthDateHint')}
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Date Picker Drawer */}
+      <DatePickerDrawer
+        open={isDatePickerOpen}
+        onOpenChange={setIsDatePickerOpen}
+        selectedDate={formData.birth_date ? new Date(formData.birth_date) : undefined}
+        onConfirm={(date) => {
+          // Конвертируем Date в ISO string (YYYY-MM-DD) без timezone проблем
+          if (date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            setFormData({ ...formData, birth_date: `${year}-${month}-${day}` });
+          } else {
+            setFormData({ ...formData, birth_date: undefined });
+          }
+        }}
+        mode="past"
+      />
 
       {/* Кнопки действий */}
       <div className="p-4 border-t border-gray-200 space-y-3">
@@ -237,7 +292,7 @@ export function EditProfileForm({
           className="w-full"
           disabled={isLoading}
         >
-          {isLoading ? 'Сохранение...' : 'Сохранить'}
+          {isLoading ? t('editProfile.ui.savingButton') : t('editProfile.ui.saveButton')}
         </Button>
         <Button
           type="button"
@@ -246,7 +301,7 @@ export function EditProfileForm({
           onClick={onCancel}
           disabled={isLoading}
         >
-          Отмена
+          {t('editProfile.ui.cancelButton')}
         </Button>
       </div>
     </form>

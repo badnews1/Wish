@@ -30,7 +30,6 @@ export async function checkUsernameAvailability(
   const { data, error } = await query.maybeSingle();
 
   if (error) {
-    console.error('Ошибка проверки username:', error);
     return false;
   }
 

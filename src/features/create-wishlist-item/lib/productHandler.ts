@@ -1,4 +1,5 @@
 import type { ParsedProduct } from '../model/productParser';
+import { MAX_WISH_TITLE_LENGTH, MAX_WISH_DESCRIPTION_LENGTH } from '@/shared/lib';
 
 /**
  * Создаёт обработчик автозаполнения формы из распарсенного товара
@@ -11,8 +12,16 @@ export function createProductParsedHandler(
   setCurrency: React.Dispatch<React.SetStateAction<string | undefined>>
 ) {
   return (product: ParsedProduct) => {
-    if (product.title) setTitle(product.title);
-    if (product.description) setDescription(product.description);
+    // Обрезаем название до максимальной длины
+    if (product.title) {
+      const truncatedTitle = product.title.slice(0, MAX_WISH_TITLE_LENGTH);
+      setTitle(truncatedTitle);
+    }
+    // Обрезаем описание до максимальной длины
+    if (product.description) {
+      const truncatedDescription = product.description.slice(0, MAX_WISH_DESCRIPTION_LENGTH);
+      setDescription(truncatedDescription);
+    }
     if (product.imageUrl) setImageUrl(product.imageUrl);
     if (product.price !== undefined) setPrice(product.price);
     if (product.currency) setCurrency(product.currency);

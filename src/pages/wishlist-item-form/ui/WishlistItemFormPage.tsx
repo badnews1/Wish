@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormHeader } from '@/widgets/Header';
+import { FormHeader } from '@/widgets/header';
 import { RoundedButton, ConfirmDialog } from '@/shared/ui';
 import { useTranslation } from '@/app';
 import { 

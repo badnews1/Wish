@@ -9,6 +9,27 @@ interface UseWishlistFormStateProps {
   setOriginalImage: (image: string | undefined) => void;
 }
 
+interface UseWishlistFormStateReturn {
+  state: {
+    title: string;
+    description: string;
+    selectedIconId: string;
+    eventDate: Date | undefined;
+    privacy: PrivacyType;
+    bookingVisibility: BookingVisibilityType;
+    allowGroupGifting: boolean;
+  };
+  setters: {
+    setTitle: (title: string) => void;
+    setDescription: (description: string) => void;
+    setSelectedIconId: (iconId: string) => void;
+    setEventDate: (date: Date | undefined) => void;
+    setPrivacy: (privacy: PrivacyType) => void;
+    setBookingVisibility: (visibility: BookingVisibilityType) => void;
+    setAllowGroupGifting: (value: boolean | ((prev: boolean) => boolean)) => void;
+  };
+}
+
 /**
  * Хук для управления состоянием формы вишлиста
  * 
@@ -18,7 +39,7 @@ export function useWishlistFormState({
   initialData,
   setFinalImage,
   setOriginalImage
-}: UseWishlistFormStateProps) {
+}: UseWishlistFormStateProps): UseWishlistFormStateReturn {
   // Form fields state
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

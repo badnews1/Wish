@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useAppNavigation, useBottomMenuNavigation, useHomeTabsLogic, AppRouter, useWishlistActions, useItemActions } from '@/app';
 import { QueryProvider, AuthProvider } from '@/app/providers';
-import { BottomMenu } from '@/widgets/BottomMenu';
+import { BottomMenu } from '@/widgets/bottom-menu';
 import { Toaster } from '@/components/ui/sonner';
 import { useWishlists } from '@/entities/wishlist';
 import type { NavigationView } from '@/app';
-import type { MenuItemId } from '@/widgets/BottomMenu';
+import type { MenuItemId } from '@/widgets/bottom-menu';
 
 /**
  * Определить активный пункт меню на основе текущего view

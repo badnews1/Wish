@@ -1,0 +1,1 @@
+export { formatFriendsCount } from './formatters';

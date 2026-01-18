@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from '@/app';
 import { type PrivacyType, type BookingVisibilityType } from '@/entities/wishlist';
 import { DEFAULT_ICON_ID } from '@/shared/config';
 import type { CreateWishlistForm } from './types';
 import { useMultipleDrawers, useImageUploadCrop, IMAGE_PRESETS } from '@/shared/lib';
-import { useTranslation } from '@/app';
 import { useWishlistFormState } from './formState';
 import { useWishlistFormHandlers } from './formHandlers';
 
@@ -12,7 +12,43 @@ interface UseWishlistFormProps {
   onSubmit: (data: CreateWishlistForm) => void;
 }
 
-export function useWishlistForm({ initialData, onSubmit }: UseWishlistFormProps) {
+interface UseWishlistFormReturn {
+  formState: {
+    title: string;
+    description: string;
+    selectedIconId: string;
+    eventDate: Date | undefined;
+    privacy: PrivacyType;
+    bookingVisibility: BookingVisibilityType;
+    allowGroupGifting: boolean;
+    coverImage: string | undefined;
+    originalImage: string | undefined;
+  };
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setCoverImage: (image: string | undefined) => void;
+  drawers: ReturnType<typeof useMultipleDrawers<{
+    calendarDrawer: boolean;
+    privacyDrawer: boolean;
+    bookingVisibilityDrawer: boolean;
+    iconSelectorDrawer: boolean;
+    cropDrawer: boolean;
+    deleteDialog: boolean;
+  }>>;
+  handlers: {
+    handleSubmit: () => void;
+    handleConfirmDate: (date: Date | undefined) => void;
+    handleSelectPrivacy: (privacy: PrivacyType) => void;
+    handleSelectBookingVisibility: (visibility: BookingVisibilityType) => void;
+    handleSelectIcon: (iconId: string) => void;
+    handleToggleGroupGifting: () => void;
+    handleUploadCoverImage: (file: File) => Promise<void>;
+    handleRemoveCoverImage: () => void;
+    handleCropConfirm: (croppedImage: string) => void;
+  };
+}
+
+export function useWishlistForm({ initialData, onSubmit }: UseWishlistFormProps): UseWishlistFormReturn {
   const { t } = useTranslation();
   
   // Drawer management

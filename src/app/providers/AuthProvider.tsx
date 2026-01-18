@@ -12,7 +12,7 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps): JSX.Element | null {
   const queryClient = useQueryClient();
   const { data: user, isLoading } = useCurrentUser();
   const [authScreen, setAuthScreen] = useState<AuthScreen>('welcome');
@@ -22,7 +22,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return (
       <div className="flex items-center justify-center h-screen bg-white">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[#5F33E1] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-16 h-16 border-4 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Загрузка...</p>
         </div>
       </div>

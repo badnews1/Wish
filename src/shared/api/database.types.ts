@@ -19,7 +19,8 @@ export interface Database {
           id: string
           user_id: string
           friend_id: string
-          status: 'pending' | 'accepted' | 'rejected'
+          status: 'pending' | 'accepted'
+          requested_by: string
           created_at: string
           updated_at: string
         }
@@ -27,7 +28,8 @@ export interface Database {
           id?: string
           user_id: string
           friend_id: string
-          status?: 'pending' | 'accepted' | 'rejected'
+          status?: 'pending' | 'accepted'
+          requested_by: string
           created_at?: string
           updated_at?: string
         }
@@ -35,9 +37,33 @@ export interface Database {
           id?: string
           user_id?: string
           friend_id?: string
-          status?: 'pending' | 'accepted' | 'rejected'
+          status?: 'pending' | 'accepted'
+          requested_by?: string
           created_at?: string
           updated_at?: string
+        }
+      }
+      friend_actions: {
+        Row: {
+          id: string
+          user_id: string
+          target_user_id: string
+          action: 'send' | 'cancel' | 'accept' | 'reject' | 'delete'
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          target_user_id: string
+          action: 'send' | 'cancel' | 'accept' | 'reject' | 'delete'
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          target_user_id?: string
+          action?: 'send' | 'cancel' | 'accept' | 'reject' | 'delete'
+          created_at?: string
         }
       }
       profiles: {
@@ -47,6 +73,7 @@ export interface Database {
           display_name: string | null
           bio: string | null
           avatar_url: string | null
+          friends_count: number
           created_at: string
           updated_at: string
         }
@@ -56,6 +83,7 @@ export interface Database {
           display_name?: string | null
           bio?: string | null
           avatar_url?: string | null
+          friends_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -65,6 +93,7 @@ export interface Database {
           display_name?: string | null
           bio?: string | null
           avatar_url?: string | null
+          friends_count?: number
           created_at?: string
           updated_at?: string
         }
@@ -165,9 +194,21 @@ export interface Database {
       }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      get_friendship_statuses: {
+        Args: {
+          p_current_user: string
+          p_target_users: string[]
+        }
+        Returns: {
+          target_user_id: string
+          status: 'pending' | 'accepted'
+          requested_by: string
+        }[]
+      }
+    }
     Enums: {
-      friendship_status: 'pending' | 'accepted' | 'rejected'
+      friendship_status: 'pending' | 'accepted'
     }
   }
 }

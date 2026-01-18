@@ -1,48 +1,19 @@
 import type { ParsedProduct, ParserError } from '../model/productParser';
-import { getMockProductByUrl } from '../model/productParser';
+import { projectId, publicAnonKey } from '@/utils/supabase/info';
 
 /**
- * API-заглушка для парсинга товаров по URL
+ * API для парсинга товаров по URL
  * 
- * БУДУЩАЯ ИНТЕГРАЦИЯ:
+ * Поддерживаемые источники данных:
+ * - Open Graph метатеги (og:title, og:description, og:image, og:price)
+ * - JSON-LD schema.org (Product)
+ * - Twitter Card метатеги
+ * - Обычные HTML метатеги
  * 
- * 1. Backend Endpoint:
- *    POST /api/parse-product
- *    Body: { url: string }
- *    Response: ParsedProduct | { error: ParserError }
- * 
- * 2. Поддерживаемые сайты (примеры):
- *    - Amazon
- *    - eBay
- *    - AliExpress
- *    - Wildberries
- *    - Ozon
- *    - Nike
- *    - Adidas
- *    - и другие популярные e-commerce платформы
- * 
- * 3. Парсинг данных:
- *    - Название товара
- *    - Описание
- *    - Цена и валюта
- *    - Основное изображение
- *    - Дополнительные изображения (до 5 штук)
- *    - Бренд
- *    - Доступные размеры
- *    - Цвет
- * 
- * 4. Обработка ошибок:
- *    - INVALID_URL - некорректный URL
- *    - PARSE_ERROR - ошибка парсинга (сайт не поддерживается или структура изменилась)
- *    - NETWORK_ERROR - проблемы с сетью
- *    - UNSUPPORTED_SITE - сайт не поддерживается
- * 
- * 5. Рекомендации по реализации:
- *    - Использовать очередь для обработки запросов
- *    - Кэшировать результаты (TTL: 24 часа)
- *    - Добавить rate limiting для защиты от злоупотреблений
- *    - Использовать headless browser (Puppeteer/Playwright) для сложных сайтов
- *    - Fallback на OpenGraph метатеги если специфичный парсер не работает
+ * Обработка ошибок:
+ * - INVALID_URL - некорректный URL
+ * - PARSE_ERROR - ошибка парсинга (не удалось извлечь данные)
+ * - NETWORK_ERROR - проблемы с сетью
  */
 export async function parseProductUrl(url: string): Promise<ParsedProduct> {
   // Валидация URL
@@ -55,23 +26,35 @@ export async function parseProductUrl(url: string): Promise<ParsedProduct> {
     throw error;
   }
 
-  // Имитация задержки API-запроса
-  await new Promise(resolve => setTimeout(resolve, 1500));
+  try {
+    const response = await fetch(
+      `https://${projectId}.supabase.co/functions/v1/make-server-557c7f29/parse-product`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${publicAnonKey}`,
+        },
+        body: JSON.stringify({ url }),
+      }
+    );
 
-  // TODO: Заменить на реальный API-запрос
-  // const response = await fetch('/api/parse-product', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ url })
-  // });
-  // 
-  // if (!response.ok) {
-  //   const errorData = await response.json();
-  //   throw errorData.error;
-  // }
-  // 
-  // return response.json();
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw errorData.error;
+    }
 
-  // Возвращаем mock-данные
-  return getMockProductByUrl(url);
+    return response.json();
+  } catch (error) {
+    // Если ошибка уже в формате ParserError, пробрасываем её
+    if ((error as ParserError).code) {
+      throw error;
+    }
+
+    // Иначе оборачиваем в NETWORK_ERROR
+    const networkError: ParserError = {
+      code: 'NETWORK_ERROR'
+    };
+    throw networkError;
+  }
 }

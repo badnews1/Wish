@@ -66,7 +66,8 @@ export const createWishlistEn = {
     privacyLabel: "Privacy",
     bookingVisibilityLabel: "Booking visibility",
     groupGiftingLabel: "Allow group gifts",
-    groupGiftingDescription: "Friends can create group gifts"
+    groupGiftingDescription: "Friends can create group gifts",
+    coverImageAlt: "Wishlist cover"
   },
   errors: {
     imageCropFailed: "Image crop failed:"

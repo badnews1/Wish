@@ -5,15 +5,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner@2.0.3';
 import { supabase } from '@/shared/api';
+import { getTranslation } from '@/shared/lib';
 import type { Wishlist } from '../model/types';
+import { updateWishlistCover } from './wishlistStorageUtils';
 
 export function useUpdateWishlistMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: Partial<Wishlist> }) => {
-      console.log('useUpdateWishlistMutation - updating wishlist:', { id, updates });
-
       const updateData: Record<string, unknown> = {};
       
       if (updates.title !== undefined) updateData.title = updates.title;
@@ -22,7 +22,24 @@ export function useUpdateWishlistMutation() {
         updateData.icon = updates.iconId;
         updateData.icon_id = updates.iconId;
       }
-      if (updates.imageUrl !== undefined) updateData.cover_image = updates.imageUrl;
+      
+      // Обрабатываем обложку отдельно - загружаем в Storage если нужно
+      if (updates.imageUrl !== undefined) {
+        // Получаем текущую обложку для возможного удаления
+        const { data: currentWishlist } = await supabase
+          .from('wishlists')
+          .select('cover_image')
+          .eq('id', id)
+          .single();
+        
+        const coverUrl = await updateWishlistCover(
+          id, 
+          updates.imageUrl, 
+          currentWishlist?.cover_image
+        );
+        updateData.cover_image = coverUrl;
+      }
+      
       if (updates.privacy !== undefined) updateData.privacy = updates.privacy;
       if (updates.eventDate !== undefined) updateData.event_date = updates.eventDate;
       if (updates.bookingVisibility !== undefined) updateData.booking_visibility = updates.bookingVisibility;
@@ -35,10 +52,7 @@ export function useUpdateWishlistMutation() {
         .select()
         .single();
 
-      console.log('useUpdateWishlistMutation - result:', { data, error });
-
       if (error) {
-        console.error('useUpdateWishlistMutation - error:', error);
         throw error;
       }
 
@@ -47,11 +61,10 @@ export function useUpdateWishlistMutation() {
     onSuccess: () => {
       // Инвалидируем кеш вишлистов
       queryClient.invalidateQueries({ queryKey: ['wishlists'] });
-      toast.success('Вишлист обновлён');
+      toast.success(getTranslation('wishlist.notifications.wishlist.updated'));
     },
-    onError: (error) => {
-      console.error('Failed to update wishlist:', error);
-      toast.error('Ошибка обновления вишлиста');
+    onError: () => {
+      toast.error(getTranslation('wishlist.notifications.wishlist.errorUpdate'));
     },
   });
 }

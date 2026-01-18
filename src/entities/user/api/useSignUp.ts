@@ -1,8 +1,9 @@
 // Хук для регистрации пользователя
 import { useMutation } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
-import type { SignUpData } from '../model/types';
 import { toast } from 'sonner@2.0.3';
+import { useTranslation } from '@/app';
+import type { SignUpData } from '../model/types';
 import { generateRandomUsername } from '../lib/username';
 import { checkUsernameAvailability } from './checkUsernameAvailability';
 
@@ -66,10 +67,12 @@ async function signUp(data: SignUpData): Promise<SignUpResponse> {
 }
 
 export function useSignUp() {
+  const { t } = useTranslation();
+  
   return useMutation({
     mutationFn: signUp,
     onSuccess: () => {
-      toast.success('Аккаунт успешно создан!');
+      toast.success(t('auth.createAccount'));
     },
     onError: (error: Error) => {
       toast.error(`Ошибка регистрации: ${error.message}`);

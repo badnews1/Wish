@@ -1,8 +1,8 @@
 // Хук для OAuth аутентификации (Google, Apple)
 import { useMutation } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
-import type { SocialProvider } from '../model/types';
 import { toast } from 'sonner@2.0.3';
+import type { SocialProvider } from '../model/types';
 
 async function signInWithProvider(provider: SocialProvider): Promise<void> {
   const { error } = await supabase.auth.signInWithOAuth({

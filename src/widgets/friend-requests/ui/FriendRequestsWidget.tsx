@@ -4,28 +4,51 @@
  * @module widgets/friend-requests/ui
  */
 
-import React from 'react';
-import { usePendingRequests, useSentRequests } from '@/entities/friendship';
-import { FriendRequestCard } from '@/entities/user';
-import { SentRequestCard } from '@/entities/friendship';
-import { CancelRequestButton } from '@/features/cancel-friend-request';
-import { AcceptRequestButton, RejectRequestButton } from '@/features/manage-friend-request';
+import { useMemo } from 'react';
 import { Loader2, UserPlus, Send } from 'lucide-react';
+import { useTranslation } from '@/app';
+import { useIncomingFriendRequests, useOutgoingFriendRequests, FriendRequestCard } from '@/entities/friend';
+import { useCurrentUser } from '@/entities/user';
+import { FriendRequestActions, FriendButton } from '@/features/manage-friend';
 
 /**
  * Виджет страницы "Запросы"
  * Разделен на две секции: входящие (сверху) и исходящие (снизу)
  */
 export function FriendRequestsWidget(): JSX.Element {
-  const { data: incomingRequests = [], isLoading: isLoadingIncoming } = usePendingRequests();
-  const { data: outgoingRequests = [], isLoading: isLoadingOutgoing } = useSentRequests();
+  const { data: currentUser } = useCurrentUser();
+  const { t } = useTranslation();
+  const {
+    data: incomingData,
+    isLoading: isLoadingIncoming,
+    fetchNextPage: fetchNextIncoming,
+    hasNextPage: hasNextIncoming,
+    isFetchingNextPage: isFetchingNextIncoming,
+  } = useIncomingFriendRequests({ userId: currentUser?.id || '' });
+
+  const {
+    data: outgoingData,
+    isLoading: isLoadingOutgoing,
+    fetchNextPage: fetchNextOutgoing,
+    hasNextPage: hasNextOutgoing,
+    isFetchingNextPage: isFetchingNextOutgoing,
+  } = useOutgoingFriendRequests({ userId: currentUser?.id || '' });
+
+  // Собрать запросы из страниц
+  const incomingRequests = useMemo(() => {
+    return incomingData?.pages.flatMap(page => page.data) || [];
+  }, [incomingData]);
+
+  const outgoingRequests = useMemo(() => {
+    return outgoingData?.pages.flatMap(page => page.data) || [];
+  }, [outgoingData]);
 
   const isLoading = isLoadingIncoming || isLoadingOutgoing;
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-[#5F33E1]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--color-accent)]" />
       </div>
     );
   }
@@ -37,10 +60,10 @@ export function FriendRequestsWidget(): JSX.Element {
         <div className="flex items-center gap-2 mb-3 px-1">
           <UserPlus className="w-5 h-5 text-gray-700" />
           <h2 className="text-lg font-semibold text-gray-900">
-            Входящие запросы
+            {t('widgets.friendRequests.incomingTitle')}
           </h2>
           {incomingRequests.length > 0 && (
-            <span className="bg-[#5F33E1] text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+            <span className="bg-[var(--color-accent)] text-white text-xs font-semibold px-2 py-0.5 rounded-full">
               {incomingRequests.length}
             </span>
           )}
@@ -52,20 +75,33 @@ export function FriendRequestsWidget(): JSX.Element {
               <UserPlus className="w-8 h-8 text-gray-400" />
             </div>
             <p className="text-gray-500 text-sm">
-              Нет новых запросов
+              {t('widgets.friendRequests.incomingEmpty')}
             </p>
           </div>
         ) : (
-          <div className="space-y-2">
-            {incomingRequests.map((request) => (
-              <FriendRequestCard
-                key={request.friendshipId}
-                request={request}
-                acceptSlot={<AcceptRequestButton friendshipId={request.friendshipId} />}
-                rejectSlot={<RejectRequestButton friendshipId={request.friendshipId} />}
-              />
-            ))}
-          </div>
+          <>
+            <div className="space-y-2">
+              {incomingRequests.map((friendship) => (
+                <FriendRequestCard
+                  key={friendship.id}
+                  profile={friendship.profile}
+                  actionsSlot={
+                    <FriendRequestActions targetUserId={friendship.profile.id} />
+                  }
+                  t={t}
+                />
+              ))}
+            </div>
+            {hasNextIncoming && (
+              <button
+                onClick={() => fetchNextIncoming()}
+                disabled={isFetchingNextIncoming}
+                className="w-full mt-3 py-3 bg-white rounded-2xl text-purple-600 font-medium hover:bg-purple-50 transition-colors disabled:opacity-50"
+              >
+                {isFetchingNextIncoming ? t('widgets.friendRequests.loading') : t('widgets.friendRequests.loadMore')}
+              </button>
+            )}
+          </>
         )}
       </section>
 
@@ -74,7 +110,7 @@ export function FriendRequestsWidget(): JSX.Element {
         <div className="flex items-center gap-2 mb-3 px-1">
           <Send className="w-5 h-5 text-gray-700" />
           <h2 className="text-lg font-semibold text-gray-900">
-            Исходящие запросы
+            {t('widgets.friendRequests.outgoingTitle')}
           </h2>
           {outgoingRequests.length > 0 && (
             <span className="bg-gray-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
@@ -89,19 +125,33 @@ export function FriendRequestsWidget(): JSX.Element {
               <Send className="w-8 h-8 text-gray-400" />
             </div>
             <p className="text-gray-500 text-sm">
-              Нет отправленных запросов
+              {t('widgets.friendRequests.outgoingEmpty')}
             </p>
           </div>
         ) : (
-          <div className="space-y-2">
-            {outgoingRequests.map((request) => (
-              <SentRequestCard
-                key={request.id}
-                request={request}
-                actionSlot={<CancelRequestButton friendshipId={request.id} />}
-              />
-            ))}
-          </div>
+          <>
+            <div className="space-y-2">
+              {outgoingRequests.map((friendship) => (
+                <FriendRequestCard
+                  key={friendship.id}
+                  profile={friendship.profile}
+                  actionsSlot={
+                    <FriendButton targetUserId={friendship.profile.id} variant="icon" />
+                  }
+                  t={t}
+                />
+              ))}
+            </div>
+            {hasNextOutgoing && (
+              <button
+                onClick={() => fetchNextOutgoing()}
+                disabled={isFetchingNextOutgoing}
+                className="w-full mt-3 py-3 bg-white rounded-2xl text-purple-600 font-medium hover:bg-purple-50 transition-colors disabled:opacity-50"
+              >
+                {isFetchingNextOutgoing ? t('widgets.friendRequests.loading') : t('widgets.friendRequests.loadMore')}
+              </button>
+            )}
+          </>
         )}
       </section>
     </div>

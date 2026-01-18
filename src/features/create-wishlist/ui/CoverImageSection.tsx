@@ -1,8 +1,8 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import { useTranslation } from '@/app';
 import { Button } from '@/components/ui/button';
 import { ImageOverlay } from '@/shared/ui';
-import { useTranslation } from '@/app';
 
 interface CoverImageSectionProps {
   coverImage?: string;
@@ -21,7 +21,7 @@ export function CoverImageSection({
     <div className="space-y-3">
       <ImageOverlay
         imageUrl={coverImage}
-        alt="Обложка вишлиста"
+        alt={t('createWishlist.ui.coverImageAlt')}
         height="16rem"
         uploadInputId="cover-image"
         onUpload={onUploadImage}

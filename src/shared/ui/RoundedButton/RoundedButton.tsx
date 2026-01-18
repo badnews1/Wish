@@ -10,7 +10,7 @@ interface RoundedButtonProps {
 
 export function RoundedButton({ label, isActive, onClick, variant = 'tab', disabled = false }: RoundedButtonProps) {
   const sizeClasses = variant === 'tab' 
-    ? 'flex-1 h-11' 
+    ? 'w-full h-11' 
     : 'w-full h-14';
 
   const viewBox = variant === 'tab' ? '0 0 118 44' : '0 0 331 52.0001';

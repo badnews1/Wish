@@ -1,4 +1,4 @@
 export const communityRu = {
-  title: "Сообщество",
+  title: "Мои друзья",
   inDevelopment: "Сообщество (в разработке)"
 } as const;

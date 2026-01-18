@@ -19,10 +19,10 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { useTranslation, type Language } from '@/app';
-import { Header } from '@/widgets/Header';
+import { useSignOut } from '@/entities/user';
+import { Header } from '@/widgets/header';
 import { ToggleSwitch } from '@/shared/ui';
 import { LanguageDrawer } from '@/pages/profile/ui/LanguageDrawer';
-import { useSignOut } from '@/entities/user';
 import type { SettingsPageProps } from '../model';
 
 /**
@@ -86,16 +86,21 @@ export function SettingsPage({ onNavigateBack, onNavigateToEditProfile }: Settin
               onClick={onNavigateToEditProfile}
             />
             <Divider />
-            <SettingRow
+            <SettingsItem
               icon={Lock}
               label={t('pages.settings.changePassword')}
-              onClick={() => console.log('Change password')}
+              onClick={() => {
+                // TODO: Реализовать смену пароля
+              }}
             />
             <Divider />
-            <SettingRow
+            {/* Удалить аккаунт */}
+            <SettingsItem
               icon={Trash2}
               label={t('pages.settings.deleteAccount')}
-              onClick={() => console.log('Delete account')}
+              onClick={() => {
+                // TODO: Реализовать удаление аккаунта
+              }}
               danger
             />
           </div>
@@ -150,7 +155,9 @@ export function SettingsPage({ onNavigateBack, onNavigateToEditProfile }: Settin
             <SettingRow
               icon={Eye}
               label={t('pages.settings.profileVisibility')}
-              onClick={() => console.log('Profile visibility')}
+              onClick={() => {
+                // TODO: Реализовать настройки видимости профиля
+              }}
             />
             <Divider />
             <SettingRow
@@ -209,19 +216,25 @@ export function SettingsPage({ onNavigateBack, onNavigateToEditProfile }: Settin
             <SettingRow
               icon={FileText}
               label={t('pages.settings.terms')}
-              onClick={() => console.log('Terms')}
+              onClick={() => {
+                // TODO: Открыть условия использования
+              }}
             />
             <Divider />
             <SettingRow
               icon={Shield}
               label={t('pages.settings.privacy_policy')}
-              onClick={() => console.log('Privacy policy')}
+              onClick={() => {
+                // TODO: Открыть политику конфиденциальности
+              }}
             />
             <Divider />
             <SettingRow
               icon={HelpCircle}
               label={t('pages.settings.support')}
-              onClick={() => console.log('Support')}
+              onClick={() => {
+                // TODO: Открыть страницу поддержки
+              }}
             />
           </div>
         </section>
@@ -304,4 +317,41 @@ function SettingRow({
  */
 function Divider(): JSX.Element {
   return <div className="h-px bg-gray-200 mx-4" />;
+}
+
+/**
+ * Элемент настройки
+ */
+interface SettingsItemProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value?: string;
+  onClick?: () => void;
+  danger?: boolean;
+}
+
+function SettingsItem({
+  icon: Icon,
+  label,
+  value,
+  onClick,
+  danger,
+}: SettingsItemProps): JSX.Element {
+  return (
+    <button
+      onClick={onClick}
+      disabled={!onClick}
+      className="w-full flex items-center gap-3 px-4 py-3.5 active:bg-gray-100 transition-colors disabled:active:bg-transparent"
+    >
+      <Icon className={`w-5 h-5 flex-shrink-0 ${danger ? 'text-red-500' : 'text-gray-700'}`} />
+      <span className={`flex-1 text-left ${danger ? 'text-red-500' : 'text-gray-900'}`}>
+        {label}
+      </span>
+      {value && (
+        <span className="text-sm text-gray-500">
+          {value}
+        </span>
+      )}
+    </button>
+  );
 }

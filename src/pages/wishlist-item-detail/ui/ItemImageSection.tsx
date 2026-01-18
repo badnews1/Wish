@@ -1,6 +1,6 @@
 import { ArrowLeft, Share2, Pencil, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Header } from '@/widgets/Header';
+import { Header } from '@/widgets/header';
 import type { GiftTag } from '@/entities/wishlist';
 import { GIFT_TAG_CONFIG } from '@/entities/wishlist';
 import type { ItemImageSectionProps } from '../model';

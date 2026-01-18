@@ -2,6 +2,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/shared/api/supabase';
 import { toast } from 'sonner@2.0.3';
+import { getTranslation } from '@/shared/lib';
 
 async function signOut(): Promise<void> {
   const { error } = await supabase.auth.signOut();
@@ -19,10 +20,10 @@ export function useSignOut() {
     onSuccess: () => {
       // Очищаем все кеши React Query
       queryClient.clear();
-      toast.success('Вы вышли из аккаунта');
+      toast.success(getTranslation('user.notifications.signOut.success'));
     },
-    onError: (error: Error) => {
-      toast.error(`Ошибка выхода: ${error.message}`);
+    onError: () => {
+      toast.error(getTranslation('user.notifications.signOut.error'));
     },
   });
 }

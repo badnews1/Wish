@@ -1,12 +1,12 @@
 // Страница входа
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from '@/app/lib/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useSignIn } from '@/entities/user';
-import { signInSchema, type SignInFormData } from '@/entities/user/model';
-import { useTranslation } from '@/app/lib/hooks/useTranslation';
+import { createSignInSchema, type SignInFormData } from '@/entities/user/model';
 
 interface SignInPageProps {
   onBack: () => void;
@@ -14,7 +14,7 @@ interface SignInPageProps {
   onSignUpClick: () => void;
 }
 
-export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps) {
+export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps): JSX.Element {
   const { t } = useTranslation();
   const { mutate: signIn, isPending } = useSignIn();
 
@@ -37,6 +37,11 @@ export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps
     e.preventDefault();
 
     // Валидация
+    const signInSchema = createSignInSchema({
+      emailInvalid: t('user.validation.email.invalid'),
+      passwordMinLength: t('user.validation.password.minLength'),
+    });
+    
     const result = signInSchema.safeParse(formData);
     if (!result.success) {
       const newErrors: Partial<Record<keyof SignInFormData, string>> = {};
@@ -118,7 +123,7 @@ export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps
           {/* <div className="text-right">
             <button
               type="button"
-              className="text-sm text-[#5F33E1] hover:underline"
+              className="text-sm text-[var(--color-accent)] hover:underline"
             >
               {t('auth.forgotPassword')}
             </button>
@@ -129,7 +134,7 @@ export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps
             type="submit"
             size="lg"
             disabled={isPending}
-            className="w-full h-12 text-base font-semibold bg-[#5F33E1] hover:bg-[#5F33E1]/90 mt-8"
+            className="w-full h-12 text-base font-semibold bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 mt-8"
           >
             {isPending ? t('common.loading') : t('auth.signIn')}
           </Button>
@@ -141,7 +146,7 @@ export function SignInPage({ onBack, onSuccess, onSignUpClick }: SignInPageProps
               <button
                 type="button"
                 onClick={onSignUpClick}
-                className="text-[#5F33E1] font-semibold hover:underline"
+                className="text-[var(--color-accent)] font-semibold hover:underline"
               >
                 {t('auth.signUp')}
               </button>

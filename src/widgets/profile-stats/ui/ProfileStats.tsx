@@ -7,7 +7,7 @@ interface StatItemProps {
 /**
  * Элемент статистики
  */
-function StatItem({ label, value, onClick }: StatItemProps) {
+function StatItem({ label, value, onClick }: StatItemProps): JSX.Element {
   const Component = onClick ? 'button' : 'div';
   
   return (

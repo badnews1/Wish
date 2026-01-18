@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '@/widgets/Header';
+import { Header } from '@/widgets/header';
 import { useTranslation } from '@/app';
 import type { WishlistPageProps } from '../model';
 import { WishlistGridCard } from './WishlistGridCard';

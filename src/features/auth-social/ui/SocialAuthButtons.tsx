@@ -1,8 +1,8 @@
 // Кнопки для OAuth аутентификации
-import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/app/lib/hooks/useTranslation';
 import { useSocialAuth } from '@/entities/user';
 import type { SocialProvider } from '@/entities/user';
-import { useTranslation } from '@/app/lib/hooks/useTranslation';
+import { Button } from '@/components/ui/button';
 
 export function SocialAuthButtons() {
   const { t } = useTranslation();

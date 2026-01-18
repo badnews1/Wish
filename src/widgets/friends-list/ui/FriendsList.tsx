@@ -4,24 +4,47 @@
  */
 
 import { useState, useMemo } from 'react';
-import { useMyFriends, FriendCard, filterFriendsByName } from '@/entities/friendship';
-import { RemoveFriendButton } from '@/features/remove-friend';
+import { useFriends, FriendCard } from '@/entities/friend';
+import { useCurrentUser } from '@/entities/user';
+import { DeleteFriendButton } from '@/features/manage-friend';
 import { Search, Users } from 'lucide-react';
+import { useTranslation } from '@/app';
 
 /**
  * Виджет отображения списка друзей с поиском по имени
  */
 export function FriendsList(): JSX.Element {
-  const { data: friends = [], isLoading, error } = useMyFriends();
+  const { data: currentUser } = useCurrentUser();
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
 
-  // Фильтруем друзей клиентски по имени/фамилии
-  const filteredFriends = useMemo(
-    () => filterFriendsByName(friends, searchQuery),
-    [friends, searchQuery]
-  );
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useFriends({ userId: currentUser?.id || '' });
 
-  if (isLoading) {
+  // Собрать все друзей из страниц
+  const friends = useMemo(() => {
+    return data?.pages.flatMap(page => page.data) || [];
+  }, [data]);
+
+  // Фильтровать друзей клиентски по имени
+  const filteredFriends = useMemo(() => {
+    if (!searchQuery.trim()) return friends;
+    
+    const query = searchQuery.toLowerCase();
+    return friends.filter(friendship => {
+      const displayName = friendship.profile.display_name?.toLowerCase() || '';
+      const username = friendship.profile.username?.toLowerCase() || '';
+      return displayName.includes(query) || username.includes(query);
+    });
+  }, [friends, searchQuery]);
+
+  if (!currentUser || isLoading) {
     return (
       <div className="space-y-3">
         {[1, 2, 3].map((i) => (
@@ -34,8 +57,8 @@ export function FriendsList(): JSX.Element {
   if (error) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600">Ошибка загрузки друзей</p>
-        <p className="text-sm text-gray-500 mt-1">Попробуйте обновить страницу</p>
+        <p className="text-red-600">{t('widgets.friendsList.errorLoading')}</p>
+        <p className="text-sm text-gray-500 mt-1">{t('widgets.friendsList.errorRetry')}</p>
       </div>
     );
   }
@@ -54,7 +77,7 @@ export function FriendsList(): JSX.Element {
           />
           <input
             type="text"
-            placeholder="Поиск по имени"
+            placeholder={t('widgets.friendsList.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-white rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-purple-600"
@@ -64,37 +87,51 @@ export function FriendsList(): JSX.Element {
 
       {/* Список друзей */}
       {hasSearchResults ? (
-        <div className="space-y-3">
-          {filteredFriends.map((friend) => (
-            <FriendCard
-              key={friend.friendshipId}
-              friend={friend}
-              actionsSlot={
-                <RemoveFriendButton
-                  friendshipId={friend.friendshipId}
-                  friendName={friend.displayName || friend.username || 'друга'}
-                  variant="icon"
-                />
-              }
-            />
-          ))}
-        </div>
+        <>
+          <div className="space-y-3">
+            {filteredFriends.map((friendship) => (
+              <FriendCard
+                key={friendship.id}
+                profile={friendship.profile}
+                actionsSlot={
+                  <DeleteFriendButton
+                    targetUserId={friendship.profile.id}
+                    friendName={friendship.profile.display_name || friendship.profile.username || t('widgets.friendsList.friendFallbackName')}
+                    variant="icon"
+                  />
+                }
+                t={t}
+              />
+            ))}
+          </div>
+          
+          {/* Кнопка "Загрузить еще" */}
+          {hasNextPage && !searchQuery && (
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={isFetchingNextPage}
+              className="w-full py-3 bg-white rounded-2xl text-purple-600 font-medium hover:bg-purple-50 transition-colors disabled:opacity-50"
+            >
+              {isFetchingNextPage ? t('widgets.friendsList.loading') : t('widgets.friendsList.loadMore')}
+            </button>
+          )}
+        </>
       ) : searchQuery.trim() ? (
         // Empty state: поиск не дал результатов
         <div className="text-center py-12">
           <Search className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-600 font-medium">Ничего не найдено</p>
+          <p className="text-gray-600 font-medium">{t('widgets.friendsList.searchEmptyTitle')}</p>
           <p className="text-sm text-gray-500 mt-1">
-            Попробуйте изменить запрос
+            {t('widgets.friendsList.searchEmptySubtitle')}
           </p>
         </div>
       ) : (
         // Empty state: нет друзей вообще
         <div className="text-center py-12">
           <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-600 font-medium">У вас пока нет друзей</p>
+          <p className="text-gray-600 font-medium">{t('widgets.friendsList.emptyTitle')}</p>
           <p className="text-sm text-gray-500 mt-1">
-            Найдите друзей через поиск выше
+            {t('widgets.friendsList.emptySubtitle')}
           </p>
         </div>
       )}

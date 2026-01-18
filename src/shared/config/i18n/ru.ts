@@ -189,4 +189,4 @@ export const sharedRu = {
     serverError: "Ошиба сервера. Попробуйте позже.",
     unknownError: "Неизвестная ошибка. Попробуйте еще раз."
   }
-} as const;
+};

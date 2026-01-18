@@ -1,8 +1,9 @@
 import React from 'react';
 import { Bell } from 'lucide-react';
+import { Tabs } from '@/shared/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { RoundedButton } from '@/shared/ui/RoundedButton';
-import { Header } from '@/widgets/Header';
+import { Header } from '@/widgets/header';
 import { useTranslation } from '@/app';
 import { homeTabs } from '../config';
 import type { HomePageProps } from '../model';

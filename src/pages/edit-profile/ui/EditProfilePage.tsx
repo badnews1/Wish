@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { Header } from '@/widgets/Header';
+import { toast } from 'sonner@2.0.3';
+import { Header } from '@/widgets/header';
 import { EditProfileForm, validateEditProfileForm } from '@/features/edit-profile';
 import { useCurrentUser, useUpdateProfile, useUploadAvatar } from '@/entities/user';
 import type { EditProfileFormData, EditProfileErrors } from '@/features/edit-profile';
-import { toast } from 'sonner@2.0.3';
+import { useTranslation } from '@/app';
 
 /**
  * Props для страницы редактирования профиля
@@ -22,6 +23,7 @@ interface EditProfilePageProps {
  * - Аватар
  */
 export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.Element {
+  const { t } = useTranslation();
   const { data: currentUser, isLoading: isLoadingUser } = useCurrentUser();
   const { mutate: updateProfile, isPending } = useUpdateProfile();
   const { mutate: uploadAvatar, isPending: isUploadingAvatar } = useUploadAvatar();
@@ -32,7 +34,7 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
   if (isLoadingUser || !currentUser) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-[#5F33E1] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -42,6 +44,7 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
     username: currentUser.username,
     bio: currentUser.bio || '', // берем из профиля или пустая строка
     avatar_url: tempAvatarUrl || currentUser.avatar_url,
+    birth_date: currentUser.birth_date, // передаём строку как есть
   };
 
   const handleAvatarSelect = (file: File) => {
@@ -55,15 +58,13 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
             onSuccess: () => {
               toast.success('Фото загружено');
             },
-            onError: (error: any) => {
-              console.error('Ошибка обновления аватара в БД:', error);
+            onError: (error: Error) => {
               toast.error('Фото загружено, но не сохранено');
             },
           }
         );
       },
-      onError: (error: any) => {
-        console.error('Ошибка загрузки аватара:', error);
+      onError: (error: Error) => {
         toast.error(error.message || 'Не удалось загрузить фото');
       },
     });
@@ -71,7 +72,13 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
 
   const handleSubmit = (formData: EditProfileFormData) => {
     // Валидация
-    const validationErrors = validateEditProfileForm(formData);
+    const validationErrors = validateEditProfileForm(formData, {
+      nameRequired: t('editProfile.validation.nameRequired'),
+      nameMinLength: t('editProfile.validation.nameMinLength'),
+      nameMaxLength: t('editProfile.validation.nameMaxLength'),
+      usernameRequired: t('editProfile.validation.usernameRequired'),
+      bioMaxLength: t('editProfile.validation.bioMaxLength'),
+    });
     if (validationErrors) {
       setErrors(validationErrors);
       return;
@@ -85,6 +92,7 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
         name: formData.name,
         username: formData.username,
         bio: formData.bio,
+        birth_date: formData.birth_date, // Отправляем дату рождения
         // НЕ отправляем avatar_url здесь, так как он уже сохранён при загрузке
       },
       {
@@ -93,7 +101,6 @@ export function EditProfilePage({ onNavigateBack }: EditProfilePageProps): JSX.E
           onNavigateBack();
         },
         onError: (error) => {
-          console.error('Ошибка обновления профиля:', error);
           toast.error('Не удалось обновить профиль');
         },
       }

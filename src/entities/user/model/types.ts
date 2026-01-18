@@ -7,7 +7,20 @@ export interface User {
   username: string;
   bio?: string;
   avatar_url?: string;
+  birth_date?: string; // Дата рождения в ISO формате (YYYY-MM-DD)
   created_at: string;
+}
+
+/**
+ * Профиль пользователя (для UI компонентов)
+ * Используется camelCase для совместимости с компонентами
+ */
+export interface UserProfile {
+  id: string;
+  username: string | null;
+  displayName: string | null;
+  avatarUrl: string | null;
+  birthDate?: string | null; // Дата рождения в ISO формате (YYYY-MM-DD)
 }
 
 export interface AuthSession {

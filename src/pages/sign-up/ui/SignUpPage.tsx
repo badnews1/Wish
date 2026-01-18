@@ -1,12 +1,12 @@
 // Страница регистрации
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from '@/app/lib/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useSignUp } from '@/entities/user';
-import { signUpSchema, type SignUpFormData } from '@/entities/user/model';
-import { useTranslation } from '@/app/lib/hooks/useTranslation';
+import { createSignUpSchema, type SignUpFormData } from '@/entities/user/model';
 
 interface SignUpPageProps {
   onBack: () => void;
@@ -14,7 +14,7 @@ interface SignUpPageProps {
   onSignInClick: () => void;
 }
 
-export function SignUpPage({ onBack, onSuccess, onSignInClick }: SignUpPageProps) {
+export function SignUpPage({ onBack, onSuccess, onSignInClick }: SignUpPageProps): JSX.Element {
   const { t } = useTranslation();
   const { mutate: signUp, isPending } = useSignUp();
 
@@ -38,6 +38,12 @@ export function SignUpPage({ onBack, onSuccess, onSignInClick }: SignUpPageProps
     e.preventDefault();
 
     // Валидация
+    const signUpSchema = createSignUpSchema({
+      nameMinLength: t('user.validation.name.minLength'),
+      emailInvalid: t('user.validation.email.invalid'),
+      passwordMinLength: t('user.validation.password.minLength'),
+    });
+    
     const result = signUpSchema.safeParse(formData);
     if (!result.success) {
       const newErrors: Partial<Record<keyof SignUpFormData, string>> = {};
@@ -137,7 +143,7 @@ export function SignUpPage({ onBack, onSuccess, onSignInClick }: SignUpPageProps
             type="submit"
             size="lg"
             disabled={isPending}
-            className="w-full h-12 text-base font-semibold bg-[#5F33E1] hover:bg-[#5F33E1]/90 mt-8"
+            className="w-full h-12 text-base font-semibold bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 mt-8"
           >
             {isPending ? t('common.loading') : t('auth.getStarted')}
           </Button>
@@ -149,7 +155,7 @@ export function SignUpPage({ onBack, onSuccess, onSignInClick }: SignUpPageProps
               <button
                 type="button"
                 onClick={onSignInClick}
-                className="text-[#5F33E1] font-semibold hover:underline"
+                className="text-[var(--color-accent)] font-semibold hover:underline"
               >
                 {t('auth.signIn')}
               </button>

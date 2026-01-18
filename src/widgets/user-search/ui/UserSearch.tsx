@@ -6,8 +6,9 @@
 import { useState, useEffect } from 'react';
 import { useSearchUsers } from '@/entities/user';
 import { UserSearchCard } from '@/entities/user';
-import { AddFriendButton } from '@/features/add-friend';
+import { FriendButton } from '@/features/manage-friend';
 import { Search } from 'lucide-react';
+import { useTranslation } from '@/app';
 
 /**
  * Виджет поиска пользователей по никнейму
@@ -15,6 +16,7 @@ import { Search } from 'lucide-react';
 export function UserSearch(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
+  const { t } = useTranslation();
 
   // Debounce поискового запроса (500ms)
   useEffect(() => {
@@ -40,7 +42,7 @@ export function UserSearch(): JSX.Element {
         />
         <input
           type="text"
-          placeholder="Найти по никнейму"
+          placeholder={t('widgets.userSearch.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full pl-12 pr-4 py-3 bg-white rounded-2xl border-0 focus:outline-none focus:ring-2 focus:ring-purple-600"
@@ -60,8 +62,8 @@ export function UserSearch(): JSX.Element {
           ) : error ? (
             // Ошибка
             <div className="text-center py-8">
-              <p className="text-red-600">Ошибка поиска</p>
-              <p className="text-sm text-gray-500 mt-1">Попробуйте еще раз</p>
+              <p className="text-red-600">{t('widgets.userSearch.errorSearch')}</p>
+              <p className="text-sm text-gray-500 mt-1">{t('widgets.userSearch.errorRetry')}</p>
             </div>
           ) : hasResults ? (
             // Список найденных пользователей
@@ -71,8 +73,9 @@ export function UserSearch(): JSX.Element {
                   key={user.id}
                   user={user}
                   actionSlot={
-                    <AddFriendButton userId={user.id} variant="icon" />
+                    <FriendButton targetUserId={user.id} variant="icon" />
                   }
+                  t={t}
                 />
               ))}
             </div>
@@ -80,9 +83,9 @@ export function UserSearch(): JSX.Element {
             // Empty state: ничего не найдено
             <div className="text-center py-8">
               <Search className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-600 font-medium">Пользователь не найден</p>
+              <p className="text-gray-600 font-medium">{t('widgets.userSearch.notFound')}</p>
               <p className="text-sm text-gray-500 mt-1">
-                Попробуйте изменить запрос
+                {t('widgets.userSearch.notFoundSubtitle')}
               </p>
             </div>
           )}
@@ -93,9 +96,9 @@ export function UserSearch(): JSX.Element {
       {!isSearching && (
         <div className="text-center py-8">
           <Search className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-600 font-medium">Найдите друзей</p>
+          <p className="text-gray-600 font-medium">{t('widgets.userSearch.emptyTitle')}</p>
           <p className="text-sm text-gray-500 mt-1">
-            Введите никнейм в поиск выше
+            {t('widgets.userSearch.emptySubtitle')}
           </p>
         </div>
       )}

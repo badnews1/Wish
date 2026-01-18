@@ -10,6 +10,7 @@ export interface UpdateProfileData {
   username?: string;
   avatar_url?: string;
   bio?: string;
+  birth_date?: string; // Дата рождения в ISO формате (YYYY-MM-DD)
 }
 
 /**
@@ -21,18 +22,23 @@ export function useUpdateProfile() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: UpdateProfileData): Promise<User> => {
+    mutationFn: async (data: Partial<User>) => {
       // Получаем текущего пользователя
-      const { data: { user } } = await supabase.auth.getUser();
-      
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData.session?.user;
+
       if (!user) {
-        throw new Error('User not authenticated');
+        throw new Error('Пользователь не авторизован');
       }
 
-      // Маппим name → display_name для БД
+      // Формируем объект для обновления (только те поля, которые переданы)
       const updateData: Record<string, any> = {};
+
       if (data.name !== undefined) {
         updateData.display_name = data.name;
+      }
+      if (data.username !== undefined) {
+        updateData.username = data.username;
       }
       if (data.bio !== undefined) {
         updateData.bio = data.bio;
@@ -40,8 +46,10 @@ export function useUpdateProfile() {
       if (data.avatar_url !== undefined) {
         updateData.avatar_url = data.avatar_url;
       }
-      if (data.username !== undefined) {
-        updateData.username = data.username;
+
+      // Дата рождения уже в ISO формате (YYYY-MM-DD)
+      if (data.birth_date !== undefined) {
+        updateData.birth_date = data.birth_date;
       }
 
       // Обновляем данные в таблице profiles
@@ -53,7 +61,6 @@ export function useUpdateProfile() {
         .single();
 
       if (error) {
-        console.error('Ошибка обновления профиля:', error);
         throw error;
       }
 
@@ -65,6 +72,7 @@ export function useUpdateProfile() {
         username: updatedProfile.username || '',
         bio: updatedProfile.bio,
         avatar_url: updatedProfile.avatar_url,
+        birth_date: updatedProfile.birth_date, // Возвращаем дату рождения
         created_at: updatedProfile.created_at,
       };
     },

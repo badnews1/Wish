@@ -66,7 +66,8 @@ export const createWishlistRu = {
     privacyLabel: "Приватность",
     bookingVisibilityLabel: "Видимость бронирования",
     groupGiftingLabel: "Разрешить групповые подарки",
-    groupGiftingDescription: "Друзья смогут создавать складчины"
+    groupGiftingDescription: "Друзья смогут создавать складчины",
+    coverImageAlt: "Обложка вишлиста"
   },
   errors: {
     imageCropFailed: "Ошибка при обрезке изображения:"

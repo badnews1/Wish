@@ -1,16 +1,42 @@
 // Zod схемы для валидации auth форм
 import { z } from 'zod';
 
-export const signUpSchema = z.object({
-  name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  email: z.string().email('Некорректный email'),
-  password: z.string().min(6, 'Пароль должен содержать минимум 6 символов'),
-});
+/**
+ * Создает схему валидации для регистрации с переводами
+ */
+export function createSignUpSchema(messages: {
+  nameMinLength: string;
+  emailInvalid: string;
+  passwordMinLength: string;
+}) {
+  return z.object({
+    name: z.string().min(2, messages.nameMinLength),
+    email: z.string().email(messages.emailInvalid),
+    password: z.string().min(6, messages.passwordMinLength),
+  });
+}
 
-export const signInSchema = z.object({
-  email: z.string().email('Некорректный email'),
-  password: z.string().min(6, 'Пароль должен содержать минимум 6 символов'),
-});
+/**
+ * Создает схему валидации для входа с переводами
+ */
+export function createSignInSchema(messages: {
+  emailInvalid: string;
+  passwordMinLength: string;
+}) {
+  return z.object({
+    email: z.string().email(messages.emailInvalid),
+    password: z.string().min(6, messages.passwordMinLength),
+  });
+}
 
-export type SignUpFormData = z.infer<typeof signUpSchema>;
-export type SignInFormData = z.infer<typeof signInSchema>;
+// Типы для форм (не зависят от переводов)
+export type SignUpFormData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type SignInFormData = {
+  email: string;
+  password: string;
+};

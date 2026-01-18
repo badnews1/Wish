@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from '@/app';
 import type { Wishlist, WishlistItem, GiftTag } from '@/entities/wishlist';
 import { DEFAULT_GIFT_TAG } from '@/entities/wishlist';
 import type { CreateWishlistItemForm } from './types';
-import { useMultipleDrawers, useImageUploadCrop } from '@/shared/lib';
-import { useTranslation } from '@/app';
+import { useMultipleDrawers, useImageUploadCrop, MAX_WISH_TITLE_LENGTH, MAX_WISH_DESCRIPTION_LENGTH } from '@/shared/lib';
 import { createProductParsedHandler } from '../lib';
 
 interface UseWishlistItemFormProps {
@@ -14,13 +14,49 @@ interface UseWishlistItemFormProps {
   onSubmit: (data: CreateWishlistItemForm) => void;
 }
 
+interface UseWishlistItemFormReturn {
+  formState: {
+    wishlistIds: string[];
+    productUrl: string;
+    title: string;
+    description: string;
+    imageUrl: string | undefined;
+    price: number | undefined;
+    currency: string | undefined;
+    originalImage: string;
+    giftTag: GiftTag | undefined;
+    category: string[];
+    purchaseLocation: string | undefined;
+  };
+  setWishlistIds: (ids: string[]) => void;
+  setProductUrl: (url: string) => void;
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setPrice: (price: number | undefined) => void;
+  setCurrency: (currency: string | undefined) => void;
+  setGiftTag: (giftTag: GiftTag | undefined) => void;
+  setCategory: (category: string[]) => void;
+  setPurchaseLocation: (location: string | undefined) => void;
+  drawers: ReturnType<typeof useMultipleDrawers<{
+    deleteDialog: boolean;
+    cropDrawer: boolean;
+  }>>;
+  handlers: {
+    handleSubmit: () => void;
+    handleProductParsed: (product: any) => void;
+    handleImageUpload: (file: File) => Promise<void>;
+    handleRemoveImage: () => void;
+    handleCropConfirm: (croppedImage: string) => void;
+  };
+}
+
 export function useWishlistItemForm({
   wishlists,
   initialWishlistId,
   initialData,
   mode,
   onSubmit
-}: UseWishlistItemFormProps) {
+}: UseWishlistItemFormProps): UseWishlistItemFormReturn {
   const { t } = useTranslation();
   
   // Form state
@@ -58,8 +94,9 @@ export function useWishlistItemForm({
   // Initialize form with initialData
   useEffect(() => {
     if (mode === 'edit' && initialData) {
-      setTitle(initialData.title || '');
-      setDescription(initialData.description || '');
+      // Обрезаем название до максимальной длины (на случай старых данных)
+      setTitle((initialData.title || '').slice(0, MAX_WISH_TITLE_LENGTH));
+      setDescription((initialData.description || '').slice(0, MAX_WISH_DESCRIPTION_LENGTH));
       setProductUrl(initialData.link || '');
       setPrice(initialData.price);
       setCurrency(initialData.currency);

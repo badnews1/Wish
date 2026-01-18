@@ -1,6 +1,6 @@
 import { User } from 'lucide-react';
-import { Card } from '@/components/ui/card';
 import type { User as UserType } from '@/entities/user';
+import { Card } from '@/components/ui/card';
 
 interface ProfileHeaderProps {
   user: UserType;

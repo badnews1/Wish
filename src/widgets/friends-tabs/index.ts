@@ -4,3 +4,5 @@
  */
 
 export { FriendsTabsWidget } from './ui/FriendsTabsWidget';
+export { friendsTabs, FRIENDS_TABS } from './config';
+export type { FriendsTabId } from './config';

@@ -31,6 +31,7 @@ async function getCurrentUser(): Promise<User | null> {
     username: profile.username || '', // никнейм из username
     bio: profile.bio,
     avatar_url: profile.avatar_url,
+    birth_date: profile.birth_date, // дата рождения
     created_at: profile.created_at,
   };
 }

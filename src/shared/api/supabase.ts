@@ -5,7 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
-import { projectId, publicAnonKey } from '../../utils/supabase/info';
+import { projectId, publicAnonKey } from '@/utils/supabase/info';
 
 // Формируем URL из projectId
 const supabaseUrl = `https://${projectId}.supabase.co`;

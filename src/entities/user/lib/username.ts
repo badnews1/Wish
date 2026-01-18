@@ -15,17 +15,27 @@ export function generateRandomUsername(): string {
  * - 2-20 символов
  * - Только латинские буквы (a-z), цифры и подчеркивание
  * - Нижний регистр
+ * 
+ * @param username - Никнейм для валидации
+ * @param errorMessages - Объект с переводами ошибок
  */
-export function validateUsername(username: string): {
+export function validateUsername(
+  username: string,
+  errorMessages?: {
+    minLength: string;
+    maxLength: string;
+    invalidFormat: string;
+  }
+): {
   isValid: boolean;
   error?: string;
 } {
   if (!username || username.length < 2) {
-    return { isValid: false, error: 'Никнейм должен быть минимум 2 символа' };
+    return { isValid: false, error: errorMessages?.minLength };
   }
   
   if (username.length > 20) {
-    return { isValid: false, error: 'Никнейм должен быть максимум 20 символов' };
+    return { isValid: false, error: errorMessages?.maxLength };
   }
   
   // Проверяем формат (только a-z, 0-9, _)
@@ -33,7 +43,7 @@ export function validateUsername(username: string): {
   if (!usernameRegex.test(username)) {
     return { 
       isValid: false, 
-      error: 'Никнейм может содержать только латинские буквы, цифры и подчеркивание' 
+      error: errorMessages?.invalidFormat
     };
   }
   

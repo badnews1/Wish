@@ -18,13 +18,17 @@ export function getTranslation(
   key: string,
   params?: Record<string, string | number>
 ): string {
-  const keys = key.split('.');
-  let value: Record<string, unknown> | string | undefined = translations[language];
+  // Защита от undefined key
+  if (!key || typeof key !== 'string') {
+    return '';
+  }
 
-  // Навигация по вложенной структуре
+  const keys = key.split('.');
+  let value: unknown = translations[language];
+
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
-      value = value[k] as Record<string, unknown> | string;
+      value = (value as Record<string, unknown>)[k];
     } else {
       // Перевод не найден - возвращаем ключ
       return key;
@@ -36,11 +40,11 @@ export function getTranslation(
     return key;
   }
 
-  // Подстановка параметров
+  // Подстановка параметров если они есть
   if (params) {
-    return value.replace(/\{\{(\w+)\}\}/g, (_, paramKey) => {
-      return params[paramKey]?.toString() ?? `{{${paramKey}}}`;
-    });
+    return Object.entries(params).reduce((str, [key, val]) => {
+      return str.replace(new RegExp(`{${key}}`, 'g'), String(val));
+    }, value);
   }
 
   return value;

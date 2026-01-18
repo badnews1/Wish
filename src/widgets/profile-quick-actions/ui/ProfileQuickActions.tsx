@@ -1,6 +1,6 @@
 import { Heart, Gift, Star, ChevronRight } from 'lucide-react';
-import { Card } from '@/components/ui/card';
 import type { LucideIcon } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 interface QuickActionItemProps {
   icon: LucideIcon;
@@ -12,7 +12,7 @@ interface QuickActionItemProps {
 /**
  * Элемент быстрого действия
  */
-function QuickActionItem({ icon: Icon, title, subtitle, onClick }: QuickActionItemProps) {
+function QuickActionItem({ icon: Icon, title, subtitle, onClick }: QuickActionItemProps): JSX.Element {
   return (
     <Card 
       className="flex items-center gap-3 p-4 cursor-pointer active:scale-95 transition-transform"

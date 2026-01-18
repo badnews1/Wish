@@ -145,7 +145,7 @@ app → pages → widgets → features → entities → shared
 
 ```tsx
 // ✅ Через публичный API
-import { Header } from '@/widgets/Header';
+import { Header } from '@/widgets/header';
 import { useWishlists } from '@/entities/wishlist';
 
 // ❌ Прямой импорт

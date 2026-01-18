@@ -24,6 +24,15 @@ interface UseWishlistFormHandlersProps {
   onSubmit: (data: CreateWishlistForm) => void;
 }
 
+interface UseWishlistFormHandlersReturn {
+  handleSubmit: () => void;
+  handleConfirmDate: (date: Date | undefined) => void;
+  handleSelectPrivacy: (privacy: PrivacyType) => void;
+  handleSelectBookingVisibility: (visibility: BookingVisibilityType) => void;
+  handleSelectIcon: (iconId: string) => void;
+  handleToggleGroupGifting: () => void;
+}
+
 /**
  * Хук для управления обработчиками событий формы вишлиста
  * 
@@ -44,7 +53,7 @@ export function useWishlistFormHandlers({
   setSelectedIconId,
   setAllowGroupGifting,
   onSubmit
-}: UseWishlistFormHandlersProps) {
+}: UseWishlistFormHandlersProps): UseWishlistFormHandlersReturn {
   
   // Form submission
   const handleSubmit = useCallback(() => {

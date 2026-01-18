@@ -55,7 +55,6 @@ export function useUploadAvatar() {
         });
 
       if (uploadError) {
-        console.error('Ошибка загрузки аватара:', uploadError);
         throw uploadError;
       }
 

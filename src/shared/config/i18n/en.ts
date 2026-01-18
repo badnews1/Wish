@@ -33,6 +33,65 @@ export const sharedEn = {
   profile: {
     noWishlists: "You don't have any wishlists yet"
   },
+  community: {
+    tabs: {
+      search: "Search",
+      friends: "Friends",
+      requests: "Requests"
+    },
+    search: {
+      userPlaceholder: "Search by username",
+      friendPlaceholder: "Search by name",
+      emptySearch: "Enter username to search",
+      noResults: "User not found",
+      noResultsDescription: "Try a different query",
+      findFriends: "Find friends"
+    },
+    friends: {
+      title: "Friends",
+      noFriends: "You don't have any friends yet",
+      noFriendsDescription: "Find friends using search above",
+      noSearchResults: "Nothing found",
+      noSearchResultsDescription: "Try a different query"
+    },
+    requests: {
+      title: "Requests",
+      noRequests: "No new requests",
+      noRequestsDescription: "Incoming friend requests will appear here"
+    },
+    actions: {
+      add: "Add",
+      adding: "Sending...",
+      accept: "Accept",
+      reject: "Reject",
+      remove: "Remove",
+      sendRequest: "Add friend",
+      acceptRequest: "Accept request",
+      rejectRequest: "Reject request",
+      removeFriend: "Remove friend"
+    },
+    confirmRemove: {
+      title: "Remove friend?",
+      description: "Are you sure you want to remove {{name}} from friends? This action can be undone by sending a new request.",
+      cancel: "Cancel",
+      confirm: "Remove"
+    },
+    toasts: {
+      requestSent: "Friend request sent",
+      requestSentError: "Failed to send request",
+      requestAccepted: "Request accepted",
+      requestAcceptedError: "Failed to accept request",
+      requestRejected: "Request rejected",
+      requestRejectedError: "Failed to reject request",
+      requestCanceled: "Request canceled",
+      requestCanceledError: "Failed to cancel request",
+      friendRemoved: "Removed from friends",
+      friendRemovedError: "Failed to remove friend",
+      loadFriendsError: "Error loading friends",
+      loadRequestsError: "Error loading requests",
+      searchError: "Search error"
+    }
+  },
   auth: {
     welcomeTitle: "Create & Share Wishlists",
     welcomeDescription: "Save your wishes, share with friends and track gifts",
@@ -126,8 +185,8 @@ export const sharedEn = {
     invalidUrl: "Invalid URL format"
   },
   errors: {
-    networkError: "Network error. Check your internet connection.",
-    serverError: "Server error. Try again later.",
+    networkError: "Network error. Please check your internet connection.",
+    serverError: "Server error. Please try again later.",
     unknownError: "Unknown error. Please try again."
   }
-} as const;
+};

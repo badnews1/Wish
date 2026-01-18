@@ -1,15 +1,15 @@
 // Welcome screen - первый экран приложения
 import { Gift } from 'lucide-react';
+import { useTranslation } from '@/app/lib/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
 import { SocialAuthButtons } from '@/features/auth-social';
-import { useTranslation } from '@/app/lib/hooks/useTranslation';
 
 interface WelcomePageProps {
   onSignUp: () => void;
   onSignIn: () => void;
 }
 
-export function WelcomePage({ onSignUp, onSignIn }: WelcomePageProps) {
+export function WelcomePage({ onSignUp, onSignIn }: WelcomePageProps): JSX.Element {
   const { t } = useTranslation();
 
   return (
@@ -17,8 +17,8 @@ export function WelcomePage({ onSignUp, onSignIn }: WelcomePageProps) {
       {/* Hero Section */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 pt-12 pb-8">
         {/* Иконка */}
-        <div className="w-24 h-24 rounded-full bg-[#5F33E1]/10 flex items-center justify-center mb-8">
-          <Gift className="w-12 h-12 text-[#5F33E1]" />
+        <div className="w-24 h-24 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mb-8">
+          <Gift className="w-12 h-12 text-[var(--color-accent)]" />
         </div>
 
         {/* Заголовок */}
@@ -38,7 +38,7 @@ export function WelcomePage({ onSignUp, onSignIn }: WelcomePageProps) {
         <Button
           size="lg"
           onClick={onSignUp}
-          className="w-full h-12 text-base font-semibold bg-[#5F33E1] hover:bg-[#5F33E1]/90"
+          className="w-full h-12 text-base font-semibold bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90"
         >
           {t('auth.getStarted')}
         </Button>

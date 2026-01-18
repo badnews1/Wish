@@ -1,4 +1,4 @@
 export const communityEn = {
-  title: "Community",
+  title: "My Friends",
   inDevelopment: "Community (in development)"
 } as const;
